@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Minus } from 'lucide-react';
+import Link from 'next/link';
 
 const faqs = [
   {
@@ -35,7 +36,7 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="py-20 bg-white">
+    <section id="faq" className="py-20 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
@@ -110,9 +111,11 @@ export default function FAQ() {
           className="text-center mt-12"
         >
           <p className="text-gray-600 mb-4">Still have questions?</p>
-          <button className="border-2 border-blue-600 text-blue-600 px-8 py-3 rounded-full hover:bg-blue-50 transition-all duration-200 font-semibold">
-            Contact Support
-          </button>
+          <Link href="/contact">
+            <button className="border-2 border-blue-600 text-blue-600 px-8 py-3 rounded-full hover:bg-blue-50 transition-all duration-200 font-semibold">
+              Contact Support
+            </button>
+          </Link>
         </motion.div>
       </div>
     </section>

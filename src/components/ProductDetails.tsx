@@ -3,12 +3,13 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ShoppingCart, Star, Package, AlertCircle, MessageSquare } from 'lucide-react';
+import Image from 'next/image';
 
 const productImages = [
-  { id: 1, alt: 'Nasal Cleaner - Main View' },
-  { id: 2, alt: 'Nasal Cleaner - Side View' },
-  { id: 3, alt: 'Nasal Cleaner - In Use' },
-  { id: 4, alt: 'Nasal Cleaner - Package Contents' },
+  { id: 1, src: '/images/1.jpeg', alt: 'Nasal Cleaner - Main View' },
+  { id: 2, src: '/images/2.jpeg', alt: 'Nasal Cleaner - Side View' },
+  { id: 3, src: '/images/3.jpeg', alt: 'Nasal Cleaner - In Use' },
+  { id: 4, src: '/images/4.jpeg', alt: 'Nasal Cleaner - Package Contents' },
 ];
 
 const tabs = [
@@ -23,41 +24,46 @@ export default function ProductDetails() {
   const [selectedImage, setSelectedImage] = useState(0);
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section id="products" className="py-12 sm:py-16 lg:py-20 bg-gray-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12">
           {/* Left - Product Images */}
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             {/* Main Image */}
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              className="relative w-full h-[500px] bg-white rounded-2xl shadow-xl overflow-hidden"
+              className="relative w-full h-[300px] sm:h-[400px] lg:h-[500px] bg-white rounded-xl sm:rounded-2xl shadow-xl overflow-hidden"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-white flex items-center justify-center">
-                <div className="text-8xl">🩺</div>
-              </div>
-              <p className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-gray-500 italic">
-                Image {selectedImage + 1}
-              </p>
+              <Image
+                src={productImages[selectedImage].src}
+                alt={productImages[selectedImage].alt}
+                fill
+                className="object-cover"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
+              />
             </motion.div>
 
             {/* Thumbnail Gallery */}
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid grid-cols-4 gap-2 sm:gap-3 lg:gap-4">
               {productImages.map((img, index) => (
                 <button
                   key={img.id}
                   onClick={() => setSelectedImage(index)}
-                  className={`relative h-24 bg-white rounded-lg shadow-md overflow-hidden transition-all duration-200 ${
+                  className={`relative h-20 sm:h-24 bg-white rounded-lg shadow-md overflow-hidden transition-all duration-200 ${
                     selectedImage === index
                       ? 'ring-4 ring-blue-600 scale-105'
                       : 'hover:scale-105'
                   }`}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-white flex items-center justify-center">
-                    <div className="text-2xl">🩺</div>
-                  </div>
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 25vw, (max-width: 1024px) 12.5vw, 10vw"
+                  />
                 </button>
               ))}
             </div>

@@ -1,8 +1,14 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import SmoothScrollProvider from '@/components/SmoothScrollProvider';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ 
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700', '800'],
+  variable: '--font-inter',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'FlashShop | Nasal Cleaner Bottle in Bangladesh | Smart Sinus Rinse',
@@ -57,13 +63,8 @@ export const metadata: Metadata = {
     creator: '@flashshop',
   },
   icons: {
-    icon: [
-      { url: '/icon', sizes: '32x32', type: 'image/png' },
-      { url: '/flashshop.png', sizes: 'any' },
-    ],
-    apple: [
-      { url: '/apple-icon', sizes: '180x180', type: 'image/png' },
-    ],
+    icon: '/flashshop-icon.png',
+    apple: '/flashshop-icon.png',
   },
   manifest: '/site.webmanifest',
   other: {
@@ -80,14 +81,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className={`scroll-smooth ${inter.variable}`}>
       <head>
         {/* Additional SEO Meta Tags */}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#2563eb" />
         <link rel="canonical" href="https://flashshop.com" />
       </head>
-      <body className={`${inter.className} antialiased`}>{children}</body>
+      <body className={`${inter.className} font-inter antialiased`}>
+        <SmoothScrollProvider>
+          {children}
+        </SmoothScrollProvider>
+      </body>
     </html>
   );
 }
