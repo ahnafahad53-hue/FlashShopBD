@@ -108,22 +108,19 @@ export default function Hero() {
 
           {/* Right Content - Product Image */}
           <div className="relative order-first lg:order-last">
-            <div className="relative w-full h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px] flex items-center justify-center translate-x-[120px] lg:translate-x-[120px]">
+            <div className="relative w-full h-[700px] sm:h-[800px] md:h-[900px] lg:h-[1000px] flex items-center justify-center translate-x-[120px] lg:translate-x-[120px]">
               {/* Main Product Image Container */}
-              <div className="hero-image relative w-full max-w-sm sm:max-w-md lg:max-w-lg h-full bg-gradient-to-br rounded-2xl sm:rounded-3xl flex items-center justify-center overflow-hidden backdrop-blur-sm group">
-                {/* Background decoration */}
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-indigo-500/5 rounded-2xl sm:rounded-3xl"></div>
-                
+              <div className="hero-image relative w-full max-w-xl sm:max-w-2xl lg:max-w-4xl h-full flex items-center justify-center overflow-hidden">
                 {/* Product Image */}
-                <div className="relative z-10 w-full h-full flex items-center justify-center p-4 sm:p-6 lg:p-8">
-                  <div className="relative w-full h-full max-w-xs sm:max-w-sm lg:max-w-md rounded-xl sm:rounded-2xl overflow-hidden">
+                <div className="relative w-full h-full flex items-center justify-center p-1 sm:p-2 lg:p-3">
+                  <div className="relative w-full h-full max-w-lg sm:max-w-xl lg:max-w-3xl overflow-hidden">
                     <Image
-                      src="/main-pro.jpeg"
+                      src="https://res.cloudinary.com/dgm2mosta/image/upload/v1760991740/shordi_fhhtlc.png"
                       alt="Smart Nasal Cleaner Bottle - FlashShop"
                       fill
-                      className="object-contain rounded-xl sm:rounded-2xl"
+                      className="object-contain"
                       priority
-                      sizes="(max-width: 640px) 320px, (max-width: 768px) 400px, (max-width: 1024px) 500px, 600px"
+                      sizes="(max-width: 640px) 600px, (max-width: 768px) 700px, (max-width: 1024px) 800px, 1000px"
                     />
                   </div>
                 </div>

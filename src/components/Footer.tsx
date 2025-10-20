@@ -18,7 +18,7 @@ export default function Footer() {
               <Image
                 src="/flashshop.png"
                 alt="FlashShop Logo"
-                width={150}
+                width={180}
                 height={50}
                 className="h-12 w-auto brightness-0 invert"
               />

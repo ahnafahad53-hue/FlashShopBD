@@ -72,6 +72,7 @@ export const metadata: Metadata = {
     'og:email': 'support@flashshop.com',
     'og:locality': 'Dhaka',
     'og:country-name': 'Bangladesh',
+    'google-site-verification': 'yzsoc0u1oIwZw_tksgUkxbh3Oti5Q79wSaMZCOrBMcw',
   },
 };
 
@@ -87,6 +88,19 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#2563eb" />
         <link rel="canonical" href="https://flashshop.com" />
+        
+        {/* Google Analytics */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-LB4F7582J6"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-LB4F7582J6');
+            `,
+          }}
+        />
       </head>
       <body className={`${inter.className} font-inter antialiased`}>
         <SmoothScrollProvider>
