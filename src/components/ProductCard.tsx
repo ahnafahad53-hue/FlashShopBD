@@ -2,6 +2,8 @@
 
 import { motion } from 'framer-motion';
 import { ShoppingCart, Star } from 'lucide-react';
+import Link from 'next/link';
+import Button from './Button';
 import type { Product } from '@/data/products';
 
 interface ProductCardProps {
@@ -36,9 +38,9 @@ export default function ProductCard({ product }: ProductCardProps) {
 
         {/* Quick View Overlay */}
         <div className="absolute inset-0 bg-blue-600/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-          <button className="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold transform scale-90 group-hover:scale-100 transition-transform duration-300">
+          <Button className="bg-white text-gray-900 px-4 py-2 rounded-full font-semibold text-sm transform scale-90 group-hover:scale-100 transition-transform duration-300">
             Quick View
-          </button>
+          </Button>
         </div>
       </div>
 
@@ -52,7 +54,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                 key={i}
                 className={`${
                   i < Math.floor(product.rating)
-                    ? 'text-yellow-400 fill-yellow-400'
+                    ? 'text-gray-900 fill-gray-900'
                     : 'text-gray-300'
                 }`}
                 size={16}
@@ -88,10 +90,9 @@ export default function ProductCard({ product }: ProductCardProps) {
         </div>
 
         {/* Buy Button */}
-        <button className="w-full bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700 transition-all duration-200 font-semibold shadow-md hover:shadow-lg flex items-center justify-center space-x-2 group/button">
-          <ShoppingCart className="group-hover/button:scale-110 transition-transform" size={20} />
+        <Button href="/checkout" className="w-full px-4 py-2 font-semibold text-sm flex items-center justify-center space-x-2">
           <span>Add to Cart</span>
-        </button>
+        </Button>
       </div>
     </motion.div>
   );

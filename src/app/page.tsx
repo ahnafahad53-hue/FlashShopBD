@@ -11,20 +11,9 @@ import Footer from '@/components/Footer';
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white relative overflow-hidden">
-      {/* Subtle Background Animation Elements */}
-      <div className="fixed inset-0 pointer-events-none z-0">
-        {/* Floating orbs */}
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl animate-float-slow"></div>
-        <div className="absolute top-3/4 right-1/4 w-80 h-80 bg-purple-500/8 rounded-full blur-3xl animate-float-delayed"></div>
-        <div className="absolute bottom-1/4 left-1/3 w-72 h-72 bg-green-500/6 rounded-full blur-3xl animate-float-reverse"></div>
-        
-        {/* Moving gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-transparent via-blue-500/[0.02] to-purple-500/[0.03] animate-gradient-shift"></div>
-      </div>
-
-      {/* Content with relative z-index to appear above background */}
-      <div className="relative z-10">
+    <main className="min-h-screen bg-white">
+      {/* Content */}
+      <div>
         {/* Sticky Header with Navigation */}
         <Header />
 

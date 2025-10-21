@@ -4,10 +4,8 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ShoppingCart, Star, Package, AlertCircle, MessageSquare } from 'lucide-react';
 import Image from 'next/image';
-import dynamic from 'next/dynamic';
-
-// Dynamically import Plasma for consistency
-const Plasma = dynamic(() => import('./Plasma'), { ssr: false });
+import Link from 'next/link';
+import Button from './Button';
 
 const productImages = [
   { id: 1, src: '/images/1.jpeg', alt: 'Nasal Cleaner - Main View' },
@@ -28,23 +26,9 @@ export default function ProductDetails() {
   const [selectedImage, setSelectedImage] = useState(0);
 
   return (
-    <section id="products" className="py-20 lg:py-24 bg-white relative overflow-hidden">
-      {/* Plasma Background */}
-      <div className="absolute inset-0 opacity-40">
-        <Plasma 
-          color="#3b82f6" 
-          speed={0.4} 
-          direction="forward" 
-          scale={1.3} 
-          opacity={0.7} 
-          mouseInteractive={false}
-        />
-      </div>
-
-      {/* Gradient Overlay */}
-      
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+    <section id="products" className="py-12 sm:py-16 lg:py-20 xl:py-24 bg-white">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16">
           {/* Left - Product Images */}
           <div className="space-y-3 sm:space-y-4">
             {/* Main Image */}
@@ -106,7 +90,7 @@ export default function ProductDetails() {
                     <Star
                       key={i}
                       className={`${
-                        i < 4 ? 'text-yellow-400 fill-yellow-400' : 'text-gray-500'
+                        i < 4 ? 'text-gray-900 fill-gray-900' : 'text-gray-500'
                       }`}
                       size={20}
                     />
@@ -119,9 +103,6 @@ export default function ProductDetails() {
               <div className="flex items-baseline space-x-4">
                 <span className="text-5xl font-bold text-gray-900">৳999</span>
                 <span className="text-2xl text-gray-900 line-through">৳1,499</span>
-                <span className="bg-green-500 text-gray-900 px-3 py-1 rounded-full text-sm font-semibold">
-                  33% OFF
-                </span>
               </div>
 
               {/* Short Description */}
@@ -130,10 +111,10 @@ export default function ProductDetails() {
               </p>
 
               {/* Add to Cart Button */}
-              <button className="w-full bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 text-gray-900 px-8 py-5 rounded-xl hover:scale-[1.02] transition-all duration-300 font-semibold text-lg flex items-center justify-center gap-3">
-                <ShoppingCart size={20} />
-                <span>Add to Cart - ৳999</span>
-              </button>
+              <Button href="/checkout" className="w-full px-6 py-3 font-semibold text-sm flex items-center justify-center gap-2">
+                
+                <span>Add to Cart </span>
+              </Button>
 
               {/* Quick Info */}
               <div className="grid grid-cols-2 gap-4 pt-4">
@@ -240,7 +221,7 @@ export default function ProductDetails() {
                           {[...Array(5)].map((_, idx) => (
                             <Star
                               key={idx}
-                              className="text-yellow-400 fill-yellow-400"
+                              className="text-gray-900 fill-gray-900"
                               size={16}
                             />
                           ))}

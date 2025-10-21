@@ -2,10 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { Play, Droplets, Hand, RotateCcw } from 'lucide-react';
-import dynamic from 'next/dynamic';
-
-// Dynamically import Plasma for consistency
-const Plasma = dynamic(() => import('./Plasma'), { ssr: false });
 
 const steps = [
   {
@@ -33,40 +29,26 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section id="how-it-works" className="py-16 sm:py-20 lg:py-24 bg-white relative overflow-hidden">
-      {/* Plasma Background */}
-      <div className="absolute inset-0 opacity-25">
-        <Plasma 
-          color="#8b5cf6" 
-          speed={0.4} 
-          direction="pingpong" 
-          scale={1.8} 
-          opacity={0.7} 
-          mouseInteractive={false}
-        />
-      </div>
-
-      {/* Gradient Overlay */}
-      
-      <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="how-it-works" className="py-12 sm:py-16 lg:py-20 xl:py-24 bg-white">
+      <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16 sm:mb-20"
+          className="text-center mb-12 sm:mb-16 lg:mb-20"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4 lg:mb-6">
             How It <span className="text-gray-900">Works</span>
           </h2>
-          <p className="text-base sm:text-lg lg:text-xl text-gray-900 font-medium max-w-3xl mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-900 font-medium max-w-3xl mx-auto leading-relaxed">
             Three simple steps to clearer breathing and better sinus health. Experience the difference in just minutes.
           </p>
         </motion.div>
 
         {/* Steps Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12 mb-16 sm:mb-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 xl:gap-12 mb-12 sm:mb-16 lg:mb-20">
           {steps.map((step, index) => {
             const Icon = step.icon;
             return (
@@ -78,22 +60,22 @@ export default function HowItWorks() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="relative group"
               >
-                <div className="p-8 h-full group hover:scale-[1.02] transition-all duration-300">
+                <div className="p-4 sm:p-6 lg:p-8 h-full group hover:scale-[1.02] transition-all duration-300">
                   {/* Step Icon */}
-                  <div className={`w-16 h-16 bg-gradient-to-br ${step.color} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                    <Icon className="text-gray-900 w-8 h-8" />
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300" style={{ backgroundColor: '#E4E5E8' }}>
+                    <Icon className="text-gray-900 w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8" />
                   </div>
                   
                   {/* Step Number */}
-                  <div className="text-4xl sm:text-5xl font-bold bg-gradient-to-br from-white/60 to-white/40 bg-clip-text text-transparent mb-4">
+                  <div className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-br from-white/60 to-white/40 bg-clip-text text-transparent mb-3 sm:mb-4">
                     {step.number}
                   </div>
                   
                   {/* Content */}
-                  <h3 className="text-xl font-bold text-gray-900 mb-4 leading-tight">
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight">
                     {step.title}
                   </h3>
-                  <p className="text-gray-900 leading-relaxed">
+                  <p className="text-sm sm:text-base text-gray-900 leading-relaxed">
                     {step.description}
                   </p>
                 </div>
@@ -111,21 +93,7 @@ export default function HowItWorks() {
           })}
         </div>
 
-        {/* Watch Demo Button */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-center"
-        >
-          <button className="inline-flex items-center space-x-3 bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 text-gray-900 px-10 sm:px-12 py-4 sm:py-5 rounded-xl hover:scale-[1.02] transition-all duration-300 font-semibold text-base sm:text-lg">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white/20 rounded-full flex items-center justify-center">
-              <Play size={18} className="sm:w-5 sm:h-5 ml-0.5" />
-            </div>
-            <span>Watch Demo Video</span>
-          </button>
-        </motion.div>
+        
       </div>
     </section>
   );

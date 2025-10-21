@@ -31,22 +31,36 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200">
       <nav className="w-full">
-        <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-14 sm:h-16">
+        <div className="w-full max-w-[1440px] mx-auto px-3 sm:px-4 lg:px-8">
+          <div className="flex items-center justify-between h-12 sm:h-14 lg:h-16">
             {/* Logo */}
-            <Link href="/" className="flex items-center -ml-9 sm:-ml-10 lg:-ml-11">
+            <a 
+              href="#home" 
+              onClick={(e) => {
+                e.preventDefault();
+                setActiveLink('HOME');
+                const element = document.querySelector('#home');
+                if (element) {
+                  element.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                  });
+                }
+              }}
+              className="flex items-center -ml-6 sm:-ml-8 lg:-ml-10 cursor-pointer"
+            >
               <Image
                 src="/flashshop.png"
                 alt="FlashShop Logo"
-                width={150}
-                height={50}
-                className="h-6 sm:h-7 lg:h-8 w-auto"
+                width={120}
+                height={40}
+                className="h-5 sm:h-6 lg:h-7 xl:h-8 w-auto"
                 priority
               />
-            </Link>
+            </a>
 
             {/* Desktop Navigation & Mobile Menu Button */}
-            <div className="flex items-center space-x-4 lg:space-x-8 -mr-6 sm:-mr-7 lg:-mr-8">
+            <div className="flex items-center space-x-2 sm:space-x-4 lg:space-x-8 -mr-4 sm:-mr-6 lg:-mr-8">
               {/* Desktop Navigation */}
               <div className="hidden lg:flex items-center space-x-6 xl:space-x-8">
                 {navLinks.map((link) => (
@@ -98,17 +112,17 @@ export default function Header() {
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="lg:hidden text-gray-600 hover:text-gray-900 transition-colors p-2"
+                className="lg:hidden text-gray-600 hover:text-gray-900 transition-colors p-1.5 sm:p-2"
                 aria-label="Toggle menu"
               >
-                {isMobileMenuOpen ? <X size={20} className="sm:w-6 sm:h-6" /> : <Menu size={20} className="sm:w-6 sm:h-6" />}
+                {isMobileMenuOpen ? <X size={18} className="sm:w-5 sm:h-5" /> : <Menu size={18} className="sm:w-5 sm:h-5" />}
               </button>
             </div>
           </div>
 
           {/* Mobile Navigation */}
           {isMobileMenuOpen && (
-            <div className="lg:hidden bg-slate-900/95 backdrop-blur-md border-t border-white/10">
+            <div className="lg:hidden bg-white/95 backdrop-blur-md border-t border-gray-200">
               <div className="px-4 sm:px-6 lg:px-8 py-4 space-y-4">
                 {navLinks.map((link) => (
                   link.isPage ? (

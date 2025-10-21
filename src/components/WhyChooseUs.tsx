@@ -2,10 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { Award, Truck, ShieldCheck, HeartHandshake } from 'lucide-react';
-import dynamic from 'next/dynamic';
-
-// Dynamically import Plasma for consistency
-const Plasma = dynamic(() => import('./Plasma'), { ssr: false });
 
 const reasons = [
   {
@@ -36,22 +32,8 @@ const reasons = [
 
 export default function WhyChooseUs() {
   return (
-    <section id="about" className="py-20 bg-white relative overflow-hidden">
-      {/* Plasma Background */}
-      <div className="absolute inset-0 opacity-20">
-        <Plasma 
-          color="#64748b" 
-          speed={0.5} 
-          direction="pingpong" 
-          scale={2.0} 
-          opacity={0.5} 
-          mouseInteractive={false}
-        />
-      </div>
-
-      {/* Gradient Overlay */}
-      
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="about" className="py-20 bg-white">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -83,7 +65,7 @@ export default function WhyChooseUs() {
               >
                 <div className="p-8 group hover:scale-[1.02] transition-all duration-300">
                   {/* Icon */}
-                  <div className={`w-16 h-16 bg-gradient-to-br ${reason.color} rounded-xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300`}>
+                  <div className="w-16 h-16 rounded-xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300" style={{ backgroundColor: '#E4E5E8' }}>
                     <Icon className="text-gray-900" size={32} />
                   </div>
                   

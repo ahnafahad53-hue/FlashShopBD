@@ -2,10 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Star, Quote } from 'lucide-react';
-import dynamic from 'next/dynamic';
-
-// Dynamically import Plasma for consistency
-const Plasma = dynamic(() => import('./Plasma'), { ssr: false });
+import Button from './Button';
 
 const testimonials = [
   {
@@ -33,40 +30,26 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section id="reviews" className="py-20 lg:py-24 bg-white relative overflow-hidden">
-      {/* Plasma Background */}
-      <div className="absolute inset-0 opacity-25">
-        <Plasma 
-          color="#ec4899" 
-          speed={0.3} 
-          direction="pingpong" 
-          scale={1.6} 
-          opacity={0.6} 
-          mouseInteractive={false}
-        />
-      </div>
-
-      {/* Gradient Overlay */}
-      
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
+    <section id="reviews" className="py-12 sm:py-16 lg:py-20 xl:py-24 bg-white">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12 sm:mb-16"
+          className="text-center mb-10 sm:mb-12 lg:mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4">
             Loved by <span className="text-gray-900">10,000+</span> Customers
           </h2>
-          <p className="text-lg sm:text-xl text-gray-900 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg lg:text-xl text-gray-900 max-w-3xl mx-auto">
             Real experiences from satisfied customers across Bangladesh
           </p>
         </motion.div>
 
         {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={index}
@@ -74,37 +57,37 @@ export default function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="p-8 relative hover:scale-[1.02] transition-all duration-300"
+              className="p-4 sm:p-6 lg:p-8 relative hover:scale-[1.02] transition-all duration-300"
             >
               {/* Quote Icon */}
-              <div className="absolute top-8 right-8 text-gray-900/60">
-                <Quote size={48} />
+              <div className="absolute top-4 right-4 sm:top-6 sm:right-6 lg:top-8 lg:right-8 text-gray-900/60">
+                <Quote size={32} className="sm:w-10 sm:h-10 lg:w-12 lg:h-12" />
               </div>
 
               {/* Rating */}
-              <div className="flex items-center mb-4 relative z-10">
+              <div className="flex items-center mb-3 sm:mb-4 relative z-10">
                 {[...Array(5)].map((_, i) => (
                   <Star
                     key={i}
                     className={`${
                       i < testimonial.rating
-                        ? 'text-yellow-400 fill-yellow-400'
+                        ? 'text-gray-900 fill-gray-900'
                         : 'text-gray-500'
                     }`}
-                    size={20}
+                    size={16}
                   />
                 ))}
               </div>
 
               {/* Review Text */}
-              <p className="text-gray-900 leading-relaxed mb-6 relative z-10">
+              <p className="text-sm sm:text-base text-gray-900 leading-relaxed mb-4 sm:mb-6 relative z-10">
                 "{testimonial.text}"
               </p>
 
               {/* Customer Info */}
-              <div className="pt-4 relative z-10">
-                <p className="font-bold text-gray-900">{testimonial.name}</p>
-                <p className="text-sm text-gray-900">{testimonial.location}</p>
+              <div className="pt-3 sm:pt-4 relative z-10">
+                <p className="text-sm sm:text-base font-bold text-gray-900">{testimonial.name}</p>
+                <p className="text-xs sm:text-sm text-gray-900">{testimonial.location}</p>
                 <p className="text-xs text-gray-900/80 mt-1">Verified Purchase - {testimonial.date}</p>
               </div>
             </motion.div>
@@ -119,9 +102,9 @@ export default function Testimonials() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="text-center mt-12"
         >
-          <button className="text-gray-900 px-8 py-4 rounded-lg hover:text-gray-900 transition-all duration-300 font-semibold">
+          <Button className="px-6 py-3 font-semibold text-sm">
             View All 127 Reviews
-          </button>
+          </Button>
         </motion.div>
       </div>
     </section>

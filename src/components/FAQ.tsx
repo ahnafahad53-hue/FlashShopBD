@@ -4,10 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Minus } from 'lucide-react';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
-
-// Dynamically import Plasma for consistency
-const Plasma = dynamic(() => import('./Plasma'), { ssr: false });
+import Button from './Button';
 
 const faqs = [
   {
@@ -40,34 +37,20 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="py-20 lg:py-24 bg-white relative overflow-hidden">
-      {/* Plasma Background */}
-      <div className="absolute inset-0 opacity-15">
-        <Plasma 
-          color="#6b7280" 
-          speed={0.4} 
-          direction="pingpong" 
-          scale={2.2} 
-          opacity={0.4} 
-          mouseInteractive={false}
-        />
-      </div>
-
-      {/* Gradient Overlay */}
-      
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl relative z-10">
+    <section id="faq" className="pt-12 sm:pt-16 lg:pt-20 xl:pt-24 pb-6 sm:pb-8 bg-white">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-12 lg:mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4">
             Questions? <span className="text-gray-900">We've Got Answers</span>
           </h2>
-          <p className="text-lg sm:text-xl text-gray-900">
+          <p className="text-base sm:text-lg lg:text-xl text-gray-900">
             Everything you need to know about our Nasal Cleaner
           </p>
         </motion.div>
@@ -126,14 +109,12 @@ export default function FAQ() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="text-center mt-12"
+          className="text-center mt-8"
         >
           <p className="text-gray-900 mb-4 text-lg">Still have questions?</p>
-          <Link href="/contact">
-            <button className="text-cyan-300 px-8 py-4 rounded-lg hover:text-gray-900 transition-all duration-300 font-semibold">
-              Contact Support
-            </button>
-          </Link>
+          <Button href="/contact" className="px-6 py-3 font-semibold text-sm">
+            Contact Support
+          </Button>
         </motion.div>
       </div>
     </section>

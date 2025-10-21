@@ -39,28 +39,28 @@ export default function Footer() {
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors duration-200"
+                className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors duration-200"
                 aria-label="Facebook"
               >
-                <Facebook size={20} />
+                <Facebook size={20} className="text-gray-700 hover:text-white transition-colors duration-200" />
               </a>
               <a
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-pink-600 transition-colors duration-200"
+                className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center hover:bg-pink-600 transition-colors duration-200"
                 aria-label="Instagram"
               >
-                <Instagram size={20} />
+                <Instagram size={20} className="text-gray-700 hover:text-white transition-colors duration-200" />
               </a>
               <a
                 href="https://youtube.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-600 transition-colors duration-200"
+                className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center hover:bg-red-600 transition-colors duration-200"
                 aria-label="YouTube"
               >
-                <Youtube size={20} />
+                <Youtube size={20} className="text-gray-700 hover:text-white transition-colors duration-200" />
               </a>
             </div>
           </div>

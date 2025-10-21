@@ -9,6 +9,18 @@ html {
   scroll-behavior: auto; /* Let Lenis handle smooth scrolling */
 }
 
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
 /* Custom scrollbar styles */
 ::-webkit-scrollbar {
   width: 8px;
@@ -39,40 +51,8 @@ html {
     font-feature-settings: 'rlig' 1, 'calt' 1;
     font-family: var(--font-inter), 'Inter', system-ui, -apple-system, sans-serif;
     position: relative;
-    overflow-x: hidden;
   }
 
-  /* Subtle background animation for the entire page */
-  body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-      radial-gradient(circle at 25% 25%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
-      radial-gradient(circle at 75% 75%, rgba(139, 92, 246, 0.05) 0%, transparent 50%),
-      radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.03) 0%, transparent 50%);
-    animation: subtle-bg-shift 20s ease-in-out infinite;
-    pointer-events: none;
-    z-index: -1;
-  }
-
-  @keyframes subtle-bg-shift {
-    0%, 100% {
-      transform: translate(0, 0) rotate(0deg);
-      opacity: 1;
-    }
-    33% {
-      transform: translate(20px, -10px) rotate(1deg);
-      opacity: 0.8;
-    }
-    66% {
-      transform: translate(-15px, 15px) rotate(-1deg);
-      opacity: 0.9;
-    }
-  }
 
   h1,
   h2,
@@ -218,112 +198,6 @@ html {
     pointer-events: none;
   }
 
-  /* Custom animations */
-  .animate-float {
-    animation: float 3s ease-in-out infinite;
-  }
-
-  .animate-float-slow {
-    animation: float-slow 8s ease-in-out infinite;
-  }
-
-  .animate-float-delayed {
-    animation: float-delayed 10s ease-in-out infinite 2s;
-  }
-
-  .animate-float-reverse {
-    animation: float-reverse 12s ease-in-out infinite 4s;
-  }
-
-  .animate-gradient-shift {
-    animation: gradient-shift 15s ease-in-out infinite;
-  }
-
-  @keyframes float {
-    0%,
-    100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-20px);
-    }
-  }
-
-  @keyframes float-slow {
-    0%, 100% {
-      transform: translateY(0px) translateX(0px) scale(1);
-      opacity: 0.6;
-    }
-    33% {
-      transform: translateY(-30px) translateX(20px) scale(1.1);
-      opacity: 0.8;
-    }
-    66% {
-      transform: translateY(10px) translateX(-15px) scale(0.9);
-      opacity: 0.7;
-    }
-  }
-
-  @keyframes float-delayed {
-    0%, 100% {
-      transform: translateY(0px) translateX(0px) rotate(0deg);
-      opacity: 0.5;
-    }
-    25% {
-      transform: translateY(-40px) translateX(30px) rotate(2deg);
-      opacity: 0.8;
-    }
-    50% {
-      transform: translateY(-20px) translateX(-25px) rotate(-1deg);
-      opacity: 0.6;
-    }
-    75% {
-      transform: translateY(20px) translateX(15px) rotate(1deg);
-      opacity: 0.9;
-    }
-  }
-
-  @keyframes float-reverse {
-    0%, 100% {
-      transform: translateY(0px) translateX(0px) scale(1) rotate(0deg);
-      opacity: 0.4;
-    }
-    20% {
-      transform: translateY(25px) translateX(-20px) scale(1.05) rotate(-2deg);
-      opacity: 0.7;
-    }
-    40% {
-      transform: translateY(-15px) translateX(35px) scale(0.95) rotate(1deg);
-      opacity: 0.6;
-    }
-    60% {
-      transform: translateY(10px) translateX(-30px) scale(1.02) rotate(-1deg);
-      opacity: 0.8;
-    }
-    80% {
-      transform: translateY(-25px) translateX(10px) scale(0.98) rotate(2deg);
-      opacity: 0.5;
-    }
-  }
-
-  @keyframes gradient-shift {
-    0%, 100% {
-      background-position: 0% 0%;
-      opacity: 0.8;
-    }
-    25% {
-      background-position: 100% 0%;
-      opacity: 0.6;
-    }
-    50% {
-      background-position: 100% 100%;
-      opacity: 0.9;
-    }
-    75% {
-      background-position: 0% 100%;
-      opacity: 0.7;
-    }
-  }
 
   /* Subtle animations for professional look */
   .animate-gradient {
@@ -429,18 +303,6 @@ input[type='number'] {
   }
 }
 
-/* Lenis smooth scrolling styles */
-html.lenis {
-  height: auto;
-}
-
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
 
 /* GSAP Animation Classes */
 .animate-fade-up {

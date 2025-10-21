@@ -1,12 +1,14 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, Clock } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 export default function Contact() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -27,19 +29,35 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      alert('Thank you for your message! We will get back to you soon.');
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        subject: '',
-        message: '',
+
+    try {
+      console.log('Submitting contact data:', formData);
+      
+      const response = await fetch('https://script.google.com/macros/s/AKfycbye347_k1uZaKqfGs1RP8f9fisfY--Tybgi2b1jrUs1teiS2b2tcKtqX7p_jCUmWpDD/exec?sheet=contact-us', {
+        method: 'POST',
+        mode: 'no-cors', // Add this to handle CORS issues
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
       });
-    }, 2000);
+
+      console.log('Response status:', response.status);
+      console.log('Response headers:', response.headers);
+
+      // Since we're using no-cors, we can't read the response
+      // But we can assume success if no error was thrown
+      // Redirect to thank you page instead of showing alert
+      router.push('/thank-you-contact');
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      console.error('Error details:', {
+        message: error instanceof Error ? error.message : 'Unknown error',
+        stack: error instanceof Error ? error.stack : undefined,
+        formData: formData
+      });
+      alert('Something went wrong. Please try again later or contact us directly.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
