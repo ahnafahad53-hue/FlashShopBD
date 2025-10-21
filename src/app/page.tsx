@@ -11,9 +11,22 @@ import Footer from '@/components/Footer';
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white">
-      {/* Sticky Header with Navigation */}
-      <Header />
+    <main className="min-h-screen bg-white relative overflow-hidden">
+      {/* Subtle Background Animation Elements */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        {/* Floating orbs */}
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl animate-float-slow"></div>
+        <div className="absolute top-3/4 right-1/4 w-80 h-80 bg-purple-500/8 rounded-full blur-3xl animate-float-delayed"></div>
+        <div className="absolute bottom-1/4 left-1/3 w-72 h-72 bg-green-500/6 rounded-full blur-3xl animate-float-reverse"></div>
+        
+        {/* Moving gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-transparent via-blue-500/[0.02] to-purple-500/[0.03] animate-gradient-shift"></div>
+      </div>
+
+      {/* Content with relative z-index to appear above background */}
+      <div className="relative z-10">
+        {/* Sticky Header with Navigation */}
+        <Header />
 
       {/* Hero Section - Full-width with product showcase */}
       <Hero />
@@ -39,8 +52,25 @@ export default function Home() {
       {/* Final CTA - Conversion-focused call to action */}
       <CTA />
 
+      {/* Footer Separator - Visual indicator where footer begins */}
+      <div className="relative">
+        {/* Subtle gradient line */}
+        <div className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
+        {/* Centered accent line */}
+        <div className="flex justify-center -mt-0.5">
+          <div className="w-24 h-0.5 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-500 rounded-full"></div>
+        </div>
+        {/* Decorative dots */}
+        <div className="flex justify-center space-x-2 mt-4 mb-8">
+          <div className="w-2 h-2 bg-blue-400 rounded-full opacity-60"></div>
+          <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+          <div className="w-2 h-2 bg-blue-400 rounded-full opacity-60"></div>
+        </div>
+      </div>
+
       {/* Footer - Contact info, links, social media */}
       <Footer />
+      </div>
 
       {/* Structured Data for SEO (JSON-LD) */}
       <script

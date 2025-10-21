@@ -15,80 +15,80 @@ if (typeof window !== 'undefined') {
   });
 }
 
-// Hero animations
+// Hero animations - Faster and snappier
 export const heroAnimations = () => {
   if (typeof window === 'undefined') return;
 
-  const tl = gsap.timeline({ delay: 0.2 });
+  const tl = gsap.timeline({ delay: 0.1 });
   
   tl.fromTo('.hero-title', 
     { 
       opacity: 0, 
-      y: 50,
-      scale: 0.9
+      y: 30,
+      scale: 0.95
     },
     { 
       opacity: 1, 
       y: 0,
       scale: 1,
-      duration: 1,
-      ease: 'power3.out'
+      duration: 0.6,
+      ease: 'power2.out'
     }
   )
   .fromTo('.hero-subtitle', 
     { 
       opacity: 0, 
-      y: 30 
+      y: 20 
     },
     { 
       opacity: 1, 
       y: 0,
-      duration: 0.8,
-      ease: 'power2.out'
-    },
-    '-=0.5'
-  )
-  .fromTo('.hero-buttons', 
-    { 
-      opacity: 0, 
-      y: 30 
-    },
-    { 
-      opacity: 1, 
-      y: 0,
-      duration: 0.8,
+      duration: 0.5,
       ease: 'power2.out'
     },
     '-=0.3'
   )
-  .fromTo('.hero-trust-badges', 
+  .fromTo('.hero-buttons', 
     { 
       opacity: 0, 
-      y: 30 
+      y: 20 
     },
     { 
       opacity: 1, 
       y: 0,
-      duration: 0.8,
-      ease: 'power2.out',
-      stagger: 0.1
+      duration: 0.5,
+      ease: 'power2.out'
     },
     '-=0.2'
+  )
+  .fromTo('.hero-trust-badges', 
+    { 
+      opacity: 0, 
+      y: 20 
+    },
+    { 
+      opacity: 1, 
+      y: 0,
+      duration: 0.4,
+      ease: 'power2.out',
+      stagger: 0.05
+    },
+    '-=0.1'
   )
   .fromTo('.hero-image', 
     { 
       opacity: 0, 
-      scale: 0.8,
-      rotation: 5
+      scale: 0.9,
+      rotation: 2
     },
     { 
       opacity: 1, 
       scale: 1,
       rotation: 0,
-      duration: 1.2,
-      ease: 'power3.out'
+      duration: 0.7,
+      ease: 'power2.out'
     },
-    '-=0.8'
+    '-=0.4'
   );
 };
 
@@ -211,8 +211,8 @@ export const hoverAnimations = () => {
 export const initAnimations = () => {
   if (typeof window === 'undefined') return;
 
-  // Wait for DOM to be ready and Lenis to initialize
-  gsap.delayedCall(0.5, () => {
+  // Wait for DOM to be ready and Lenis to initialize - faster start
+  gsap.delayedCall(0.1, () => {
     heroAnimations();
     
     // Refresh ScrollTrigger after animations are set up

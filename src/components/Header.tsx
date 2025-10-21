@@ -29,7 +29,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-white/20">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200">
       <nav className="w-full">
         <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-14 sm:h-16">
@@ -56,13 +56,13 @@ export default function Header() {
                       href={link.href}
                       className={`font-medium transition-all duration-300 relative py-4 cursor-pointer text-sm xl:text-base ${
                         activeLink === link.label
-                          ? 'text-blue-600'
-                          : 'text-slate-700 hover:text-slate-900'
+                          ? 'text-gray-900'
+                          : 'text-gray-600 hover:text-gray-900'
                       }`}
                     >
                       {link.label}
                       {activeLink === link.label && (
-                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-600 to-indigo-600"></div>
+                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-gray-700 to-gray-900"></div>
                       )}
                     </Link>
                   ) : (
@@ -82,13 +82,13 @@ export default function Header() {
                       }}
                       className={`font-medium transition-all duration-300 relative py-4 cursor-pointer text-sm xl:text-base ${
                         activeLink === link.label
-                          ? 'text-blue-600'
-                          : 'text-slate-700 hover:text-slate-900'
+                          ? 'text-gray-900'
+                          : 'text-gray-600 hover:text-gray-900'
                       }`}
                     >
                       {link.label}
                       {activeLink === link.label && (
-                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-600 to-indigo-600"></div>
+                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-gray-700 to-gray-900"></div>
                       )}
                     </a>
                   )
@@ -98,7 +98,7 @@ export default function Header() {
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="lg:hidden text-slate-700 hover:text-slate-900 transition-colors p-2"
+                className="lg:hidden text-gray-600 hover:text-gray-900 transition-colors p-2"
                 aria-label="Toggle menu"
               >
                 {isMobileMenuOpen ? <X size={20} className="sm:w-6 sm:h-6" /> : <Menu size={20} className="sm:w-6 sm:h-6" />}
@@ -108,7 +108,7 @@ export default function Header() {
 
           {/* Mobile Navigation */}
           {isMobileMenuOpen && (
-            <div className="lg:hidden bg-white/95 backdrop-blur-md border-t border-white/20">
+            <div className="lg:hidden bg-slate-900/95 backdrop-blur-md border-t border-white/10">
               <div className="px-4 sm:px-6 lg:px-8 py-4 space-y-4">
                 {navLinks.map((link) => (
                   link.isPage ? (
@@ -121,8 +121,8 @@ export default function Header() {
                       }}
                       className={`block font-medium transition-all duration-300 cursor-pointer py-2 text-sm sm:text-base ${
                         activeLink === link.label
-                          ? 'text-blue-600'
-                          : 'text-slate-700 hover:text-slate-900'
+                          ? 'text-gray-900'
+                          : 'text-gray-600 hover:text-gray-900'
                       }`}
                     >
                       {link.label}
@@ -145,8 +145,8 @@ export default function Header() {
                       }}
                       className={`block font-medium transition-all duration-300 cursor-pointer py-2 text-sm sm:text-base ${
                         activeLink === link.label
-                          ? 'text-blue-600'
-                          : 'text-slate-700 hover:text-slate-900'
+                          ? 'text-gray-900'
+                          : 'text-gray-600 hover:text-gray-900'
                       }`}
                     >
                       {link.label}

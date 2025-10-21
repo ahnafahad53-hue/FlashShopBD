@@ -1,64 +1,86 @@
 'use client';
 
 import { Sparkles, Droplets, Zap, Leaf } from 'lucide-react';
+import dynamic from 'next/dynamic';
+
+// Dynamically import Plasma for consistency
+const Plasma = dynamic(() => import('./Plasma'), { ssr: false });
 
 const features = [
   {
     icon: Sparkles,
     title: 'Gentle Nasal Cleaning',
     description: 'Soft, controlled flow ensures comfortable and effective cleaning without irritation.',
+    color: 'from-cyan-500 to-blue-500'
   },
   {
     icon: Droplets,
     title: 'Relieves Congestion & Allergies',
     description: 'Flush out allergens, mucus, and irritants for instant sinus relief.',
+    color: 'from-blue-500 to-indigo-500'
   },
   {
     icon: Zap,
     title: 'Easy to Use & Reusable',
     description: 'Simple squeeze design. Durable, eco-friendly, and cost-effective.',
+    color: 'from-indigo-500 to-purple-500'
   },
   {
     icon: Leaf,
     title: 'Safe for Daily Use',
     description: 'Made from medical-grade, BPA-free materials. Perfect for the whole family.',
+    color: 'from-emerald-500 to-teal-500'
   },
 ];
 
 export default function Features() {
   return (
-    <section id="benefits" className="py-12 sm:py-16 lg:py-20 section-elegant">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="benefits" className="py-16 sm:py-20 lg:py-24 bg-white relative overflow-hidden">
+      {/* Plasma Background */}
+      <div className="absolute inset-0 opacity-30">
+        <Plasma 
+          color="#1e40af" 
+          speed={0.3} 
+          direction="pingpong" 
+          scale={1.5} 
+          opacity={0.6} 
+          mouseInteractive={false}
+        />
+      </div>
+
+      {/* Gradient Overlay */}
+      
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="animate-fade-up text-center mb-12 sm:mb-16">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-3 sm:mb-4">
-            Why Choose Our <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Nasal Cleaner?</span>
+        <div className="animate-fade-up text-center mb-16 sm:mb-20">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">
+            Why Choose Our <span className="text-gray-900">Nasal Cleaner?</span>
           </h2>
-          <p className="text-base sm:text-lg lg:text-xl text-slate-600 max-w-2xl mx-auto font-light px-4">
+          <p className="text-lg sm:text-xl text-gray-900 font-medium max-w-3xl mx-auto">
             Experience the benefits of professional-grade nasal care at home
           </p>
         </div>
 
         {/* Features Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10">
           {features.map((feature, index) => {
             const Icon = feature.icon;
             return (
               <div
                 key={index}
-                className="animate-card group"
+                className="animate-card"
               >
-                <div className="bg-white/80 backdrop-blur-sm p-6 sm:p-7 lg:p-8 rounded-2xl sm:rounded-3xl shadow-sm hover:shadow-xl transition-all duration-400 hover:-translate-y-2 sm:hover:-translate-y-3 border border-white/30 h-full group">
+                <div className="p-8 h-full group hover:scale-[1.02] transition-all duration-300">
                   {/* Icon */}
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-5 lg:mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                    <Icon className="text-white w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8" />
+                  <div className={`w-16 h-16 bg-gradient-to-br ${feature.color} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                    <Icon className="text-gray-900 w-8 h-8" />
                   </div>
                   
                   {/* Content */}
-                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-2 sm:mb-3 leading-tight">
+                  <h3 className="text-xl font-bold text-gray-900 mb-4 leading-tight">
                     {feature.title}
                   </h3>
-                  <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-light">
+                  <p className="text-base text-gray-900 leading-relaxed">
                     {feature.description}
                   </p>
                 </div>

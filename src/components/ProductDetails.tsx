@@ -4,6 +4,10 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ShoppingCart, Star, Package, AlertCircle, MessageSquare } from 'lucide-react';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
+
+// Dynamically import Plasma for consistency
+const Plasma = dynamic(() => import('./Plasma'), { ssr: false });
 
 const productImages = [
   { id: 1, src: '/images/1.jpeg', alt: 'Nasal Cleaner - Main View' },
@@ -24,9 +28,23 @@ export default function ProductDetails() {
   const [selectedImage, setSelectedImage] = useState(0);
 
   return (
-    <section id="products" className="py-12 sm:py-16 lg:py-20 bg-gray-50">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12">
+    <section id="products" className="py-20 lg:py-24 bg-white relative overflow-hidden">
+      {/* Plasma Background */}
+      <div className="absolute inset-0 opacity-40">
+        <Plasma 
+          color="#3b82f6" 
+          speed={0.4} 
+          direction="forward" 
+          scale={1.3} 
+          opacity={0.7} 
+          mouseInteractive={false}
+        />
+      </div>
+
+      {/* Gradient Overlay */}
+      
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
           {/* Left - Product Images */}
           <div className="space-y-3 sm:space-y-4">
             {/* Main Image */}
@@ -34,7 +52,7 @@ export default function ProductDetails() {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              className="relative w-full h-[300px] sm:h-[400px] lg:h-[500px] bg-white rounded-xl sm:rounded-2xl shadow-xl overflow-hidden"
+              className="relative w-full h-[400px] sm:h-[500px] lg:h-[600px] rounded-2xl overflow-hidden"
             >
               <Image
                 src={productImages[selectedImage].src}
@@ -51,9 +69,9 @@ export default function ProductDetails() {
                 <button
                   key={img.id}
                   onClick={() => setSelectedImage(index)}
-                  className={`relative h-20 sm:h-24 bg-white rounded-lg shadow-md overflow-hidden transition-all duration-200 ${
+                  className={`relative h-20 sm:h-24 rounded-lg overflow-hidden transition-all duration-200 ${
                     selectedImage === index
-                      ? 'ring-4 ring-blue-600 scale-105'
+                      ? 'ring-4 ring-cyan-400 scale-105'
                       : 'hover:scale-105'
                   }`}
                 >
@@ -88,51 +106,51 @@ export default function ProductDetails() {
                     <Star
                       key={i}
                       className={`${
-                        i < 4 ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'
+                        i < 4 ? 'text-yellow-400 fill-yellow-400' : 'text-gray-500'
                       }`}
                       size={20}
                     />
                   ))}
                 </div>
-                <span className="text-gray-600">(127 reviews)</span>
+                <span className="text-gray-900">(127 reviews)</span>
               </div>
 
               {/* Price */}
               <div className="flex items-baseline space-x-4">
-                <span className="text-5xl font-bold text-blue-600">৳999</span>
-                <span className="text-2xl text-gray-400 line-through">৳1,499</span>
-                <span className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                <span className="text-5xl font-bold text-gray-900">৳999</span>
+                <span className="text-2xl text-gray-900 line-through">৳1,499</span>
+                <span className="bg-green-500 text-gray-900 px-3 py-1 rounded-full text-sm font-semibold">
                   33% OFF
                 </span>
               </div>
 
               {/* Short Description */}
-              <p className="text-lg text-gray-600 leading-relaxed">
+              <p className="text-lg text-gray-900 leading-relaxed">
                 Experience professional-grade nasal care at home. Our Smart Nasal Cleaner Bottle provides gentle, effective relief from congestion, allergies, and sinus discomfort.
               </p>
 
               {/* Add to Cart Button */}
-              <button className="w-full bg-blue-600 text-white px-8 py-5 rounded-xl hover:bg-blue-700 transition-all duration-200 font-semibold text-xl shadow-xl hover:shadow-2xl flex items-center justify-center space-x-3 group">
-                <ShoppingCart className="group-hover:scale-110 transition-transform" size={24} />
-                <span>Add to Cart</span>
+              <button className="w-full bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 text-gray-900 px-8 py-5 rounded-xl hover:scale-[1.02] transition-all duration-300 font-semibold text-lg flex items-center justify-center gap-3">
+                <ShoppingCart size={20} />
+                <span>Add to Cart - ৳999</span>
               </button>
 
               {/* Quick Info */}
               <div className="grid grid-cols-2 gap-4 pt-4">
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  <p className="text-sm text-gray-600">Material</p>
+                <div className="p-4 rounded-lg">
+                  <p className="text-sm text-gray-900">Material</p>
                   <p className="font-semibold text-gray-900">BPA-Free Plastic</p>
                 </div>
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  <p className="text-sm text-gray-600">Capacity</p>
+                <div className="p-4 rounded-lg">
+                  <p className="text-sm text-gray-900">Capacity</p>
                   <p className="font-semibold text-gray-900">300ml</p>
                 </div>
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  <p className="text-sm text-gray-600">Warranty</p>
+                <div className="p-4 rounded-lg">
+                  <p className="text-sm text-gray-900">Warranty</p>
                   <p className="font-semibold text-gray-900">6 Months</p>
                 </div>
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  <p className="text-sm text-gray-600">Delivery</p>
+                <div className="p-4 rounded-lg">
+                  <p className="text-sm text-gray-900">Delivery</p>
                   <p className="font-semibold text-gray-900">2-3 Days</p>
                 </div>
               </div>
@@ -143,7 +161,7 @@ export default function ProductDetails() {
         {/* Tabs Section */}
         <div className="mt-20">
           {/* Tab Headers */}
-          <div className="flex flex-wrap gap-4 border-b border-gray-200 mb-8">
+          <div className="flex flex-wrap gap-4 mb-8">
             {tabs.map((tab) => {
               const Icon = tab.icon;
               return (
@@ -152,8 +170,8 @@ export default function ProductDetails() {
                   onClick={() => setActiveTab(tab.id)}
                   className={`flex items-center space-x-2 pb-4 px-4 font-semibold transition-all duration-200 ${
                     activeTab === tab.id
-                      ? 'text-blue-600 border-b-2 border-blue-600'
-                      : 'text-gray-600 hover:text-blue-600'
+                      ? 'text-gray-900 border-b-2 border-gray-900'
+                      : 'text-gray-900 hover:text-gray-900'
                   }`}
                 >
                   <Icon size={20} />
@@ -164,14 +182,14 @@ export default function ProductDetails() {
           </div>
 
           {/* Tab Content */}
-          <div className="bg-white p-8 rounded-2xl shadow-lg">
+          <div className="p-8 rounded-2xl">
             {activeTab === 'description' && (
               <div className="prose max-w-none">
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">Product Description</h3>
-                <p className="text-gray-600 leading-relaxed mb-4">
+                <p className="text-gray-900 leading-relaxed mb-4">
                   The Smart Nasal Cleaner Bottle is designed to provide gentle and effective nasal irrigation for daily sinus care. Made from high-quality, medical-grade materials, this bottle ensures safe and comfortable use for the entire family.
                 </p>
-                <ul className="space-y-2 text-gray-600">
+                <ul className="space-y-2 text-gray-900">
                   <li>✓ Ergonomic design for comfortable grip</li>
                   <li>✓ Soft silicone nozzle for gentle insertion</li>
                   <li>✓ Squeeze-controlled water flow</li>
@@ -184,7 +202,7 @@ export default function ProductDetails() {
             {activeTab === 'how-to-use' && (
               <div className="prose max-w-none">
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">How to Use</h3>
-                <ol className="space-y-4 text-gray-600">
+                <ol className="space-y-4 text-gray-900">
                   <li><strong>Step 1:</strong> Fill the bottle with lukewarm water (not hot)</li>
                   <li><strong>Step 2:</strong> Add the recommended amount of nasal salt solution</li>
                   <li><strong>Step 3:</strong> Lean over a sink and tilt your head to one side</li>
@@ -199,7 +217,7 @@ export default function ProductDetails() {
             {activeTab === 'precautions' && (
               <div className="prose max-w-none">
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">Precautions & Safety</h3>
-                <ul className="space-y-3 text-gray-600">
+                <ul className="space-y-3 text-gray-900">
                   <li>⚠️ Always use distilled, sterile, or previously boiled water</li>
                   <li>⚠️ Never use tap water directly</li>
                   <li>⚠️ Clean the bottle thoroughly after each use</li>
@@ -216,7 +234,7 @@ export default function ProductDetails() {
                 <h3 className="text-2xl font-bold text-gray-900 mb-6">Customer Reviews</h3>
                 <div className="space-y-6">
                   {[1, 2, 3].map((i) => (
-                    <div key={i} className="border-b border-gray-200 pb-6">
+                    <div key={i} className="pb-6">
                       <div className="flex items-center space-x-2 mb-2">
                         <div className="flex">
                           {[...Array(5)].map((_, idx) => (
@@ -229,10 +247,10 @@ export default function ProductDetails() {
                         </div>
                         <span className="font-semibold text-gray-900">Customer {i}</span>
                       </div>
-                      <p className="text-gray-600">
+                      <p className="text-gray-900">
                         Great product! Really helps with my sinus problems. Easy to use and very effective.
                       </p>
-                      <p className="text-sm text-gray-400 mt-2">Verified Purchase - 2 weeks ago</p>
+                      <p className="text-sm text-gray-900 mt-2">Verified Purchase - 2 weeks ago</p>
                     </div>
                   ))}
                 </div>

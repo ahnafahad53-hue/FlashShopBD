@@ -2,6 +2,10 @@
 
 import { motion } from 'framer-motion';
 import { Star, Quote } from 'lucide-react';
+import dynamic from 'next/dynamic';
+
+// Dynamically import Plasma for consistency
+const Plasma = dynamic(() => import('./Plasma'), { ssr: false });
 
 const testimonials = [
   {
@@ -29,8 +33,22 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section id="reviews" className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-blue-50 to-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="reviews" className="py-20 lg:py-24 bg-white relative overflow-hidden">
+      {/* Plasma Background */}
+      <div className="absolute inset-0 opacity-25">
+        <Plasma 
+          color="#ec4899" 
+          speed={0.3} 
+          direction="pingpong" 
+          scale={1.6} 
+          opacity={0.6} 
+          mouseInteractive={false}
+        />
+      </div>
+
+      {/* Gradient Overlay */}
+      
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -39,10 +57,10 @@ export default function Testimonials() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12 sm:mb-16"
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4">
-            What Our Customers Say
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+            Loved by <span className="text-gray-900">10,000+</span> Customers
           </h2>
-          <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto px-4">
+          <p className="text-lg sm:text-xl text-gray-900 max-w-3xl mx-auto">
             Real experiences from satisfied customers across Bangladesh
           </p>
         </motion.div>
@@ -56,10 +74,10 @@ export default function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 relative"
+              className="p-8 relative hover:scale-[1.02] transition-all duration-300"
             >
               {/* Quote Icon */}
-              <div className="absolute top-8 right-8 text-blue-100">
+              <div className="absolute top-8 right-8 text-gray-900/60">
                 <Quote size={48} />
               </div>
 
@@ -71,7 +89,7 @@ export default function Testimonials() {
                     className={`${
                       i < testimonial.rating
                         ? 'text-yellow-400 fill-yellow-400'
-                        : 'text-gray-300'
+                        : 'text-gray-500'
                     }`}
                     size={20}
                   />
@@ -79,15 +97,15 @@ export default function Testimonials() {
               </div>
 
               {/* Review Text */}
-              <p className="text-gray-700 leading-relaxed mb-6 relative z-10">
+              <p className="text-gray-900 leading-relaxed mb-6 relative z-10">
                 "{testimonial.text}"
               </p>
 
               {/* Customer Info */}
-              <div className="border-t border-gray-200 pt-4 relative z-10">
+              <div className="pt-4 relative z-10">
                 <p className="font-bold text-gray-900">{testimonial.name}</p>
-                <p className="text-sm text-gray-600">{testimonial.location}</p>
-                <p className="text-xs text-gray-400 mt-1">Verified Purchase - {testimonial.date}</p>
+                <p className="text-sm text-gray-900">{testimonial.location}</p>
+                <p className="text-xs text-gray-900/80 mt-1">Verified Purchase - {testimonial.date}</p>
               </div>
             </motion.div>
           ))}
@@ -101,8 +119,8 @@ export default function Testimonials() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="text-center mt-12"
         >
-          <button className="border-2 border-blue-600 text-blue-600 px-8 py-4 rounded-full hover:bg-blue-50 transition-all duration-200 font-semibold text-lg">
-            View All Reviews (127)
+          <button className="text-gray-900 px-8 py-4 rounded-lg hover:text-gray-900 transition-all duration-300 font-semibold">
+            View All 127 Reviews
           </button>
         </motion.div>
       </div>
