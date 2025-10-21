@@ -63,19 +63,19 @@ export default function WhyChooseUs() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="text-center group"
               >
-                <div className="p-8 group hover:scale-[1.02] transition-all duration-300">
-                  {/* Icon */}
-                  <div className="w-16 h-16 rounded-xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300" style={{ backgroundColor: '#E4E5E8' }}>
-                    <Icon className="text-gray-900" size={32} />
-                  </div>
-                  
-                  {/* Content */}
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">
-                    {reason.title}
-                  </h3>
-                  <p className="text-gray-900 leading-relaxed">
-                    {reason.description}
-                  </p>
+                <div className="p-8 h-64 sm:h-72 lg:h-80 group hover:scale-[1.02] transition-all duration-300 bg-white border border-gray-200 rounded-xl flex flex-col shadow-sm hover:shadow-md">
+                    {/* Icon */}
+                    <div className="w-16 h-16 rounded-xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300" style={{ backgroundColor: '#E4E5E8' }}>
+                      <Icon className="text-gray-900" size={32} />
+                    </div>
+                    
+                    {/* Content */}
+                    <h3 className="text-xl font-bold text-gray-900 mb-3">
+                      {reason.title}
+                    </h3>
+                    <p className="text-gray-900 leading-relaxed flex-grow">
+                      {reason.description}
+                    </p>
                 </div>
               </motion.div>
             );

@@ -19,6 +19,30 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Handle hash navigation from other pages
+  useEffect(() => {
+    const handleHashNavigation = () => {
+      const hash = window.location.hash;
+      if (hash && window.location.pathname !== '/') {
+        // If we're on a different page but have a hash, redirect to home with hash
+        window.location.href = `/${hash}`;
+      } else if (hash && window.location.pathname === '/') {
+        // If we're on home page with hash, scroll to section
+        setTimeout(() => {
+          const element = document.querySelector(hash);
+          if (element) {
+            element.scrollIntoView({ 
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        }, 100);
+      }
+    };
+
+    handleHashNavigation();
+  }, []);
+
   const navLinks = [
     { href: '#home', label: 'HOME', isPage: false },
     { href: '#about', label: 'ABOUT', isPage: false },
@@ -39,12 +63,20 @@ export default function Header() {
               onClick={(e) => {
                 e.preventDefault();
                 setActiveLink('HOME');
-                const element = document.querySelector('#home');
-                if (element) {
-                  element.scrollIntoView({ 
-                    behavior: 'smooth',
-                    block: 'start'
-                  });
+                
+                // Check if we're on the home page
+                if (window.location.pathname === '/') {
+                  // If on home page, just scroll to home section
+                  const element = document.querySelector('#home');
+                  if (element) {
+                    element.scrollIntoView({ 
+                      behavior: 'smooth',
+                      block: 'start'
+                    });
+                  }
+                } else {
+                  // If on other pages, navigate to home page
+                  window.location.href = '/';
                 }
               }}
               className="flex items-center -ml-6 sm:-ml-8 lg:-ml-10 cursor-pointer"
@@ -86,12 +118,20 @@ export default function Header() {
                       onClick={(e) => {
                         e.preventDefault();
                         setActiveLink(link.label);
-                        const element = document.querySelector(link.href);
-                        if (element) {
-                          element.scrollIntoView({ 
-                            behavior: 'smooth',
-                            block: 'start'
-                          });
+                        
+                        // Check if we're on the home page
+                        if (window.location.pathname === '/') {
+                          // If on home page, just scroll to section
+                          const element = document.querySelector(link.href);
+                          if (element) {
+                            element.scrollIntoView({ 
+                              behavior: 'smooth',
+                              block: 'start'
+                            });
+                          }
+                        } else {
+                          // If on other pages, navigate to home page with hash
+                          window.location.href = `/${link.href}`;
                         }
                       }}
                       className={`font-medium transition-all duration-300 relative py-4 cursor-pointer text-sm xl:text-base ${
@@ -149,12 +189,20 @@ export default function Header() {
                         e.preventDefault();
                         setActiveLink(link.label);
                         setIsMobileMenuOpen(false);
-                        const element = document.querySelector(link.href);
-                        if (element) {
-                          element.scrollIntoView({ 
-                            behavior: 'smooth',
-                            block: 'start'
-                          });
+                        
+                        // Check if we're on the home page
+                        if (window.location.pathname === '/') {
+                          // If on home page, just scroll to section
+                          const element = document.querySelector(link.href);
+                          if (element) {
+                            element.scrollIntoView({ 
+                              behavior: 'smooth',
+                              block: 'start'
+                            });
+                          }
+                        } else {
+                          // If on other pages, navigate to home page with hash
+                          window.location.href = `/${link.href}`;
                         }
                       }}
                       className={`block font-medium transition-all duration-300 cursor-pointer py-2 text-sm sm:text-base ${

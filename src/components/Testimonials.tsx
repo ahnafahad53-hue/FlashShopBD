@@ -57,38 +57,40 @@ export default function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="p-4 sm:p-6 lg:p-8 relative hover:scale-[1.02] transition-all duration-300"
+              className="relative"
             >
-              {/* Quote Icon */}
-              <div className="absolute top-4 right-4 sm:top-6 sm:right-6 lg:top-8 lg:right-8 text-gray-900/60">
-                <Quote size={32} className="sm:w-10 sm:h-10 lg:w-12 lg:h-12" />
-              </div>
+              <div className="p-4 sm:p-6 lg:p-8 h-64 sm:h-72 lg:h-80 relative hover:scale-[1.02] transition-all duration-300 bg-white border border-gray-200 rounded-xl flex flex-col shadow-sm hover:shadow-md">
+                  {/* Quote Icon */}
+                  <div className="absolute top-4 right-4 sm:top-6 sm:right-6 lg:top-8 lg:right-8 text-gray-900/60">
+                    <Quote size={32} className="sm:w-10 sm:h-10 lg:w-12 lg:h-12" />
+                  </div>
 
-              {/* Rating */}
-              <div className="flex items-center mb-3 sm:mb-4 relative z-10">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className={`${
-                      i < testimonial.rating
-                        ? 'text-gray-900 fill-gray-900'
-                        : 'text-gray-500'
-                    }`}
-                    size={16}
-                  />
-                ))}
-              </div>
+                  {/* Rating */}
+                  <div className="flex items-center mb-3 sm:mb-4 relative z-10">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`${
+                          i < testimonial.rating
+                            ? 'text-gray-900 fill-gray-900'
+                            : 'text-gray-500'
+                        }`}
+                        size={16}
+                      />
+                    ))}
+                  </div>
 
-              {/* Review Text */}
-              <p className="text-sm sm:text-base text-gray-900 leading-relaxed mb-4 sm:mb-6 relative z-10">
-                "{testimonial.text}"
-              </p>
+                  {/* Review Text */}
+                  <p className="text-sm sm:text-base text-gray-900 leading-relaxed mb-4 sm:mb-6 relative z-10 flex-grow">
+                    "{testimonial.text}"
+                  </p>
 
-              {/* Customer Info */}
-              <div className="pt-3 sm:pt-4 relative z-10">
-                <p className="text-sm sm:text-base font-bold text-gray-900">{testimonial.name}</p>
-                <p className="text-xs sm:text-sm text-gray-900">{testimonial.location}</p>
-                <p className="text-xs text-gray-900/80 mt-1">Verified Purchase - {testimonial.date}</p>
+                  {/* Customer Info */}
+                  <div className="pt-3 sm:pt-4 relative z-10">
+                    <p className="text-sm sm:text-base font-bold text-gray-900">{testimonial.name}</p>
+                    <p className="text-xs sm:text-sm text-gray-900">{testimonial.location}</p>
+                    <p className="text-xs text-gray-900/80 mt-1">Verified Purchase - {testimonial.date}</p>
+                  </div>
               </div>
             </motion.div>
           ))}

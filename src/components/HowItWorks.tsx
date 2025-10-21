@@ -60,34 +60,25 @@ export default function HowItWorks() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="relative group"
               >
-                <div className="p-4 sm:p-6 lg:p-8 h-full group hover:scale-[1.02] transition-all duration-300">
-                  {/* Step Icon */}
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300" style={{ backgroundColor: '#E4E5E8' }}>
-                    <Icon className="text-gray-900 w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8" />
-                  </div>
-                  
-                  {/* Step Number */}
-                  <div className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-br from-white/60 to-white/40 bg-clip-text text-transparent mb-3 sm:mb-4">
-                    {step.number}
-                  </div>
-                  
-                  {/* Content */}
-                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight">
-                    {step.title}
-                  </h3>
-                  <p className="text-sm sm:text-base text-gray-900 leading-relaxed">
-                    {step.description}
-                  </p>
-                </div>
-
-                {/* Connector Arrow */}
-                {index < steps.length - 1 && (
-                  <div className="hidden lg:block absolute top-1/2 -right-6 transform -translate-y-1/2 z-10">
-                    <div className="w-12 h-12 rounded-full flex items-center justify-center">
-                      <div className="text-gray-900 text-xl font-bold">→</div>
+                <div className="p-4 sm:p-6 lg:p-8 h-64 sm:h-72 lg:h-80 group hover:scale-[1.02] transition-all duration-300 bg-white border border-gray-200 rounded-xl flex flex-col shadow-sm hover:shadow-md">
+                    {/* Step Icon */}
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300" style={{ backgroundColor: '#E4E5E8' }}>
+                      <Icon className="text-gray-900 w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8" />
                     </div>
-                  </div>
-                )}
+                    
+                    {/* Step Number */}
+                    <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-black mb-3 sm:mb-4">
+                      {step.number}
+                    </div>
+                    
+                    {/* Content */}
+                    <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight">
+                      {step.title}
+                    </h3>
+                    <p className="text-sm sm:text-base text-gray-900 leading-relaxed flex-grow">
+                      {step.description}
+                    </p>
+                </div>
               </motion.div>
             );
           })}

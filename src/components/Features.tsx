@@ -52,19 +52,19 @@ export default function Features() {
                 key={index}
                 className="animate-card"
               >
-                <div className="p-4 sm:p-6 lg:p-8 h-full group hover:scale-[1.02] transition-all duration-300">
-                  {/* Icon */}
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300" style={{ backgroundColor: '#E4E5E8' }}>
-                    <Icon className="text-gray-900 w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8" />
-                  </div>
-                  
-                  {/* Content */}
-                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight">
-                    {feature.title}
-                  </h3>
-                  <p className="text-sm sm:text-base text-gray-900 leading-relaxed">
-                    {feature.description}
-                  </p>
+                <div className="p-4 sm:p-6 lg:p-8 h-64 sm:h-72 lg:h-80 group hover:scale-[1.02] transition-all duration-300 bg-white border border-gray-200 rounded-xl flex flex-col shadow-sm hover:shadow-md">
+                    {/* Icon */}
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300" style={{ backgroundColor: '#E4E5E8' }}>
+                      <Icon className="text-gray-900 w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8" />
+                    </div>
+                    
+                    {/* Content */}
+                    <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight">
+                      {feature.title}
+                    </h3>
+                    <p className="text-sm sm:text-base text-gray-900 leading-relaxed flex-grow">
+                      {feature.description}
+                    </p>
                 </div>
               </div>
             );
