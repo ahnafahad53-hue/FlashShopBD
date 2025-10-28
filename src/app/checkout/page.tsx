@@ -65,7 +65,7 @@ export default function CheckoutPage() {
       try {
         console.log('Sending order data to Google Sheets:', orderData);
         
-        const scriptUrl = 'https://script.google.com/macros/s/AKfycbxySwJfivbBwNA3nk9EoL5ZLMd0c5Ym3UtveoN2q9VuAQWI5gS8PeuznwcWiMoHXY36/exec?sheet=product';
+        const scriptUrl = 'https://script.google.com/macros/s/AKfycbzSyhkMDQJyTF4CrZBdU2WMXoesqPpxYywyLsDvBz6vEHg_vNLVAucksX4R-0SQOsQLeg/exec';
         
         await fetch(scriptUrl, {
           method: 'POST',
@@ -140,7 +140,7 @@ export default function CheckoutPage() {
               <div className="flex items-center gap-4 p-4 bg-white rounded-lg">
                 <div className="relative w-20 h-20 bg-gray-100 rounded-lg overflow-hidden">
                   <Image
-                    src="https://res.cloudinary.com/dgm2mosta/image/upload/v1761034793/shordi_New_New_dqkryu.png"
+                    src="https://res.cloudinary.com/dgm2mosta/image/upload/v1761633111/IMG_20251019_124825_co8dcd.jpg"
                     alt="Smart Nasal Cleaner Bottle"
                     fill
                     className="object-contain"

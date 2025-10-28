@@ -24,8 +24,8 @@ const reasons = [
   },
   {
     icon: HeartHandshake,
-    title: 'Local Warranty',
-    description: '6-month warranty with easy replacement. Your satisfaction is our priority.',
+    title: 'Friendly Support',
+    description: 'Questions? Message us on WhatsApp for quick help every day.',
     color: 'from-purple-500 to-pink-500'
   },
 ];

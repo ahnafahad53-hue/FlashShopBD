@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle, Package, Truck, Clock, ArrowLeft, Home, Phone } from 'lucide-react';
 import Link from 'next/link';
@@ -9,6 +9,29 @@ import Footer from '@/components/Footer';
 
 export default function ThankYouOrder() {
   const [orderNumber] = useState('ORD-' + Date.now());
+  const [lastOrder, setLastOrder] = useState<null | {
+    fullName?: string;
+    phone?: string;
+    city?: string;
+    deliveryLocation?: 'inside' | 'outside';
+    productPrice?: number;
+    deliveryCost?: number;
+    totalPrice?: number;
+  }>(null);
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem('pendingOrders');
+      if (!raw) return;
+      const list = JSON.parse(raw);
+      if (Array.isArray(list) && list.length > 0) {
+        const recent = list[list.length - 1];
+        setLastOrder(recent);
+      }
+    } catch {
+      // ignore
+    }
+  }, []);
 
   return (
     <div className="min-h-screen bg-white">
@@ -42,7 +65,38 @@ export default function ThankYouOrder() {
               Thank you for your order! We've received your order details and will process it shortly.
             </p>
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 inline-block">
-             
+              <p className="text-blue-900 font-semibold">
+                Order No: <span className="font-bold">{orderNumber}</span>
+              </p>
+              {lastOrder && (
+                <p className="text-blue-900 mt-1">
+                  Estimated delivery: 2-3 working days · {lastOrder.deliveryLocation === 'outside' ? 'Outside Dhaka' : 'Inside Dhaka'}
+                </p>
+              )}
+            </div>
+          </motion.div>
+
+          {/* Order Summary */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="bg-white border border-gray-200 rounded-xl p-6 mb-8"
+          >
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 text-center">Order Summary</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+              <div>
+                <p className="text-sm text-gray-500">Pay on Delivery</p>
+                <p className="text-2xl font-bold text-gray-900">{lastOrder?.totalPrice ? `৳${lastOrder.totalPrice}` : '৳650–800'}</p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-500">Delivery</p>
+                <p className="text-lg font-semibold text-gray-900">{lastOrder?.deliveryLocation === 'outside' ? 'Outside Dhaka' : 'Inside Dhaka'}</p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-500">City</p>
+                <p className="text-lg font-semibold text-gray-900">{lastOrder?.city || '—'}</p>
+              </div>
             </div>
           </motion.div>
 
@@ -97,7 +151,11 @@ export default function ThankYouOrder() {
             <h2 className="text-lg font-semibold text-yellow-800 mb-3">
               💰 Cash on Delivery
             </h2>
-            
+            <ul className="text-yellow-900 text-sm space-y-2">
+              <li>Pay the courier in cash upon delivery. No advance needed.</li>
+              <li>Please keep your phone available for the confirmation call.</li>
+              <li>Delivery charge: Inside Dhaka ৳80 · Outside Dhaka ৳150.</li>
+            </ul>
           </motion.div>
 
           {/* Order Confirmation Notice */}

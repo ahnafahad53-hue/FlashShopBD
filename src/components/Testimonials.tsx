@@ -1,34 +1,47 @@
 'use client';
 
+import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Star, Quote } from 'lucide-react';
 import Button from './Button';
+import { videoReviews } from '../data/reviewVideos';
 
-const testimonials = [
-  {
-    name: 'Fatima Rahman',
-    location: 'Dhaka',
-    rating: 5,
-    text: 'This nasal cleaner has been a game-changer for my allergies! Easy to use and very effective. I can finally breathe freely during pollen season.',
-    date: '2 weeks ago',
-  },
-  {
-    name: 'Karim Ahmed',
-    location: 'Chittagong',
-    rating: 5,
-    text: 'Highly recommended! My whole family uses it daily. The quality is excellent and it\'s so simple to clean and maintain.',
-    date: '1 month ago',
-  },
-  {
-    name: 'Nusrat Jahan',
-    location: 'Sylhet',
-    rating: 4,
-    text: 'Great product at an affordable price. Delivery was quick and the packaging was very secure. Would definitely buy again!',
-    date: '3 weeks ago',
-  },
-];
+// Video sources are managed in src/data/reviewVideos.ts for easy editing
+
+// Text testimonials removed from home page as requested
 
 export default function Testimonials() {
+  const [current, setCurrent] = useState(1); // center index
+  const [muted] = useState(true);
+  const dragStartX = useRef<number | null>(null);
+  const dragging = useRef(false);
+
+  const total = videoReviews.length;
+  const leftIndex = (current - 1 + total) % total;
+  const centerIndex = current % total;
+  const rightIndex = (current + 1) % total;
+  const visible = [leftIndex, centerIndex, rightIndex];
+
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    dragStartX.current = e.clientX;
+    dragging.current = true;
+    (e.currentTarget as HTMLDivElement).setPointerCapture(e.pointerId);
+  };
+
+  const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!dragging.current || dragStartX.current === null) return;
+    const delta = e.clientX - dragStartX.current;
+    const threshold = 50;
+    if (delta > threshold) {
+      // swipe right -> go to previous
+      setCurrent((prev) => (prev - 1 + total) % total);
+    } else if (delta < -threshold) {
+      // swipe left -> next
+      setCurrent((prev) => (prev + 1) % total);
+    }
+    dragging.current = false;
+    dragStartX.current = null;
+  };
+
   return (
     <section id="reviews" className="py-12 sm:py-16 lg:py-20 xl:py-24 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
@@ -48,53 +61,54 @@ export default function Testimonials() {
           </p>
         </motion.div>
 
-        {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-          {testimonials.map((testimonial, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="relative"
-            >
-              <div className="p-4 sm:p-6 lg:p-8 h-64 sm:h-72 lg:h-80 relative hover:scale-[1.02] transition-all duration-300 bg-white border border-gray-200 rounded-xl flex flex-col shadow-sm hover:shadow-md">
-                  {/* Quote Icon */}
-                  <div className="absolute top-4 right-4 sm:top-6 sm:right-6 lg:top-8 lg:right-8 text-gray-900/60">
-                    <Quote size={32} className="sm:w-10 sm:h-10 lg:w-12 lg:h-12" />
+        {/* Video Reviews - three visible, click or drag to change */}
+        <div className="mb-12 sm:mb-14 lg:mb-16">
+          <motion.div
+            layout
+            transition={{ duration: 0.35, ease: 'easeInOut' }}
+            className="mx-auto w-full flex items-center justify-center gap-4 sm:gap-6 select-none cursor-grab active:cursor-grabbing"
+            onPointerDown={handlePointerDown}
+            onPointerUp={handlePointerUp}
+          >
+            {visible.map((idx, pos) => {
+              const v = videoReviews[idx];
+              const isCenter = pos === 1;
+              const targetHeight = isCenter ? 520 : 460;
+              const targetScale = isCenter ? 1 : 0.95;
+              const z = isCenter ? 'z-20' : 'z-10';
+              const opacity = isCenter ? 'opacity-100' : 'opacity-90';
+              return (
+                <motion.button
+                  layout
+                  key={v.id}
+                  type="button"
+                  onClick={() => setCurrent(idx)}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  animate={{ scale: targetScale }}
+                  transition={{ duration: 0.35, ease: 'easeInOut' }}
+                  style={{ height: targetHeight }}
+                  className={`relative w-[260px] sm:w-[280px] lg:w-[300px] ${z} ${opacity} rounded-2xl overflow-hidden bg-white border border-gray-200 shadow-sm`}
+                >
+                  <div className="absolute inset-0">
+                    <video
+                      className="w-full h-full object-cover"
+                      muted={muted}
+                      controls
+                      preload="metadata"
+                      playsInline
+                    >
+                      <source src={v.src} type="video/mp4" />
+                    </video>
                   </div>
-
-                  {/* Rating */}
-                  <div className="flex items-center mb-3 sm:mb-4 relative z-10">
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className={`${
-                          i < testimonial.rating
-                            ? 'text-gray-900 fill-gray-900'
-                            : 'text-gray-500'
-                        }`}
-                        size={16}
-                      />
-                    ))}
-                  </div>
-
-                  {/* Review Text */}
-                  <p className="text-sm sm:text-base text-gray-900 leading-relaxed mb-4 sm:mb-6 relative z-10 flex-grow">
-                    "{testimonial.text}"
-                  </p>
-
-                  {/* Customer Info */}
-                  <div className="pt-3 sm:pt-4 relative z-10">
-                    <p className="text-sm sm:text-base font-bold text-gray-900">{testimonial.name}</p>
-                    <p className="text-xs sm:text-sm text-gray-900">{testimonial.location}</p>
-                    <p className="text-xs text-gray-900/80 mt-1">Verified Purchase - {testimonial.date}</p>
-                  </div>
-              </div>
-            </motion.div>
-          ))}
+                </motion.button>
+              );
+            })}
+          </motion.div>
         </div>
+
+        {/* Text testimonials grid removed */}
 
         {/* View More Reviews */}
         <motion.div
@@ -104,7 +118,7 @@ export default function Testimonials() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="text-center mt-12"
         >
-          <Button className="px-6 py-3 font-semibold text-sm">
+          <Button href="/reviews" className="px-6 py-3 font-semibold text-sm">
             View All 127 Reviews
           </Button>
         </motion.div>

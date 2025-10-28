@@ -10,8 +10,8 @@ export default function FloatingCTA() {
     setIsOpen(!isOpen);
   };
 
-  const phoneNumber = '+8801345903907';
-  const whatsappNumber = '8801345903907';
+  const phoneNumber = '01345903907';
+  const whatsappMessageLink = 'https://wa.me/message/QB5ZDFKU4NQBL1';
   const email = 'flashshopbd001@gmail.com';
 
   return (
@@ -30,7 +30,7 @@ export default function FloatingCTA() {
 
           {/* WhatsApp Button */}
           <a
-            href={`https://wa.me/${whatsappNumber}`}
+            href={whatsappMessageLink}
             target="_blank"
             rel="noopener noreferrer"
             className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-full shadow-lg flex items-center gap-3 transition-all duration-300 transform hover:scale-105"
@@ -41,7 +41,7 @@ export default function FloatingCTA() {
 
           {/* Messenger/Chat Button */}
           <a
-            href={`https://m.me/flashshopbd`}
+            href={whatsappMessageLink}
             target="_blank"
             rel="noopener noreferrer"
             className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-full shadow-lg flex items-center gap-3 transition-all duration-300 transform hover:scale-105"

@@ -8,10 +8,11 @@ import Link from 'next/link';
 import Button from './Button';
 
 const productImages = [
-  { id: 1, src: '/images/1.jpeg', alt: 'Nasal Cleaner - Main View' },
-  { id: 2, src: '/images/2.jpeg', alt: 'Nasal Cleaner - Side View' },
-  { id: 3, src: '/images/3.jpeg', alt: 'Nasal Cleaner - In Use' },
-  { id: 4, src: '/images/4.jpeg', alt: 'Nasal Cleaner - Package Contents' },
+  { id: 1, src: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761633111/IMG_20251019_124825_co8dcd.jpg', alt: 'Smart Nasal Cleaner - Main View' },
+  { id: 2, src: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761633110/IMG_20251019_123820_p4kvve.jpg', alt: 'Smart Nasal Cleaner - Side View' },
+  { id: 3, src: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761633108/IMG_20250925_162855_wtgfpz.jpg', alt: 'Smart Nasal Cleaner - Package View' },
+  { id: 4, src: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761633102/IMG_20250929_083939_ibmkuj.jpg', alt: 'Smart Nasal Cleaner - Detail View' },
+  { id: 5, src: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761633116/IMG_20251019_131413_kf5jdi.jpg', alt: 'Smart Nasal Cleaner - Usage View' },
 ];
 
 const tabs = [
@@ -36,13 +37,13 @@ export default function ProductDetails() {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              className="relative w-full h-[400px] sm:h-[500px] lg:h-[600px] rounded-2xl overflow-hidden"
+              className="relative w-full h-[400px] sm:h-[500px] lg:h-[600px] rounded-2xl overflow-hidden bg-white"
             >
               <Image
                 src={productImages[selectedImage].src}
                 alt={productImages[selectedImage].alt}
                 fill
-                className="object-cover"
+                className="object-contain"
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
               />
             </motion.div>
@@ -63,7 +64,7 @@ export default function ProductDetails() {
                     src={img.src}
                     alt={img.alt}
                     fill
-                    className="object-cover"
+                    className="object-contain bg-white"
                     sizes="(max-width: 640px) 25vw, (max-width: 1024px) 12.5vw, 10vw"
                   />
                 </button>

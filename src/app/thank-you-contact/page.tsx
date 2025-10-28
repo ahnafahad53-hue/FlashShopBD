@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle, Mail, Phone, ArrowLeft, Home } from 'lucide-react';
 import Link from 'next/link';
@@ -7,6 +8,12 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 export default function ThankYouContact() {
+  const [refId, setRefId] = useState<string>('MSG-' + Date.now());
+
+  useEffect(() => {
+    // Create a short readable reference id
+    setRefId('MSG-' + new Date().getTime().toString().slice(-6));
+  }, []);
 
   return (
     <div className="min-h-screen bg-white">
@@ -40,6 +47,9 @@ export default function ThankYouContact() {
               We've received your message and will get back to you within 24 hours. 
               Our team is excited to help you with your inquiry.
             </p>
+            <div className="mt-4 inline-block bg-blue-50 border border-blue-200 text-blue-900 px-4 py-2 rounded-lg">
+              Reference ID: <span className="font-semibold">{refId}</span>
+            </div>
           </motion.div>
 
           {/* Contact Information */}
@@ -55,12 +65,13 @@ export default function ThankYouContact() {
             <div className="space-y-3">
               <div className="flex items-center justify-center gap-3">
                 <Mail className="w-5 h-5 text-blue-600" />
-                <span className="text-gray-700">lashshopbd001@gmail.com</span>
+                <span className="text-gray-700">flashshopbd001@gmail.com</span>
               </div>
               <div className="flex items-center justify-center gap-3">
                 <Phone className="w-5 h-5 text-blue-600" />
                 <span className="text-gray-700">+880 1345903907</span>
               </div>
+              <p className="text-sm text-gray-600 text-center">Our team responds Sunday–Thursday, 9:00 AM – 6:00 PM.</p>
             </div>
           </motion.div>
 
