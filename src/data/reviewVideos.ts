@@ -27,21 +27,7 @@ export const videoReviews: ReviewVideo[] = [
     src: 'https://res.cloudinary.com/dgm2mosta/video/upload/v1761644532/InShot_20251028_142452675_gcjj3w.mp4',
     caption: 'Real customer video review 4',
   },
-  {
-    id: 'v5',
-    src: 'https://res.cloudinary.com/<cloud_name>/video/upload/v<version>/<public_id_5>.mp4',
-    caption: 'Real customer video review 5',
-  },
-  {
-    id: 'v6',
-    src: 'https://res.cloudinary.com/<cloud_name>/video/upload/v<version>/<public_id_6>.mp4',
-    caption: 'Real customer video review 6',
-  },
-  {
-    id: 'v7',
-    src: 'https://res.cloudinary.com/<cloud_name>/video/upload/v<version>/<public_id_7>.mp4',
-    caption: 'Real customer video review 7',
-  },
+
 ];
 
 
