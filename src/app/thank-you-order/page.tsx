@@ -1,7 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle, Package, Truck, Clock, ArrowLeft, Home, Phone } from 'lucide-react';
 import Link from 'next/link';
@@ -9,23 +8,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 export default function ThankYouOrder() {
-  const router = useRouter();
-  const [countdown, setCountdown] = useState(15);
   const [orderNumber] = useState('ORD-' + Date.now());
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCountdown((prev) => {
-        if (prev <= 1) {
-          router.push('/');
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [router]);
 
   return (
     <div className="min-h-screen bg-white">
@@ -59,9 +42,7 @@ export default function ThankYouOrder() {
               Thank you for your order! We've received your order details and will process it shortly.
             </p>
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 inline-block">
-              <p className="text-blue-800 font-semibold">
-                Order Number: <span className="font-mono">{orderNumber}</span>
-              </p>
+             
             </div>
           </motion.div>
 
@@ -116,8 +97,21 @@ export default function ThankYouOrder() {
             <h2 className="text-lg font-semibold text-yellow-800 mb-3">
               💰 Cash on Delivery
             </h2>
-            <p className="text-yellow-700">
-              You can pay <strong>৳999</strong> when your order is delivered. No advance payment required!
+            
+          </motion.div>
+
+          {/* Order Confirmation Notice */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.7 }}
+            className="bg-blue-50 border border-blue-200 rounded-xl p-6 mb-8"
+          >
+            <h2 className="text-lg font-semibold text-blue-800 mb-3 flex items-center gap-2">
+              📞 Order Confirmation
+            </h2>
+            <p className="text-blue-700 leading-relaxed">
+              Our specialist will contact you within 24 hours to confirm your order details, delivery address, and preferred payment method. Please keep your phone available.
             </p>
           </motion.div>
 
@@ -125,7 +119,7 @@ export default function ThankYouOrder() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
+            transition={{ duration: 0.6, delay: 0.9 }}
             className="bg-gray-50 rounded-xl p-6 mb-8"
           >
             <h2 className="text-xl font-semibold text-gray-900 mb-4 text-center">
@@ -133,7 +127,7 @@ export default function ThankYouOrder() {
             </h2>
             <div className="text-center space-y-2">
               <p className="text-gray-700">
-                Call us at <strong>+880 1XXX-XXXXXX</strong> and mention your order number.
+                Call us at <strong>+880  1345903907</strong> and mention your order number.
               </p>
               <p className="text-sm text-gray-600">
                 Our customer service team is available 9 AM - 6 PM, Sunday to Thursday.
@@ -145,7 +139,7 @@ export default function ThankYouOrder() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.0 }}
+            transition={{ duration: 0.6, delay: 1.1 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
             <Link
@@ -163,7 +157,7 @@ export default function ThankYouOrder() {
               View Products
             </Link>
             <a
-              href="tel:+8801XXXXXXXX"
+              href="tel:+880 1345903907"
               className="inline-flex items-center gap-2 px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
             >
               <Phone className="w-4 h-4" />
@@ -171,15 +165,6 @@ export default function ThankYouOrder() {
             </a>
           </motion.div>
 
-          {/* Auto Redirect Notice */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 1.2 }}
-            className="mt-8 text-center text-sm text-gray-500"
-          >
-            <p>You will be automatically redirected to the home page in {countdown} seconds.</p>
-          </motion.div>
         </div>
       </div>
 

@@ -2,7 +2,6 @@ import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import Features from '@/components/Features';
 import HowItWorks from '@/components/HowItWorks';
-import ProductDetails from '@/components/ProductDetails';
 import WhyChooseUs from '@/components/WhyChooseUs';
 import Testimonials from '@/components/Testimonials';
 import FAQ from '@/components/FAQ';
@@ -26,9 +25,6 @@ export default function Home() {
       {/* How It Works - Step-by-step guide */}
       <HowItWorks />
 
-      {/* Product Details Section - Images, pricing, tabs with description */}
-      <ProductDetails />
-
       {/* Why Choose FlashShop - Trust indicators */}
       <WhyChooseUs />
 
@@ -40,22 +36,6 @@ export default function Home() {
 
       {/* Final CTA - Conversion-focused call to action */}
       <CTA />
-
-      {/* Footer Separator - Visual indicator where footer begins */}
-      <div className="relative">
-        {/* Subtle gradient line */}
-        <div className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
-        {/* Centered accent line */}
-        <div className="flex justify-center -mt-0.5">
-          <div className="w-24 h-0.5 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-500 rounded-full"></div>
-        </div>
-        {/* Decorative dots */}
-        <div className="flex justify-center space-x-2 mt-4 mb-8">
-          <div className="w-2 h-2 bg-blue-400 rounded-full opacity-60"></div>
-          <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-          <div className="w-2 h-2 bg-blue-400 rounded-full opacity-60"></div>
-        </div>
-      </div>
 
       {/* Footer - Contact info, links, social media */}
       <Footer />
@@ -79,7 +59,7 @@ export default function Home() {
               '@type': 'Offer',
               url: 'https://flashshop.com',
               priceCurrency: 'BDT',
-              price: '999',
+              price: '650',
               priceValidUntil: '2025-12-31',
               itemCondition: 'https://schema.org/NewCondition',
               availability: 'https://schema.org/InStock',

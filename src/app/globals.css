@@ -318,7 +318,7 @@ input[type='number'] {
 .hero-buttons,
 .hero-trust-badges,
 .hero-image {
-  opacity: 0;
+  opacity: 1;
 }
 
 .hover-card {

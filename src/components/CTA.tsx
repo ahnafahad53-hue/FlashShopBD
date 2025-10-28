@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowRight, Shield, Truck, Award } from 'lucide-react';
+import { ArrowRight, Shield, Truck, Users } from 'lucide-react';
 import Link from 'next/link';
 import Button from './Button';
 
@@ -20,8 +20,8 @@ export default function CTA() {
           {/* CTA Button */}
           <div className="mb-8 sm:mb-12">
             <Button href="/checkout" className="px-6 sm:px-8 py-3 sm:py-4 font-semibold text-sm flex items-center gap-2">
-              <span>Order Now - ৳999</span>
-              <ArrowRight className="w-4 h-4" />
+              <span>Order Now</span>
+              
             </Button>
           </div>
 
@@ -41,9 +41,9 @@ export default function CTA() {
             </div>
             <div className="flex flex-col items-center gap-2 p-3 sm:p-4 transition-all duration-300">
               <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#E4E5E8' }}>
-                <Award className="w-5 h-5 sm:w-6 sm:h-6 text-gray-900" />
+                <Users className="w-5 h-5 sm:w-6 sm:h-6 text-gray-900" />
               </div>
-              <span className="text-sm sm:text-base text-gray-900 font-medium text-center">6-Month Warranty</span>
+              <span className="text-sm sm:text-base text-gray-900 font-medium text-center">10,000+ Happy Customers</span>
             </div>
           </div>
         </div>

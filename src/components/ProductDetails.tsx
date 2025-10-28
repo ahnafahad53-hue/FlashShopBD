@@ -26,7 +26,7 @@ export default function ProductDetails() {
   const [selectedImage, setSelectedImage] = useState(0);
 
   return (
-    <section id="products" className="py-12 sm:py-16 lg:py-20 xl:py-24 bg-white">
+    <section className="py-24 sm:py-20 lg:py-24 xl:py-28 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16">
           {/* Left - Product Images */}
@@ -101,8 +101,16 @@ export default function ProductDetails() {
 
               {/* Price */}
               <div className="flex items-baseline space-x-4">
-                <span className="text-5xl font-bold text-gray-900">৳999</span>
-                <span className="text-2xl text-gray-900 line-through">৳1,499</span>
+                <span className="text-5xl font-bold text-gray-900">৳650</span>
+                <span className="text-2xl text-gray-900 line-through">৳1,050</span>
+              </div>
+              
+              {/* Delivery Info */}
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <p className="text-sm text-blue-900 font-medium">Delivery Charges:</p>
+                <p className="text-sm text-blue-800 mt-1">
+                  Inside Dhaka: ৳80 | Outside Dhaka: ৳150
+                </p>
               </div>
 
               {/* Short Description */}
@@ -111,10 +119,10 @@ export default function ProductDetails() {
               </p>
 
               {/* Add to Cart Button */}
-              <Button href="/checkout" className="w-full px-6 py-3 font-semibold text-sm flex items-center justify-center gap-2">
-                
-                <span>Add to Cart </span>
-              </Button>
+              <a href="/checkout" className="w-full py-4 px-8 font-semibold text-base bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 text-white hover:from-cyan-600 hover:via-blue-700 hover:to-indigo-700 shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-3 rounded-xl">
+                <ShoppingCart size={20} />
+                <span>Add to Cart</span>
+              </a>
 
               {/* Quick Info */}
               <div className="grid grid-cols-2 gap-4 pt-4">
@@ -124,11 +132,11 @@ export default function ProductDetails() {
                 </div>
                 <div className="p-4 rounded-lg">
                   <p className="text-sm text-gray-900">Capacity</p>
-                  <p className="font-semibold text-gray-900">300ml</p>
+                  <p className="font-semibold text-gray-900">500ml</p>
                 </div>
                 <div className="p-4 rounded-lg">
-                  <p className="text-sm text-gray-900">Warranty</p>
-                  <p className="font-semibold text-gray-900">6 Months</p>
+                  <p className="text-sm text-gray-900">Reusable</p>
+                  <p className="font-semibold text-gray-900">Long-lasting</p>
                 </div>
                 <div className="p-4 rounded-lg">
                   <p className="text-sm text-gray-900">Delivery</p>

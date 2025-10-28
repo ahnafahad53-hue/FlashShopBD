@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import SmoothScrollProvider from '@/components/SmoothScrollProvider';
+import FloatingCTA from '@/components/FloatingCTA';
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -105,6 +106,7 @@ export default function RootLayout({
       <body className={`${inter.className} font-inter antialiased`}>
         <SmoothScrollProvider>
           {children}
+          <FloatingCTA />
         </SmoothScrollProvider>
       </body>
     </html>

@@ -33,7 +33,7 @@ export default function Contact() {
     try {
       console.log('Submitting contact data:', formData);
       
-      const response = await fetch('https://script.google.com/macros/s/AKfycbye347_k1uZaKqfGs1RP8f9fisfY--Tybgi2b1jrUs1teiS2b2tcKtqX7p_jCUmWpDD/exec?sheet=contact-us', {
+      const response = await fetch('https://script.google.com/macros/s/AKfycbxySwJfivbBwNA3nk9EoL5ZLMd0c5Ym3UtveoN2q9VuAQWI5gS8PeuznwcWiMoHXY36/exec?sheet=contact-us', {
         method: 'POST',
         mode: 'no-cors', // Add this to handle CORS issues
         headers: { 'Content-Type': 'application/json' },
@@ -143,8 +143,8 @@ export default function Contact() {
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                      placeholder="+880 1XXX-XXXXXX"
+                    className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                    placeholder="+880 1345903907"
                     />
                   </div>
                   <div>
@@ -225,46 +225,45 @@ export default function Contact() {
 
               {/* Contact Details */}
               <div className="space-y-6">
-                <div className="flex items-start space-x-4 p-6 bg-blue-50 rounded-xl">
-                  <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <Phone className="text-white" size={20} />
+                <div className="flex items-start space-x-4 p-6 bg-white border border-gray-200 rounded-xl">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ backgroundColor: '#E4E5E8' }}>
+                    <Phone className="text-gray-900" size={20} />
                   </div>
                   <div>
                     <h3 className="font-semibold text-slate-900 mb-1">Phone</h3>
                     <p className="text-slate-600 mb-2">Call us directly</p>
-                    <a href="tel:+8801XXXXXXXXX" className="text-blue-600 font-medium hover:text-blue-700 transition-colors">
-                      +880 1XXX-XXXXXX
+                    <a href="tel:+8801345903907" className="text-blue-600 font-medium hover:text-blue-700 transition-colors">
+                      +880 1345903907
                     </a>
                   </div>
                 </div>
 
-                <div className="flex items-start space-x-4 p-6 bg-emerald-50 rounded-xl">
-                  <div className="w-12 h-12 bg-emerald-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <Mail className="text-white" size={20} />
+                <div className="flex items-start space-x-4 p-6 bg-white border border-gray-200 rounded-xl">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ backgroundColor: '#E4E5E8' }}>
+                    <Mail className="text-gray-900" size={20} />
                   </div>
                   <div>
                     <h3 className="font-semibold text-slate-900 mb-1">Email</h3>
                     <p className="text-slate-600 mb-2">Send us an email</p>
-                    <a href="mailto:support@flashshop.com" className="text-blue-600 font-medium hover:text-blue-700 transition-colors">
-                      support@flashshop.com
+                    <a href="mailto:flashshopbd001@gmail.com" className="text-blue-600 font-medium hover:text-blue-700 transition-colors">
+                    flashshopbd001@gmail.com
                     </a>
                   </div>
                 </div>
 
-                <div className="flex items-start space-x-4 p-6 bg-purple-50 rounded-xl">
-                  <div className="w-12 h-12 bg-purple-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <MapPin className="text-white" size={20} />
+                <div className="flex items-start space-x-4 p-6 bg-white border border-gray-200 rounded-xl">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ backgroundColor: '#E4E5E8' }}>
+                    <MapPin className="text-gray-900" size={20} />
                   </div>
                   <div>
                     <h3 className="font-semibold text-slate-900 mb-1">Address</h3>
-                    <p className="text-slate-600 mb-2">Visit our office</p>
                     <p className="text-slate-700">Dhaka, Bangladesh</p>
                   </div>
                 </div>
 
-                <div className="flex items-start space-x-4 p-6 bg-orange-50 rounded-xl">
-                  <div className="w-12 h-12 bg-orange-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <Clock className="text-white" size={20} />
+                <div className="flex items-start space-x-4 p-6 bg-white border border-gray-200 rounded-xl">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ backgroundColor: '#E4E5E8' }}>
+                    <Clock className="text-gray-900" size={20} />
                   </div>
                   <div>
                     <h3 className="font-semibold text-slate-900 mb-1">Business Hours</h3>

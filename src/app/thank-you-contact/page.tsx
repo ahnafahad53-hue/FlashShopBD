@@ -1,7 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { CheckCircle, Mail, Phone, ArrowLeft, Home } from 'lucide-react';
 import Link from 'next/link';
@@ -9,22 +7,6 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 export default function ThankYouContact() {
-  const router = useRouter();
-  const [countdown, setCountdown] = useState(10);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCountdown((prev) => {
-        if (prev <= 1) {
-          router.push('/');
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [router]);
 
   return (
     <div className="min-h-screen bg-white">
@@ -73,11 +55,11 @@ export default function ThankYouContact() {
             <div className="space-y-3">
               <div className="flex items-center justify-center gap-3">
                 <Mail className="w-5 h-5 text-blue-600" />
-                <span className="text-gray-700">support@flashshopbd.com</span>
+                <span className="text-gray-700">lashshopbd001@gmail.com</span>
               </div>
               <div className="flex items-center justify-center gap-3">
                 <Phone className="w-5 h-5 text-blue-600" />
-                <span className="text-gray-700">+880 1XXX-XXXXXX</span>
+                <span className="text-gray-700">+880 1345903907</span>
               </div>
             </div>
           </motion.div>
@@ -105,15 +87,6 @@ export default function ThankYouContact() {
             </Link>
           </motion.div>
 
-          {/* Auto Redirect Notice */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            className="mt-8 text-sm text-gray-500"
-          >
-            <p>You will be automatically redirected to the home page in {countdown} seconds.</p>
-          </motion.div>
         </div>
       </div>
 

@@ -39,20 +39,20 @@ export default function Hero() {
               {/* Key Benefits */}
               <div className="flex flex-col gap-2 sm:gap-3">
                 <div className="flex items-center gap-2 sm:gap-3">
-                  <div className="flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-gray-400/20 flex items-center justify-center">
-                    <CheckCircle2 className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 text-gray-900" />
+                  <div className="flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-green-100 flex items-center justify-center">
+                    <CheckCircle2 className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 text-green-600" />
                   </div>
-                  <span className="text-sm sm:text-base text-gray-900/90">Instant relief from congestion & allergies</span>
+                  <span className="text-sm sm:text-base text-gray-900/90">Instant relief from sinusitis and migraine pain</span>
                 </div>
                 <div className="flex items-center gap-2 sm:gap-3">
-                  <div className="flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-gray-400/20 flex items-center justify-center">
-                    <CheckCircle2 className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 text-gray-900" />
+                  <div className="flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-green-100 flex items-center justify-center">
+                    <CheckCircle2 className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 text-green-600" />
                   </div>
                   <span className="text-sm sm:text-base text-gray-900/90">Medical-grade, BPA-free materials</span>
                 </div>
                 <div className="flex items-center gap-2 sm:gap-3">
-                  <div className="flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-gray-400/20 flex items-center justify-center">
-                    <CheckCircle2 className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 text-gray-900" />
+                  <div className="flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-green-100 flex items-center justify-center">
+                    <CheckCircle2 className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 text-green-600" />
                   </div>
                   <span className="text-sm sm:text-base text-gray-900/90">Safe for daily use by the whole family</span>
                 </div>
@@ -62,7 +62,7 @@ export default function Hero() {
             {/* CTA Buttons */}
             <div className="hero-buttons flex flex-col sm:flex-row gap-3 sm:gap-4">
               <Button href="/checkout" className="px-6 py-3 text-sm font-semibold flex items-center justify-center gap-2">
-                <span>Order Now - ৳999</span>
+                <span>Order Now</span>
               </Button>
               
               <Button className="px-6 py-3 text-sm font-semibold">

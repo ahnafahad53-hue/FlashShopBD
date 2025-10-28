@@ -132,18 +132,18 @@ export default function Footer() {
               <li className="flex items-start space-x-3">
                 <Phone className="text-blue-400 flex-shrink-0 mt-1" size={20} />
                 <div>
-                  <a href="tel:+8801XXXXXXXXX" className="hover:text-blue-400 transition-colors duration-200 block">
-                    +880 1XXX-XXXXXX
+                  <a href="tel:+8801345903907" className="hover:text-blue-400 transition-colors duration-200 block">
+                    +880 1345903907
                   </a>
                 </div>
               </li>
               <li className="flex items-start space-x-3">
                 <Mail className="text-blue-400 flex-shrink-0 mt-1" size={20} />
                 <a
-                  href="mailto:support@flashshop.com"
+                  href="mailto:iflashshopbd001@gmail.com"
                   className="hover:text-blue-400 transition-colors duration-200"
                 >
-                  support@flashshop.com
+                  flashshopbd001@gmail.com
                 </a>
               </li>
             </ul>

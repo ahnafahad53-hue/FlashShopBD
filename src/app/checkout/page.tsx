@@ -14,15 +14,32 @@ export default function CheckoutPage() {
     city: '',
     road: '',
     street: '',
-    houseNumber: ''
+    houseNumber: '',
+    deliveryLocation: 'inside'
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Pricing constants
+  const basePrice = 650;
+  const insideDhakaDelivery = 80;
+  const outsideDhakaDelivery = 150;
+  
+  // Calculate total price
+  const deliveryCost = formData.deliveryLocation === 'inside' ? insideDhakaDelivery : outsideDhakaDelivery;
+  const totalPrice = basePrice + deliveryCost;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
       [name]: value
+    }));
+  };
+
+  const handleDeliveryLocationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      deliveryLocation: e.target.value
     }));
   };
 
@@ -33,34 +50,48 @@ export default function CheckoutPage() {
     try {
       console.log('Submitting order data:', formData);
       
-      // Try Google Apps Script first
+      // Prepare the order data
+      const orderData = {
+        ...formData,
+        productPrice: basePrice,
+        deliveryCost: deliveryCost,
+        totalPrice: totalPrice
+      };
+      
+      console.log('Full order payload:', orderData);
+      
+      // Send to Google Apps Script
+      // The 302 redirect suggests the script might not be deployed correctly
       try {
-        const response = await fetch('https://script.google.com/macros/s/AKfycbye347_k1uZaKqfGs1RP8f9fisfY--Tybgi2b1jrUs1teiS2b2tcKtqX7p_jCUmWpDD/exec?sheet=product', {
+        console.log('Sending order data to Google Sheets:', orderData);
+        
+        const scriptUrl = 'https://script.google.com/macros/s/AKfycbxySwJfivbBwNA3nk9EoL5ZLMd0c5Ym3UtveoN2q9VuAQWI5gS8PeuznwcWiMoHXY36/exec?sheet=product';
+        
+        await fetch(scriptUrl, {
           method: 'POST',
           mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(orderData)
         });
-
-        console.log('Response status:', response.status);
-        console.log('Google Sheets submission successful');
+        
+        console.log('✅ Data sent to Google Apps Script (HTTP 302 is normal for redirect)');
       } catch (googleError) {
-        console.warn('Google Sheets submission failed, using fallback:', googleError);
-        
-        // Fallback: Store in localStorage and show contact info
-        const orderData = {
-          ...formData,
-          timestamp: new Date().toISOString(),
-          orderId: 'ORD-' + Date.now()
-        };
-        
-        // Store in localStorage as backup
-        const existingOrders = JSON.parse(localStorage.getItem('pendingOrders') || '[]');
-        existingOrders.push(orderData);
-        localStorage.setItem('pendingOrders', JSON.stringify(existingOrders));
-        
-        console.log('Order stored locally as backup:', orderData);
+        console.error('❌ Failed to send to Google Sheets:', googleError);
       }
+      
+      // Also store in localStorage as backup
+      const backupData = {
+        ...orderData,
+        timestamp: new Date().toISOString(),
+        orderId: 'ORD-' + Date.now()
+      };
+      
+      const existingOrders = JSON.parse(localStorage.getItem('pendingOrders') || '[]');
+      existingOrders.push(backupData);
+      localStorage.setItem('pendingOrders', JSON.stringify(existingOrders));
+      console.log('Order stored locally as backup:', backupData);
 
       // Redirect to thank you page instead of showing alert
       router.push('/thank-you-order');
@@ -118,15 +149,22 @@ export default function CheckoutPage() {
                 <div className="flex-1">
                   <h3 className="font-semibold text-gray-900">Smart Nasal Cleaner Bottle</h3>
                   <p className="text-sm text-gray-600">Medical-grade, BPA-free</p>
-                  <p className="font-bold text-gray-900 mt-1">৳999</p>
                 </div>
               </div>
 
-              {/* Order Total */}
-              <div className="border-t border-gray-200 pt-4 mt-6">
-                <div className="flex justify-between items-center text-lg font-bold text-gray-900">
+              {/* Price Breakdown */}
+              <div className="border-t border-gray-200 pt-4 mt-6 space-y-2">
+                <div className="flex justify-between text-gray-900">
+                  <span>Product Price</span>
+                  <span>৳{basePrice}</span>
+                </div>
+                <div className="flex justify-between text-gray-900">
+                  <span>Delivery Charge ({formData.deliveryLocation === 'inside' ? 'Inside Dhaka' : 'Outside Dhaka'})</span>
+                  <span>৳{deliveryCost}</span>
+                </div>
+                <div className="border-t border-gray-200 pt-2 mt-2 flex justify-between items-center text-lg font-bold text-gray-900">
                   <span>Total</span>
-                  <span>৳999</span>
+                  <span>৳{totalPrice}</span>
                 </div>
                 <p className="text-sm text-gray-600 mt-2">Cash on Delivery</p>
               </div>
@@ -191,6 +229,66 @@ export default function CheckoutPage() {
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                     placeholder="Dhaka, Chittagong, etc."
                   />
+                </div>
+
+                {/* Delivery Location */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-900 mb-3">
+                    Delivery Location *
+                  </label>
+                  <div className="grid grid-cols-2 gap-4">
+                    <label className={`flex items-center p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                      formData.deliveryLocation === 'inside'
+                        ? 'border-blue-500 bg-blue-50'
+                        : 'border-gray-300 hover:border-gray-400'
+                    }`}>
+                      <input
+                        type="radio"
+                        name="deliveryLocation"
+                        value="inside"
+                        checked={formData.deliveryLocation === 'inside'}
+                        onChange={handleDeliveryLocationChange}
+                        className="sr-only"
+                      />
+                      <div className="flex-1">
+                        <div className="font-semibold text-gray-900">Inside Dhaka</div>
+                        <div className="text-sm text-gray-600">৳{insideDhakaDelivery}</div>
+                      </div>
+                      {formData.deliveryLocation === 'inside' && (
+                        <div className="ml-2 text-blue-500">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                          </svg>
+                        </div>
+                      )}
+                    </label>
+
+                    <label className={`flex items-center p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                      formData.deliveryLocation === 'outside'
+                        ? 'border-blue-500 bg-blue-50'
+                        : 'border-gray-300 hover:border-gray-400'
+                    }`}>
+                      <input
+                        type="radio"
+                        name="deliveryLocation"
+                        value="outside"
+                        checked={formData.deliveryLocation === 'outside'}
+                        onChange={handleDeliveryLocationChange}
+                        className="sr-only"
+                      />
+                      <div className="flex-1">
+                        <div className="font-semibold text-gray-900">Outside Dhaka</div>
+                        <div className="text-sm text-gray-600">৳{outsideDhakaDelivery}</div>
+                      </div>
+                      {formData.deliveryLocation === 'outside' && (
+                        <div className="ml-2 text-blue-500">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                          </svg>
+                        </div>
+                      )}
+                    </label>
+                  </div>
                 </div>
 
                 {/* Road */}
@@ -270,7 +368,7 @@ export default function CheckoutPage() {
                   ) : (
                     <>
                       <MapPin size={20} />
-                      Place Order - ৳999
+                      Place Order - ৳{totalPrice}
                     </>
                   )}
                 </button>

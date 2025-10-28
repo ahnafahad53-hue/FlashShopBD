@@ -213,7 +213,7 @@ export const initAnimations = () => {
 
   // Wait for DOM to be ready and Lenis to initialize - faster start
   gsap.delayedCall(0.1, () => {
-    heroAnimations();
+    // heroAnimations(); // Disabled hero animations
     
     // Refresh ScrollTrigger after animations are set up
     ScrollTrigger.refresh();
