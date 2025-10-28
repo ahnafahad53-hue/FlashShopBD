@@ -56,7 +56,7 @@ export default function Header() {
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200">
       <nav className="w-full">
         <div className="w-full max-w-[1440px] mx-auto px-3 sm:px-4 lg:px-8">
-          <div className="flex items-center justify-between h-12 sm:h-14 lg:h-16 relative">
+          <div className="flex items-center justify-between h-14 sm:h-16 lg:h-18 relative">
             {/* Mobile: Hamburger Menu Button (Left) */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -93,9 +93,9 @@ export default function Header() {
               <Image
                 src="/flashshop-mobile.png"
                 alt="FlashShop Logo"
-                width={100}
-                height={40}
-                className="h-6 sm:h-8 w-auto"
+                width={120}
+                height={48}
+                className="h-7 sm:h-8 w-auto"
                 priority
               />
             </a>
@@ -127,9 +127,9 @@ export default function Header() {
               <Image
                 src="/flashshop-mobile.png"
                 alt="FlashShop Logo"
-                width={180}
-                height={40}
-                className="h-7 xl:h-8 w-auto"
+                width={160}
+                height={48}
+                className="h-8 xl:h-9 w-auto"
                 priority
               />
             </a>

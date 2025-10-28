@@ -49,10 +49,10 @@ export default function ReviewsPage() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900">
             Customer Reviews
           </h1>
-          <p className="text-lg text-gray-900 mt-3">
+          <p className="text-base sm:text-lg text-gray-900 mt-3">
             Real feedback from real customers across Bangladesh.
           </p>
         </motion.div>
@@ -61,7 +61,7 @@ export default function ReviewsPage() {
 
         {/* Text Reviews */}
         <div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {textReviews.map((r, idx) => (
               <motion.div
                 key={r.id}

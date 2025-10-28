@@ -19,11 +19,11 @@ export default function Home() {
       {/* Hero Section - Full-width with product showcase */}
       <Hero />
 
-      {/* Product Features Grid - Benefits of using the nasal cleaner */}
-      <Features />
-
       {/* How It Works - Step-by-step guide */}
       <HowItWorks />
+
+      {/* Product Features Grid - Benefits of using the nasal cleaner */}
+      <Features />
 
       {/* Why Choose FlashShop - Trust indicators */}
       <WhyChooseUs />

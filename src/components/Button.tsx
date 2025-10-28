@@ -18,14 +18,14 @@ export default function Button({
   type = 'button',
   disabled = false 
 }: ButtonProps) {
-  const baseClasses = "px-4 py-2 relative rounded group overflow-hidden font-medium bg-purple-50 text-gray-900 inline-block transition-all duration-200 ease-out";
+  const baseClasses = "px-4 py-2 relative rounded group overflow-hidden font-medium bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 text-white inline-block transition-all duration-200 ease-out";
   const disabledClasses = disabled ? "opacity-50 cursor-not-allowed" : "";
   const combinedClasses = `${baseClasses} ${disabledClasses} ${className}`;
 
   const buttonContent = (
     <>
-      <span className="absolute top-0 left-0 flex w-full h-0 mb-0 transition-all duration-200 ease-out transform translate-y-0 bg-gray-800 group-hover:h-full opacity-90"></span>
-      <span className="relative group-hover:text-white">{children}</span>
+      <span className="absolute top-0 left-0 flex w-full h-0 mb-0 transition-all duration-200 ease-out transform translate-y-0 bg-black group-hover:h-full opacity-20"></span>
+      <span className="relative">{children}</span>
     </>
   );
 

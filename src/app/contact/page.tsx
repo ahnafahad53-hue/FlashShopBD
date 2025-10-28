@@ -65,18 +65,18 @@ export default function Contact() {
       <Header />
       
       {/* Hero Section */}
-      <section className="pt-24 pb-16 bg-gradient-to-br from-blue-50 to-white">
+      <section className="pt-20 sm:pt-24 pb-12 sm:pb-16 bg-gradient-to-br from-blue-50 to-white">
         <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
-            className="text-center mb-16"
+            className="text-center mb-12 sm:mb-16"
           >
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-4 sm:mb-6">
               Contact <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Us</span>
             </h1>
-            <p className="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
               Get in touch with our team. We're here to help you with any questions about our products or support you need.
             </p>
           </motion.div>
@@ -84,11 +84,11 @@ export default function Contact() {
       </section>
 
       {/* Contact Section */}
-      <section className="py-16 sm:py-20">
+      <section className="py-12 sm:py-16 lg:py-20">
         <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
             {/* Contact Form */}
-            <div className="bg-white rounded-2xl shadow-xl p-8 sm:p-10">
+            <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 lg:p-10">
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}

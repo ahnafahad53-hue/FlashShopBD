@@ -11,7 +11,7 @@ import { videoReviews } from '../data/reviewVideos';
 
 export default function Testimonials() {
   const [current, setCurrent] = useState(1); // center index
-  const [muted] = useState(true);
+  const [muted, setMuted] = useState(true);
   const dragStartX = useRef<number | null>(null);
   const dragging = useRef(false);
 
@@ -42,70 +42,160 @@ export default function Testimonials() {
     dragStartX.current = null;
   };
 
+  const handleVideoPlay = (e: React.SyntheticEvent<HTMLVideoElement>) => {
+    // Automatically unmute when play button is pressed
+    if (muted) {
+      setMuted(false);
+      e.currentTarget.muted = false;
+    }
+  };
+
+  const handleVideoClick = (videoIndex: number, e: React.MouseEvent<HTMLButtonElement>) => {
+    // If clicking on a side video, slide it to center first
+    if (videoIndex !== centerIndex) {
+      setCurrent(videoIndex);
+      // Small delay to allow the slide animation to complete before playing
+      setTimeout(() => {
+        const videoElement = e.currentTarget.querySelector('video') as HTMLVideoElement;
+        if (videoElement) {
+          videoElement.play();
+        }
+      }, 400); // Match the transition duration
+    } else {
+      // If clicking on center video, play immediately
+      const videoElement = e.currentTarget.querySelector('video') as HTMLVideoElement;
+      if (videoElement) {
+        videoElement.play();
+      }
+    }
+  };
+
   return (
-    <section id="reviews" className="py-12 sm:py-16 lg:py-20 xl:py-24 bg-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+    <section id="reviews" className="py-8 sm:py-12 md:py-16 lg:py-20 xl:py-24 bg-white">
+      <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 max-w-7xl">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-10 sm:mb-12 lg:mb-16"
+          className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16"
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-2 sm:mb-3 md:mb-4 px-2">
             Loved by <span className="text-gray-900">10,000+</span> Customers
           </h2>
-          <p className="text-base sm:text-lg lg:text-xl text-gray-900 max-w-3xl mx-auto">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-900 max-w-3xl mx-auto px-4">
             Real experiences from satisfied customers across Bangladesh
           </p>
         </motion.div>
 
-        {/* Video Reviews - three visible, click or drag to change */}
-        <div className="mb-12 sm:mb-14 lg:mb-16">
-          <motion.div
-            layout
-            transition={{ duration: 0.35, ease: 'easeInOut' }}
-            className="mx-auto w-full flex items-center justify-center gap-4 sm:gap-6 select-none cursor-grab active:cursor-grabbing"
-            onPointerDown={handlePointerDown}
-            onPointerUp={handlePointerUp}
-          >
-            {visible.map((idx, pos) => {
-              const v = videoReviews[idx];
-              const isCenter = pos === 1;
-              const targetHeight = isCenter ? 520 : 460;
-              const targetScale = isCenter ? 1 : 0.95;
-              const z = isCenter ? 'z-20' : 'z-10';
-              const opacity = isCenter ? 'opacity-100' : 'opacity-90';
-              return (
-                <motion.button
-                  layout
-                  key={v.id}
-                  type="button"
-                  onClick={() => setCurrent(idx)}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  animate={{ scale: targetScale }}
-                  transition={{ duration: 0.35, ease: 'easeInOut' }}
-                  style={{ height: targetHeight }}
-                  className={`relative w-[260px] sm:w-[280px] lg:w-[300px] ${z} ${opacity} rounded-2xl overflow-hidden bg-white border border-gray-200 shadow-sm`}
-                >
-                  <div className="absolute inset-0">
-                    <video
-                      className="w-full h-full object-cover"
-                      muted={muted}
-                      controls
-                      preload="metadata"
-                      playsInline
-                    >
-                      <source src={v.src} type="video/mp4" />
-                    </video>
-                  </div>
-                </motion.button>
-              );
-            })}
-          </motion.div>
+        {/* Video Reviews - responsive layout */}
+        <div className="mb-8 sm:mb-10 md:mb-12 lg:mb-14 xl:mb-16">
+          {/* Mobile: Single video view */}
+          <div className="block sm:hidden">
+            <motion.div
+              layout
+              transition={{ duration: 0.35, ease: 'easeInOut' }}
+              className="mx-auto w-full flex items-center justify-center select-none cursor-grab active:cursor-grabbing"
+              onPointerDown={handlePointerDown}
+              onPointerUp={handlePointerUp}
+            >
+              <motion.button
+                layout
+                key={videoReviews[centerIndex].id}
+                type="button"
+                onClick={(e) => handleVideoClick(centerIndex, e)}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.35, ease: 'easeInOut' }}
+                className="relative w-[280px] h-[350px] rounded-xl overflow-hidden bg-white border border-gray-200 shadow-lg"
+              >
+                <div className="absolute inset-0">
+                  <video
+                    className="w-full h-full object-cover"
+                    muted={muted}
+                    controls
+                    preload="metadata"
+                    playsInline
+                    onPlay={handleVideoPlay}
+                    controlsList="nodownload nofullscreen noremoteplayback"
+                    disablePictureInPicture
+                  >
+                    <source src={videoReviews[centerIndex].src} type="video/mp4" />
+                  </video>
+                </div>
+              </motion.button>
+            </motion.div>
+            
+            {/* Mobile navigation dots */}
+            <div className="flex justify-center mt-4 space-x-2">
+              {videoReviews.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrent(index)}
+                  className={`w-2 h-2 rounded-full transition-colors duration-200 ${
+                    index === centerIndex ? 'bg-gray-900' : 'bg-gray-300'
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Tablet and Desktop: Three video view */}
+          <div className="hidden sm:block">
+            <motion.div
+              layout
+              transition={{ duration: 0.35, ease: 'easeInOut' }}
+              className="mx-auto w-full flex items-center justify-center gap-3 sm:gap-4 md:gap-6 lg:gap-8 select-none cursor-grab active:cursor-grabbing"
+              onPointerDown={handlePointerDown}
+              onPointerUp={handlePointerUp}
+            >
+              {visible.map((idx, pos) => {
+                const v = videoReviews[idx];
+                const isCenter = pos === 1;
+                const targetHeight = isCenter ? 
+                  'h-[400px] sm:h-[420px] md:h-[460px] lg:h-[520px]' : 
+                  'h-[360px] sm:h-[380px] md:h-[420px] lg:h-[480px]';
+                const targetScale = isCenter ? 1 : 0.9;
+                const z = isCenter ? 'z-20' : 'z-10';
+                const opacity = isCenter ? 'opacity-100' : 'opacity-80';
+                const width = isCenter ? 
+                  'w-[240px] sm:w-[260px] md:w-[280px] lg:w-[300px]' : 
+                  'w-[200px] sm:w-[220px] md:w-[240px] lg:w-[260px]';
+                
+                return (
+                  <motion.button
+                    layout
+                    key={v.id}
+                    type="button"
+                    onClick={(e) => handleVideoClick(idx, e)}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    animate={{ scale: targetScale }}
+                    transition={{ duration: 0.35, ease: 'easeInOut' }}
+                    className={`relative ${width} ${targetHeight} ${z} ${opacity} rounded-xl sm:rounded-2xl overflow-hidden bg-white border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200`}
+                  >
+                    <div className="absolute inset-0">
+                      <video
+                        className="w-full h-full object-cover"
+                        muted={muted}
+                        controls
+                        preload="metadata"
+                        playsInline
+                        onPlay={handleVideoPlay}
+                        controlsList="nodownload nofullscreen noremoteplayback"
+                        disablePictureInPicture
+                      >
+                        <source src={v.src} type="video/mp4" />
+                      </video>
+                    </div>
+                  </motion.button>
+                );
+              })}
+            </motion.div>
+          </div>
         </div>
 
         {/* Text testimonials grid removed */}
@@ -116,9 +206,9 @@ export default function Testimonials() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-center mt-12"
+          className="text-center mt-8 sm:mt-10 md:mt-12"
         >
-          <Button href="/reviews" className="px-6 py-3 font-semibold text-sm">
+          <Button href="/reviews" className="px-4 sm:px-6 py-2 sm:py-3 font-semibold text-xs sm:text-sm md:text-base">
             View All 127 Reviews
           </Button>
         </motion.div>

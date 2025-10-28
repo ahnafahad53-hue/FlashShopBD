@@ -11,10 +11,8 @@ export default function CheckoutPage() {
   const [formData, setFormData] = useState({
     fullName: '',
     phone: '',
-    city: '',
-    road: '',
-    street: '',
-    houseNumber: '',
+    email: '',
+    fullAddress: '',
     deliveryLocation: 'inside'
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -28,7 +26,7 @@ export default function CheckoutPage() {
   const deliveryCost = formData.deliveryLocation === 'inside' ? insideDhakaDelivery : outsideDhakaDelivery;
   const totalPrice = basePrice + deliveryCost;
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -65,7 +63,7 @@ export default function CheckoutPage() {
       try {
         console.log('Sending order data to Google Sheets:', orderData);
         
-        const scriptUrl = 'https://script.google.com/macros/s/AKfycbzSyhkMDQJyTF4CrZBdU2WMXoesqPpxYywyLsDvBz6vEHg_vNLVAucksX4R-0SQOsQLeg/exec';
+        const scriptUrl = 'https://script.google.com/macros/s/AKfycbzS41m_8996mHVnWgi35cLAc3EbugT09kyR5qh3BjS9oqV2OCgy_QGwvdxyX0pNiPHf/exec';
         
         await fetch(scriptUrl, {
           method: 'POST',
@@ -108,7 +106,7 @@ export default function CheckoutPage() {
     }
   };
 
-  const isFormValid = formData.fullName && formData.phone && formData.city;
+  const isFormValid = formData.fullName && formData.phone && formData.fullAddress;
 
   return (
     <div className="min-h-screen bg-white">
@@ -120,25 +118,25 @@ export default function CheckoutPage() {
               <ArrowLeft size={20} />
               Back to Home
             </Link>
-            <h1 className="text-xl font-bold text-gray-900">Checkout</h1>
+            <h1 className="text-xl font-bold text-gray-900">Checkout / অর্ডার</h1>
             <div className="w-24"></div> {/* Spacer for centering */}
           </div>
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid lg:grid-cols-2 gap-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Order Summary */}
           <div className="space-y-6">
             <div className="bg-gray-50 rounded-xl p-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
                 <ShoppingCart size={24} />
-                Order Summary
+                Order Summary / অর্ডার সারসংক্ষেপ
               </h2>
               
               {/* Product */}
-              <div className="flex items-center gap-4 p-4 bg-white rounded-lg">
-                <div className="relative w-20 h-20 bg-gray-100 rounded-lg overflow-hidden">
+              <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-white rounded-lg">
+                <div className="relative w-16 h-16 sm:w-20 sm:h-20 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
                   <Image
                     src="https://res.cloudinary.com/dgm2mosta/image/upload/v1761633111/IMG_20251019_124825_co8dcd.jpg"
                     alt="Smart Nasal Cleaner Bottle"
@@ -146,9 +144,9 @@ export default function CheckoutPage() {
                     className="object-contain"
                   />
                 </div>
-                <div className="flex-1">
-                  <h3 className="font-semibold text-gray-900">Smart Nasal Cleaner Bottle</h3>
-                  <p className="text-sm text-gray-600">Medical-grade, BPA-free</p>
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-semibold text-gray-900 text-sm sm:text-base">Smart Nasal Cleaner Bottle</h3>
+                  <p className="text-xs sm:text-sm text-gray-600">Medical-grade, BPA-free</p>
                 </div>
               </div>
 
@@ -159,7 +157,7 @@ export default function CheckoutPage() {
                   <span>৳{basePrice}</span>
                 </div>
                 <div className="flex justify-between text-gray-900">
-                  <span>Delivery Charge ({formData.deliveryLocation === 'inside' ? 'Inside Dhaka' : 'Outside Dhaka'})</span>
+                  <span className="text-sm sm:text-base">Delivery Charge ({formData.deliveryLocation === 'inside' ? 'Inside Dhaka' : 'Outside Dhaka'})</span>
                   <span>৳{deliveryCost}</span>
                 </div>
                 <div className="border-t border-gray-200 pt-2 mt-2 flex justify-between items-center text-lg font-bold text-gray-900">
@@ -176,14 +174,14 @@ export default function CheckoutPage() {
             <div>
               <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
                 <User size={24} />
-                Delivery Information
+                Delivery Information / ডেলিভারি তথ্য
               </h2>
               
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Full Name */}
                 <div>
                   <label htmlFor="fullName" className="block text-sm font-medium text-gray-900 mb-2">
-                    Full Name *
+                    Full Name / পুরো নাম *
                   </label>
                   <input
                     type="text"
@@ -193,14 +191,14 @@ export default function CheckoutPage() {
                     value={formData.fullName}
                     onChange={handleInputChange}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                    placeholder="Enter your full name"
+                    placeholder="Enter your full name / আপনার পুরো নাম লিখুন"
                   />
                 </div>
 
                 {/* Phone */}
                 <div>
                   <label htmlFor="phone" className="block text-sm font-medium text-gray-900 mb-2">
-                    Phone Number *
+                    Phone Number / ফোন নম্বর *
                   </label>
                   <input
                     type="tel"
@@ -214,29 +212,45 @@ export default function CheckoutPage() {
                   />
                 </div>
 
-                {/* City */}
+                {/* Email */}
                 <div>
-                  <label htmlFor="city" className="block text-sm font-medium text-gray-900 mb-2">
-                    City *
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-900 mb-2">
+                    Email / ইমেইল (Optional / ঐচ্ছিক)
                   </label>
                   <input
-                    type="text"
-                    id="city"
-                    name="city"
-                    required
-                    value={formData.city}
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
                     onChange={handleInputChange}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                    placeholder="Dhaka, Chittagong, etc."
+                    placeholder="your.email@example.com"
+                  />
+                </div>
+
+                {/* Full Address */}
+                <div>
+                  <label htmlFor="fullAddress" className="block text-sm font-medium text-gray-900 mb-2">
+                    Full Address / সম্পূর্ণ ঠিকানা *
+                  </label>
+                  <textarea
+                    id="fullAddress"
+                    name="fullAddress"
+                    required
+                    value={formData.fullAddress}
+                    onChange={handleInputChange}
+                    rows={3}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors resize-none"
+                    placeholder="Enter your complete address with area, city, district / আপনার সম্পূর্ণ ঠিকানা লিখুন"
                   />
                 </div>
 
                 {/* Delivery Location */}
                 <div>
                   <label className="block text-sm font-medium text-gray-900 mb-3">
-                    Delivery Location *
+                    Delivery Location / ডেলিভারি এলাকা *
                   </label>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     <label className={`flex items-center p-4 border-2 rounded-lg cursor-pointer transition-all ${
                       formData.deliveryLocation === 'inside'
                         ? 'border-blue-500 bg-blue-50'
@@ -251,7 +265,7 @@ export default function CheckoutPage() {
                         className="sr-only"
                       />
                       <div className="flex-1">
-                        <div className="font-semibold text-gray-900">Inside Dhaka</div>
+                        <div className="font-semibold text-gray-900">Inside Dhaka / ঢাকার ভিতরে</div>
                         <div className="text-sm text-gray-600">৳{insideDhakaDelivery}</div>
                       </div>
                       {formData.deliveryLocation === 'inside' && (
@@ -277,7 +291,7 @@ export default function CheckoutPage() {
                         className="sr-only"
                       />
                       <div className="flex-1">
-                        <div className="font-semibold text-gray-900">Outside Dhaka</div>
+                        <div className="font-semibold text-gray-900">Outside Dhaka / ঢাকার বাইরে</div>
                         <div className="text-sm text-gray-600">৳{outsideDhakaDelivery}</div>
                       </div>
                       {formData.deliveryLocation === 'outside' && (
@@ -291,62 +305,17 @@ export default function CheckoutPage() {
                   </div>
                 </div>
 
-                {/* Road */}
-                <div>
-                  <label htmlFor="road" className="block text-sm font-medium text-gray-900 mb-2">
-                    Road
-                  </label>
-                  <input
-                    type="text"
-                    id="road"
-                    name="road"
-                    value={formData.road}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                    placeholder="Road name"
-                  />
-                </div>
-
-                {/* Street */}
-                <div>
-                  <label htmlFor="street" className="block text-sm font-medium text-gray-900 mb-2">
-                    Street
-                  </label>
-                  <input
-                    type="text"
-                    id="street"
-                    name="street"
-                    value={formData.street}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                    placeholder="Street name"
-                  />
-                </div>
-
-                {/* House Number */}
-                <div>
-                  <label htmlFor="houseNumber" className="block text-sm font-medium text-gray-900 mb-2">
-                    House Number
-                  </label>
-                  <input
-                    type="text"
-                    id="houseNumber"
-                    name="houseNumber"
-                    value={formData.houseNumber}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                    placeholder="House number"
-                  />
-                </div>
 
                 {/* Payment Method Info */}
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                   <div className="flex items-center gap-2 text-blue-900 font-medium mb-2">
                     <CreditCard size={20} />
-                    Payment Method
+                    Payment Method / পেমেন্ট পদ্ধতি
                   </div>
                   <p className="text-blue-800 text-sm">
                     We accept Cash on Delivery only. You can pay when the product is delivered to your address.
+                    <br />
+                    শুধুমাত্র ক্যাশ অন ডেলিভারি গ্রহণ করা হয়। পণ্য পৌঁছানোর সময় পেমেন্ট করতে পারবেন।
                   </p>
                 </div>
 
@@ -368,13 +337,15 @@ export default function CheckoutPage() {
                   ) : (
                     <>
                       <MapPin size={20} />
-                      Place Order - ৳{totalPrice}
+                      Place Order / অর্ডার করুন - ৳{totalPrice}
                     </>
                   )}
                 </button>
 
                 <p className="text-sm text-gray-600 text-center">
                   By placing this order, you agree to our terms and conditions. We will contact you within 24 hours to confirm delivery.
+                  <br />
+                  এই অর্ডার দিয়ে আপনি আমাদের শর্তাবলী মেনে নিচ্ছেন। ডেলিভারি নিশ্চিত করতে ২৪ ঘন্টার মধ্যে যোগাযোগ করব।
                 </p>
               </form>
             </div>

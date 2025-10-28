@@ -8,11 +8,10 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 export default function ThankYouOrder() {
-  const [orderNumber] = useState('ORD-' + Date.now());
   const [lastOrder, setLastOrder] = useState<null | {
     fullName?: string;
     phone?: string;
-    city?: string;
+    fullAddress?: string;
     deliveryLocation?: 'inside' | 'outside';
     productPrice?: number;
     deliveryCost?: number;
@@ -65,11 +64,8 @@ export default function ThankYouOrder() {
               Thank you for your order! We've received your order details and will process it shortly.
             </p>
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 inline-block">
-              <p className="text-blue-900 font-semibold">
-                Order No: <span className="font-bold">{orderNumber}</span>
-              </p>
               {lastOrder && (
-                <p className="text-blue-900 mt-1">
+                <p className="text-blue-900">
                   Estimated delivery: 2-3 working days · {lastOrder.deliveryLocation === 'outside' ? 'Outside Dhaka' : 'Inside Dhaka'}
                 </p>
               )}
@@ -94,8 +90,8 @@ export default function ThankYouOrder() {
                 <p className="text-lg font-semibold text-gray-900">{lastOrder?.deliveryLocation === 'outside' ? 'Outside Dhaka' : 'Inside Dhaka'}</p>
               </div>
               <div>
-                <p className="text-sm text-gray-500">City</p>
-                <p className="text-lg font-semibold text-gray-900">{lastOrder?.city || '—'}</p>
+                <p className="text-sm text-gray-500">Address</p>
+                <p className="text-lg font-semibold text-gray-900">{lastOrder?.fullAddress || '—'}</p>
               </div>
             </div>
           </motion.div>
@@ -185,7 +181,7 @@ export default function ThankYouOrder() {
             </h2>
             <div className="text-center space-y-2">
               <p className="text-gray-700">
-                Call us at <strong>+880  1345903907</strong> and mention your order number.
+                Call us at <strong>+880  1345903907</strong> for any questions about your order.
               </p>
               <p className="text-sm text-gray-600">
                 Our customer service team is available 9 AM - 6 PM, Sunday to Thursday.
