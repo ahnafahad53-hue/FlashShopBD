@@ -9,10 +9,11 @@ import Button from './Button';
 
 const productImages = [
   { id: 1, src: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761633111/IMG_20251019_124825_co8dcd.jpg', alt: 'Smart Nasal Cleaner - Main View' },
+  { id: 5, src: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761633116/IMG_20251019_131413_kf5jdi.jpg', alt: 'Smart Nasal Cleaner - Usage View' },
   { id: 2, src: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761633110/IMG_20251019_123820_p4kvve.jpg', alt: 'Smart Nasal Cleaner - Side View' },
   { id: 3, src: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761633108/IMG_20250925_162855_wtgfpz.jpg', alt: 'Smart Nasal Cleaner - Package View' },
   // { id: 4, src: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761633102/IMG_20250929_083939_ibmkuj.jpg', alt: 'Smart Nasal Cleaner - Detail View' },
-  { id: 5, src: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761633116/IMG_20251019_131413_kf5jdi.jpg', alt: 'Smart Nasal Cleaner - Usage View' },
+  
 ];
 
 const tabs = [
@@ -24,7 +25,7 @@ const tabs = [
 ];
 
 export default function ProductDetails() {
-  const [activeTab, setActiveTab] = useState('description');
+  const [activeTab, setActiveTab] = useState('how-to-use');
   const [selectedImage, setSelectedImage] = useState(0);
 
   return (

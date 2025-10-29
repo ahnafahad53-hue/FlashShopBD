@@ -6,6 +6,15 @@ import { useState } from 'react';
 
 const tutorialVideos = [
   {
+    id: 'desktop-2', 
+    title: 'Daily Usage Tips',
+    description: 'Master the technique for effective nasal irrigation and care',
+    icon: Monitor,
+    videoUrl: 'https://res.cloudinary.com/dgm2mosta/video/upload/v1761671800/VID_20251028211747_on4ysh.mp4',
+    thumbnail: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761633114/IMG_20251019_131330_o2cvlq.jpg', // Add your thumbnail image URL here
+    duration: '0:35'
+  },
+  {
     id: 'desktop-1',
     title: 'Complete Setup Guide',
     description: 'Learn how to properly prepare and use your nasal cleaner bottle',
@@ -14,15 +23,6 @@ const tutorialVideos = [
     videoUrl: 'https://res.cloudinary.com/dgm2mosta/video/upload/v1761671796/VID_20251028212619_n33cug.mp4',
     thumbnail: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761633116/IMG_20251019_131413_kf5jdi.jpg', // Add your thumbnail image URL here
     duration: '0:32'
-  },
-  {
-    id: 'desktop-2', 
-    title: 'Daily Usage Tips',
-    description: 'Master the technique for effective nasal irrigation and care',
-    icon: Monitor,
-    videoUrl: 'https://res.cloudinary.com/dgm2mosta/video/upload/v1761671800/VID_20251028211747_on4ysh.mp4',
-    thumbnail: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761633114/IMG_20251019_131330_o2cvlq.jpg', // Add your thumbnail image URL here
-    duration: '0:35'
   },
   {
 

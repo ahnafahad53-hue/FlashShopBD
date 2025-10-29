@@ -1,12 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import { videoReviews } from '../../data/reviewVideos';
 import { fbReviews } from '../../data/textReviews';
-import { ChevronLeft, ChevronRight, Users, MoreHorizontal, ThumbsUp, MessageSquare, Star } from 'lucide-react';
+import { ChevronLeft, ChevronRight, MoreHorizontal, ThumbsUp, MessageSquare, Star } from 'lucide-react';
 
 type TextReview = {
   id: string;
@@ -43,36 +43,7 @@ const textReviews: TextReview[] = [
 export default function ReviewsPage() {
   const [currentVideo, setCurrentVideo] = useState(0);
   const total = videoReviews.length;
-  const [avatarPool, setAvatarPool] = useState<string[]>([]);
-
-  useEffect(() => {
-    let cancelled = false;
-    const fetchAvatars = async () => {
-      try {
-        const res = await fetch(`/api/vecteezy?q=${encodeURIComponent('young Bangladeshi headshot portrait closeup')}&limit=60`, {
-          cache: 'no-store'
-        });
-        const data = await res.json();
-        if (!res.ok) {
-          console.error('Failed to fetch avatars:', data);
-          return;
-        }
-        if (!cancelled && Array.isArray(data?.images) && data.images.length) {
-          setAvatarPool(data.images as string[]);
-          console.log(`Loaded ${data.images.length} avatar images from Vecteezy`);
-        } else {
-          console.warn('No images in response:', data);
-        }
-      } catch (err) {
-        console.error('Error fetching avatars:', err);
-        // Non-fatal; fall back to default avatars
-      }
-    };
-    fetchAvatars();
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+  
   const makeInitialAvatarDataUrl = (name: string) => {
     const initial = (name || 'U').trim().charAt(0).toUpperCase();
     const bg = '%23e11d48'; // rose-600
@@ -99,7 +70,7 @@ export default function ReviewsPage() {
             Customer Reviews
           </h1>
           <p className="text-base sm:text-lg text-gray-900 mt-3">
-            Real feedback from real customers across Bangladesh.
+            feedback from customers across Bangladesh
           </p>
         </motion.div>
 
@@ -117,7 +88,6 @@ export default function ReviewsPage() {
                 <video
                   key={videoReviews[currentVideo].id}
                   className="w-full h-full object-cover"
-                  muted
                   controls
                   preload="metadata"
                   playsInline
@@ -179,7 +149,7 @@ export default function ReviewsPage() {
                   <div className="flex items-center gap-3">
                     <div className="relative w-11 h-11 rounded-full overflow-hidden border border-gray-200 bg-white shrink-0">
                       <img
-                        src={avatarPool.length ? avatarPool[idx % avatarPool.length] : r.avatar}
+                        src={r.avatar}
                         alt={r.name}
                         loading="lazy"
                         className="absolute inset-0 w-full h-full object-cover object-center"
@@ -192,7 +162,7 @@ export default function ReviewsPage() {
                       />
                     </div>
                     <div className="min-w-0">
-                      <p className="text-[15px] font-semibold text-gray-900">
+                      <p className="text-[16px] sm:text-[17px] font-semibold text-gray-900">
                         {r.name}
                         <span className="inline-flex items-center gap-1 ml-2 text-[13px] font-medium text-gray-900 align-middle">
                           <span className="inline-flex items-center justify-center">
@@ -208,7 +178,7 @@ export default function ReviewsPage() {
                       <p className="text-[12px] text-gray-600 flex items-center gap-1">
                         {r.date}
                         <span className="text-gray-400">·</span>
-                        <Users size={12} className="text-gray-500" />
+                        <img src="/globe.svg" alt="Public" className="w-3 h-3 opacity-70" />
                       </p>
                     </div>
                   </div>
@@ -218,25 +188,32 @@ export default function ReviewsPage() {
                 </div>
 
                 {/* Body */}
-                <div className="text-[18px] leading-8 text-gray-900 whitespace-pre-line mb-2">
+                <div className="text-[22px] sm:text-[24px] leading-10 text-gray-900 whitespace-pre-line mb-2">
                   {r.content || 'Write review here...'}
                 </div>
 
                 {/* Actions (visual only) */}
-                <div className="mt-3 pt-2 border-t border-gray-100 flex items-center gap-6 text-gray-600">
-                  <button type="button" className="flex items-center gap-2 text-sm hover:text-gray-800">
-                    <ThumbsUp size={16} /> <span>Like</span>
-                  </button>
-                  <button type="button" className="flex items-center gap-2 text-sm hover:text-gray-800">
-                    <MessageSquare size={16} /> <span>Comment</span>
-                  </button>
-                  <button type="button" className="flex items-center gap-2 text-sm hover:text-gray-800">
-                    <svg viewBox="0 0 24 24" className="w-4 h-4" aria-hidden="true">
-                      <path d="M12 3.25c-5.11 0-9.25 3.86-9.25 8.62 0 2.46 1.16 4.77 3.03 6.29.14.11.22.27.23.44l.05 1.17c.02.48.55.77.98.52l1.31-.79c.1-.06.22-.08.34-.06.52.1 1.06.15 1.61.15 5.11 0 9.25-3.86 9.25-8.62S17.11 3.25 12 3.25Z" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round"/>
-                      <path d="M6.9 12.3l2.97-1.78c.26-.16.6-.14.84.05l1.42 1.24c.3.26.74.27 1.05.02l2.77-2.27c.35-.29.83.17.56.54l-2.1 2.87c-.25.35-.73.46-1.11.26l-1.5-.85c-.27-.15-.6-.14-.86.04l-2.43 1.77c-.39.29-.86-.22-.61-.59Z" fill="currentColor"/>
-                    </svg>
-                    <span>Send</span>
-                  </button>
+                <div className="mt-3 pt-2 border-t border-gray-100 flex items-center justify-between text-gray-600 pr-6 sm:pr-8">
+                  <div className="flex items-center">
+                    <button type="button" className="inline-flex items-center gap-2 text-[18px] leading-none hover:text-gray-800 transition-colors">
+                      <ThumbsUp size={20} className="shrink-0 align-middle" />
+                      <span className="align-middle">Like</span>
+                    </button>
+                  </div>
+                  <div className="flex items-center gap-8">
+                    <button type="button" className="inline-flex items-center gap-2 text-[18px] leading-none hover:text-gray-800 transition-colors">
+                      <MessageSquare size={20} className="shrink-0 align-middle" />
+                      <span className="align-middle">Comment</span>
+                    </button>
+                    <button type="button" className="inline-flex items-center gap-2 text-[18px] leading-none hover:text-gray-800 transition-colors">
+                      {/* Facebook Messenger glyph - stroked outline */}
+                      <svg viewBox="0 0 24 24" className="w-5 h-5 shrink-0 align-middle" aria-hidden="true">
+                        <path d="M12 2.25c-5.385 0-9.75 3.99-9.75 8.914 0 2.713 1.4 5.15 3.63 6.777.15.11.24.29.24.48l.02 2.03c0 .4.43.65.78.45l2.27-1.26c.14-.08.31-.1.47-.07 0 0 1.39.27 2.89.27 5.385 0 9.75-3.99 9.75-8.914S17.385 2.25 12 2.25Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                        <path d="M6.9 12.3l2.97-1.78c.26-.16.6-.14.84.05l1.42 1.24c.3.26.74.27 1.05.02l2.77-2.27c.35-.29.83.17.56.54l-2.1 2.87c-.25.35-.73.46-1.11.26l-1.5-.85c-.27-.15-.6-.14-.86.04l-2.43 1.77c-.39.29-.86-.22-.61-.59Z" fill="currentColor"/>
+                      </svg>
+                      <span className="align-middle">Send</span>
+                    </button>
+                  </div>
                 </div>
               </motion.article>
             ))}
