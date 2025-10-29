@@ -4,6 +4,7 @@ import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import Button from './Button';
 import { videoReviews } from '../data/reviewVideos';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 // Video sources are managed in src/data/reviewVideos.ts for easy editing
 
@@ -96,7 +97,7 @@ export default function Testimonials() {
             <motion.div
               layout
               transition={{ duration: 0.35, ease: 'easeInOut' }}
-              className="mx-auto w-full flex items-center justify-center select-none cursor-grab active:cursor-grabbing"
+              className="relative mx-auto w-full flex items-center justify-center select-none cursor-grab active:cursor-grabbing"
               onPointerDown={handlePointerDown}
               onPointerUp={handlePointerUp}
             >
@@ -109,7 +110,7 @@ export default function Testimonials() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.35, ease: 'easeInOut' }}
-                className="relative w-[280px] h-[350px] rounded-xl overflow-hidden bg-white border border-gray-200 shadow-lg"
+                className="relative w-[280px] h-[420px] rounded-xl overflow-hidden bg-white border border-gray-200 shadow-lg"
               >
                 <div className="absolute inset-0">
                   <video
@@ -126,6 +127,26 @@ export default function Testimonials() {
                   </video>
                 </div>
               </motion.button>
+
+              {/* Arrows */}
+              <button
+                type="button"
+                aria-label="Previous review video"
+                onPointerDown={(e) => e.stopPropagation()}
+                onClick={(e) => { e.stopPropagation(); setCurrent((prev) => (prev - 1 + total) % total); }}
+                className="absolute left-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/90 border border-gray-200 shadow hover:bg-white active:scale-95 z-40"
+              >
+                <ChevronLeft className="text-gray-900" size={20} />
+              </button>
+              <button
+                type="button"
+                aria-label="Next review video"
+                onPointerDown={(e) => e.stopPropagation()}
+                onClick={(e) => { e.stopPropagation(); setCurrent((prev) => (prev + 1) % total); }}
+                className="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/90 border border-gray-200 shadow hover:bg-white active:scale-95 z-40"
+              >
+                <ChevronRight className="text-gray-900" size={20} />
+              </button>
             </motion.div>
             
             {/* Mobile navigation dots */}
@@ -147,7 +168,7 @@ export default function Testimonials() {
             <motion.div
               layout
               transition={{ duration: 0.35, ease: 'easeInOut' }}
-              className="mx-auto w-full flex items-center justify-center gap-3 sm:gap-4 md:gap-6 lg:gap-8 select-none cursor-grab active:cursor-grabbing"
+              className="relative mx-auto w-full flex items-center justify-center gap-3 sm:gap-4 md:gap-6 lg:gap-8 select-none cursor-grab active:cursor-grabbing"
               onPointerDown={handlePointerDown}
               onPointerUp={handlePointerUp}
             >
@@ -194,6 +215,26 @@ export default function Testimonials() {
                   </motion.button>
                 );
               })}
+
+              {/* Arrows */}
+              <button
+                type="button"
+                aria-label="Previous review video"
+                onPointerDown={(e) => e.stopPropagation()}
+                onClick={(e) => { e.stopPropagation(); setCurrent((prev) => (prev - 1 + total) % total); }}
+                className="absolute left-0 md:left-2 top-1/2 -translate-y-1/2 p-2 md:p-3 rounded-full bg-white/90 border border-gray-200 shadow hover:bg-white active:scale-95 z-40"
+              >
+                <ChevronLeft className="text-gray-900" size={22} />
+              </button>
+              <button
+                type="button"
+                aria-label="Next review video"
+                onPointerDown={(e) => e.stopPropagation()}
+                onClick={(e) => { e.stopPropagation(); setCurrent((prev) => (prev + 1) % total); }}
+                className="absolute right-0 md:right-2 top-1/2 -translate-y-1/2 p-2 md:p-3 rounded-full bg-white/90 border border-gray-200 shadow hover:bg-white active:scale-95 z-40"
+              >
+                <ChevronRight className="text-gray-900" size={22} />
+              </button>
             </motion.div>
           </div>
         </div>

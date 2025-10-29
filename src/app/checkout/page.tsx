@@ -52,8 +52,8 @@ export default function CheckoutPage() {
       const orderData = {
         ...formData,
         productPrice: basePrice,
-        deliveryCost: deliveryCost,
-        totalPrice: totalPrice
+        deliveryCost,
+        totalPrice
       };
       
       console.log('Full order payload:', orderData);
@@ -83,13 +83,11 @@ export default function CheckoutPage() {
       const backupData = {
         ...orderData,
         timestamp: new Date().toISOString(),
-        orderId: 'ORD-' + Date.now()
       };
-      
       const existingOrders = JSON.parse(localStorage.getItem('pendingOrders') || '[]');
       existingOrders.push(backupData);
       localStorage.setItem('pendingOrders', JSON.stringify(existingOrders));
-      console.log('Order stored locally as backup:', backupData);
+      
 
       // Redirect to thank you page instead of showing alert
       router.push('/thank-you-order');

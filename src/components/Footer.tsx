@@ -36,7 +36,7 @@ export default function Footer() {
             {/* Social Links */}
             <div className="flex space-x-4">
               <a
-                href="https://facebook.com"
+                href="https://www.facebook.com/share/17p5yog79E/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors duration-200"
@@ -45,7 +45,7 @@ export default function Footer() {
                 <Facebook size={20} className="text-gray-700 hover:text-white transition-colors duration-200" />
               </a>
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/invites/contact/?utm_source=ig_contact_invite&utm_medium=copy_link&utm_content=zjb1k8d"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center hover:bg-pink-600 transition-colors duration-200"
@@ -54,7 +54,7 @@ export default function Footer() {
                 <Instagram size={20} className="text-gray-700 hover:text-white transition-colors duration-200" />
               </a>
               <a
-                href="https://youtube.com"
+                href="https://youtube.com/@flashshop-z7o?si=yeLwx6pXkFcyZmBV"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center hover:bg-red-600 transition-colors duration-200"
