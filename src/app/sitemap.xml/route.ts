@@ -1,7 +1,9 @@
 import { NextResponse } from 'next/server';
 
-export async function GET() {
-  const baseUrl = 'https://flashshop.com';
+export async function GET(request: Request) {
+  // Dynamically get the domain serving the sitemap
+  const url = new URL(request.url);
+  const baseUrl = url.origin; // e.g., https://flashshop.com or http://localhost:3000
   const pages = [
     '',
     'products',
