@@ -67,6 +67,25 @@ export default function Home() {
                 '@type': 'Organization',
                 name: 'FlashShop',
               },
+              hasMerchantReturnPolicy: {
+                '@type': 'MerchantReturnPolicy',
+                name: 'FlashShop Return Policy',
+                url: 'https://flashshop.com/return-policy',
+                returnPolicyCategory: 'https://schema.org/ReturnNotAccepted', // Update if there's a specific return category
+              },
+              shippingDetails: {
+                '@type': 'OfferShippingDetails',
+                shippingRate: {
+                  '@type': 'MonetaryAmount',
+                  value: '100', // or 0 if free
+                  currency: 'BDT',
+                },
+                shippingDestination: {
+                  '@type': 'DefinedRegion',
+                  addressCountry: 'BD',
+                },
+                transitTimeLabel: '1-3 business days',
+              },
             },
             aggregateRating: {
               '@type': 'AggregateRating',
