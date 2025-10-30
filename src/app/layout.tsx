@@ -13,7 +13,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: 'FlashShop | Nasal Cleaner Bottle in Bangladesh | Smart Sinus Rinse',
-  description: 'Cleanse your nasal passages naturally. Smart Nasal Cleaner Bottle — easy, safe, and effective daily care for sinus relief. ৳999 only. Free delivery across Bangladesh.',
+  description: 'Cleanse your nasal passages naturally. Smart Nasal Cleaner Bottle — easy, safe, and effective daily care for sinus relief. ৳650 only. Free delivery across Bangladesh.',
   keywords: [
     'nasal cleaner',
     'nasal rinse bottle',
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Buy Nasal Cleaner Bottle in Bangladesh | FlashShop',
-    description: 'Smart Nasal Cleaner Bottle — easy, safe, and effective daily care for sinus relief. ৳999 only.',
+    description: 'Smart Nasal Cleaner Bottle — easy, safe, and effective daily care for sinus relief. ৳650 only.',
     images: ['/twitter-image.jpg'],
     creator: '@flashshop',
   },
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
   },
   manifest: '/site.webmanifest',
   other: {
-    'og:phone_number': '+880 1XXX-XXXXXX',
+    'og:phone_number': '+880 1345903907',
     'og:email': 'support@flashshop.com',
     'og:locality': 'Dhaka',
     'og:country-name': 'Bangladesh',
