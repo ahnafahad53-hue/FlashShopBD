@@ -157,6 +157,8 @@ export default function Footer() {
             <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
               <p className="text-gray-600 text-sm">
                 © {currentYear} FlashShop. All rights reserved.
+                <span className="mx-2">|</span>
+                Develop and Design by <a href="https://portfolio-gold-two-m3rawkfkqv.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline hover:text-blue-800 ml-1">Oshi</a>
               </p>
               <div className="flex items-center space-x-6 text-sm">
                 <Link href="/terms" className="hover:text-blue-400 transition-colors duration-200">
