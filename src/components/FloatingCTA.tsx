@@ -71,7 +71,7 @@ export default function FloatingCTA() {
               </defs>
             </svg>
             <span className="hidden sm:inline">Messenger</span>
-            <span className="sm:hidden">Chat</span>
+            <span className="sm:hidden">Messenger</span>
           </a>
 
           {/* Email Button */}
