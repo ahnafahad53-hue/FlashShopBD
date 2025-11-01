@@ -69,20 +69,50 @@ export default function Home() {
               },
               hasMerchantReturnPolicy: {
                 '@type': 'MerchantReturnPolicy',
-                name: 'FlashShop Return Policy',
-                url: 'https://flashshop.com/return-policy',
-                returnPolicyCategory: 'https://schema.org/ReturnNotAccepted', // Update if there's a specific return category
+                applicableCountry: {
+                  '@type': 'Country',
+                  name: 'Bangladesh',
+                },
+                returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
+                merchantReturnDays: 0,
+                returnMethod: 'https://schema.org/ReturnByMail',
               },
               shippingDetails: {
                 '@type': 'OfferShippingDetails',
                 shippingRate: {
                   '@type': 'MonetaryAmount',
-                  value: '100', // or 0 if free
+                  value: '100',
                   currency: 'BDT',
                 },
                 shippingDestination: {
                   '@type': 'DefinedRegion',
                   addressCountry: 'BD',
+                },
+                deliveryTime: {
+                  '@type': 'ShippingDeliveryTime',
+                  businessDays: {
+                    '@type': 'OpeningHoursSpecification',
+                    dayOfWeek: [
+                      'https://schema.org/Monday',
+                      'https://schema.org/Tuesday',
+                      'https://schema.org/Wednesday',
+                      'https://schema.org/Thursday',
+                      'https://schema.org/Friday',
+                    ],
+                  },
+                  cutoffTime: '14:00',
+                  handlingTime: {
+                    '@type': 'QuantitativeValue',
+                    minValue: 1,
+                    maxValue: 1,
+                    unitCode: 'DAY',
+                  },
+                  transitTime: {
+                    '@type': 'QuantitativeValue',
+                    minValue: 1,
+                    maxValue: 3,
+                    unitCode: 'DAY',
+                  },
                 },
                 transitTimeLabel: '1-3 business days',
               },
