@@ -16,7 +16,9 @@ export default function ThankYouOrder() {
     productPrice?: number;
     deliveryCost?: number;
     totalPrice?: number;
+    orderId?: string;
   }>(null);
+  const [orderId, setOrderId] = useState<string | null>(null);
 
   useEffect(() => {
     try {
@@ -27,6 +29,15 @@ export default function ThankYouOrder() {
         const recent = list[list.length - 1];
         setLastOrder(recent);
       }
+    } catch {
+      // ignore
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+      const id = localStorage.getItem('lastOrderId');
+      if (id) setOrderId(id);
     } catch {
       // ignore
     }
@@ -63,6 +74,13 @@ export default function ThankYouOrder() {
             <p className="text-lg text-gray-600 leading-relaxed mb-4">
               Thank you for your order! We've received your order details and will process it shortly.
             </p>
+            {orderId && (
+              <div className="bg-green-50 border border-green-200 rounded-lg p-3 mb-4">
+                <p className="text-green-900 font-semibold">
+                  Your Order ID: <span className="font-bold">{orderId}</span>
+                </p>
+              </div>
+            )}
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 inline-block">
               {lastOrder && (
                 <p className="text-blue-900">

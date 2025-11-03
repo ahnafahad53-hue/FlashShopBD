@@ -58,35 +58,49 @@ export default function CheckoutPage() {
       
       console.log('Full order payload:', orderData);
       
-      // Send to Google Apps Script
-      // The 302 redirect suggests the script might not be deployed correctly
+      // Send to Google Apps Script and capture orderId
+      let createdOrderId: string | undefined = undefined;
       try {
         console.log('Sending order data to Google Sheets:', orderData);
-        
+
         const scriptUrl = 'https://script.google.com/macros/s/AKfycbzS41m_8996mHVnWgi35cLAc3EbugT09kyR5qh3BjS9oqV2OCgy_QGwvdxyX0pNiPHf/exec';
-        
-        await fetch(scriptUrl, {
+
+        // Note: Apps Script should set CORS headers and accept text/plain to avoid preflight
+        const res = await fetch(scriptUrl, {
           method: 'POST',
-          mode: 'no-cors',
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'text/plain;charset=utf-8',
           },
           body: JSON.stringify(orderData)
         });
-        
-        console.log('✅ Data sent to Google Apps Script (HTTP 302 is normal for redirect)');
+
+        // Try to parse JSON response { status: 'success', orderId: '#1001', ... }
+        try {
+          const json = await res.json();
+          if (json && typeof json.orderId === 'string') {
+            createdOrderId = json.orderId;
+          }
+        } catch {
+          // If parsing fails (e.g., CORS or non-JSON), silently continue
+        }
+
+        console.log('✅ Order submission completed', { createdOrderId });
       } catch (googleError) {
         console.error('❌ Failed to send to Google Sheets:', googleError);
       }
-      
-      // Also store in localStorage as backup
+
+      // Also store in localStorage as backup (including orderId if available)
       const backupData = {
         ...orderData,
+        orderId: createdOrderId,
         timestamp: new Date().toISOString(),
       };
       const existingOrders = JSON.parse(localStorage.getItem('pendingOrders') || '[]');
       existingOrders.push(backupData);
       localStorage.setItem('pendingOrders', JSON.stringify(existingOrders));
+      if (createdOrderId) {
+        localStorage.setItem('lastOrderId', createdOrderId);
+      }
       
 
       // Redirect to thank you page instead of showing alert
