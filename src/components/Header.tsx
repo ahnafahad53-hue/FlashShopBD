@@ -54,45 +54,7 @@ export default function Header() {
     }
   }, [isSearchOpen]);
 
-  // Close search when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: Event) => {
-      const target = event.target as HTMLElement;
-      
-      // Don't close if clicking on a product link
-      if (target.closest('[data-product-link]')) {
-        return;
-      }
-      
-      // Don't close if clicking inside the search container (input, buttons, results)
-      if (searchContainerRef.current && searchContainerRef.current.contains(target)) {
-        return;
-      }
-      
-      // Don't close if clicking on the search button that opens the search
-      if (target.closest('button[aria-label="Search"]')) {
-        return;
-      }
-      
-      // Close only if clicking outside the search area
-      if (isSearchOpen) {
-        setIsSearchOpen(false);
-      }
-    };
-
-    if (isSearchOpen) {
-      // Use a small delay to allow the search to open first
-      setTimeout(() => {
-        document.addEventListener('mousedown', handleClickOutside);
-        document.addEventListener('touchstart', handleClickOutside);
-      }, 100);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('touchstart', handleClickOutside);
-    };
-  }, [isSearchOpen]);
+  // Note: Mobile search doesn't use click-outside handler to prevent closing when typing
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
@@ -277,7 +239,11 @@ export default function Header() {
                 <button
                   className="text-gray-600 hover:text-gray-900 transition-colors p-1.5 sm:p-2"
                   aria-label="Search"
-                  onClick={() => setIsSearchOpen(true)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setIsSearchOpen(true);
+                  }}
                 >
                   <Search size={18} className="sm:w-5 sm:h-5" />
                 </button>
@@ -296,24 +262,36 @@ export default function Header() {
               </div>
             ) : (
               <>
-                <div ref={searchContainerRef} className="lg:hidden absolute left-12 right-20 sm:left-16 sm:right-24 z-10" onClick={(e) => e.stopPropagation()}>
+                {/* Mobile Search Container - Fresh Implementation */}
+                <div 
+                  ref={searchContainerRef} 
+                  className="lg:hidden absolute left-12 right-20 sm:left-16 sm:right-24 z-10"
+                >
                   {/* Mobile Search Bar */}
-                  <div className="flex items-center bg-white border-2 border-gray-300 rounded-lg px-3 py-2 focus-within:border-gray-900 transition-colors" onClick={(e) => e.stopPropagation()}>
+                  <div className="flex items-center bg-white border-2 border-gray-300 rounded-lg px-3 py-2 focus-within:border-gray-900 transition-colors">
                     <Search className="text-gray-400" size={18} />
                     <input
                       ref={searchInputRef}
                       type="text"
                       value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      onClick={(e) => e.stopPropagation()}
-                      onFocus={(e) => e.stopPropagation()}
+                      onChange={(e) => {
+                        e.stopPropagation();
+                        setSearchQuery(e.target.value);
+                      }}
+                      onFocus={(e) => {
+                        e.stopPropagation();
+                      }}
                       placeholder="Search products..."
                       className="flex-1 ml-2 bg-transparent outline-none text-gray-900 placeholder:text-gray-400 text-sm"
+                      autoFocus
                     />
                     <button
+                      type="button"
                       onClick={(e) => {
+                        e.preventDefault();
                         e.stopPropagation();
                         setIsSearchOpen(false);
+                        setSearchQuery('');
                       }}
                       className="text-gray-400 hover:text-gray-600 transition-colors ml-2"
                       aria-label="Close search"
@@ -322,13 +300,13 @@ export default function Header() {
                     </button>
                   </div>
 
-                {/* Mobile Search Results Dropdown */}
-                {searchQuery.trim() && (
-                  <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg max-h-80 overflow-y-auto z-50" onClick={(e) => e.stopPropagation()}>
-                    {filteredProducts.length === 0 ? (
-                      <div className="px-4 py-6 text-center text-gray-500 text-sm">
-                        No products found
-                      </div>
+                  {/* Mobile Search Results Dropdown */}
+                  {searchQuery.trim() && (
+                    <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg max-h-80 overflow-y-auto z-50">
+                      {filteredProducts.length === 0 ? (
+                        <div className="px-4 py-6 text-center text-gray-500 text-sm">
+                          No products found
+                        </div>
                       ) : (
                         filteredProducts.map((product) => (
                           <a
@@ -338,43 +316,43 @@ export default function Header() {
                             onClick={(e) => {
                               e.preventDefault();
                               e.stopPropagation();
-                              console.log('Clicked product:', product.id);
                               setIsSearchOpen(false);
                               setSearchQuery('');
                               window.location.href = `/products/${product.id}`;
                             }}
                             className="flex items-center gap-3 px-3 py-2.5 hover:bg-gray-50 transition-colors border-b border-gray-100 last:border-b-0 cursor-pointer"
                           >
-                          <div className="relative w-10 h-10 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
-                            {product.images && product.images.length > 0 ? (
-                              <Image
-                                src={product.images[0]}
-                                alt={product.name}
-                                fill
-                                className="object-contain p-1"
-                              />
-                            ) : (
-                              <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs">
-                                {product.emoji || '📦'}
-                              </div>
-                            )}
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <p className="text-xs font-semibold text-gray-900 truncate">{product.name}</p>
-                            <p className="text-xs text-gray-500 truncate">{product.tagline}</p>
-                          </div>
-                          <div className="text-right">
-                            <p className="text-xs font-bold text-gray-900">৳{product.price}</p>
-                            {product.originalPrice && (
-                              <p className="text-xs text-gray-400 line-through">৳{product.originalPrice}</p>
-                            )}
-                          </div>
-                        </a>
-                      ))
-                    )}
-                  </div>
-                )}
+                            <div className="relative w-10 h-10 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
+                              {product.images && product.images.length > 0 ? (
+                                <Image
+                                  src={product.images[0]}
+                                  alt={product.name}
+                                  fill
+                                  className="object-contain p-1"
+                                />
+                              ) : (
+                                <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs">
+                                  {product.emoji || '📦'}
+                                </div>
+                              )}
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <p className="text-xs font-semibold text-gray-900 truncate">{product.name}</p>
+                              <p className="text-xs text-gray-500 truncate">{product.tagline}</p>
+                            </div>
+                            <div className="text-right">
+                              <p className="text-xs font-bold text-gray-900">৳{product.price}</p>
+                              {product.originalPrice && (
+                                <p className="text-xs text-gray-400 line-through">৳{product.originalPrice}</p>
+                              )}
+                            </div>
+                          </a>
+                        ))
+                      )}
+                    </div>
+                  )}
                 </div>
+                
                 {/* Mobile Cart Button when search is open */}
                 <div className="lg:hidden absolute right-0 flex items-center z-10">
                   <button
