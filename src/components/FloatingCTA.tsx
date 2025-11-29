@@ -2,9 +2,11 @@
 
 import { useState } from 'react';
 import { MessageCircle, MessageSquare, Phone, X, Mail } from 'lucide-react';
+import { useCart } from '@/context/CartContext';
 
 export default function FloatingCTA() {
   const [isOpen, setIsOpen] = useState(false);
+  const { isDrawerOpen } = useCart();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -15,7 +17,9 @@ export default function FloatingCTA() {
   const email = 'flashshopbd001@gmail.com';
 
   return (
-    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[9999] pointer-events-auto">
+    <div className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 pointer-events-auto transition-opacity duration-300 ${
+      isDrawerOpen ? 'z-[50] opacity-50' : 'z-[98] opacity-100'
+    }`}>
       {/* Floating Menu */}
       {isOpen && (
         <div className="absolute bottom-16 right-0 mb-2 space-y-2 sm:space-y-3 pointer-events-auto">

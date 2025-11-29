@@ -56,28 +56,41 @@ export default function Header() {
 
   // Close search when clicking outside
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleClickOutside = (event: Event) => {
       const target = event.target as HTMLElement;
+      
       // Don't close if clicking on a product link
       if (target.closest('[data-product-link]')) {
         return;
       }
       
-      if (
-        isSearchOpen &&
-        searchContainerRef.current &&
-        !searchContainerRef.current.contains(target)
-      ) {
+      // Don't close if clicking inside the search container (input, buttons, results)
+      if (searchContainerRef.current && searchContainerRef.current.contains(target)) {
+        return;
+      }
+      
+      // Don't close if clicking on the search button that opens the search
+      if (target.closest('button[aria-label="Search"]')) {
+        return;
+      }
+      
+      // Close only if clicking outside the search area
+      if (isSearchOpen) {
         setIsSearchOpen(false);
       }
     };
 
     if (isSearchOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
+      // Use a small delay to allow the search to open first
+      setTimeout(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        document.addEventListener('touchstart', handleClickOutside);
+      }, 100);
     }
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
     };
   }, [isSearchOpen]);
 
@@ -283,20 +296,25 @@ export default function Header() {
               </div>
             ) : (
               <>
-                <div ref={searchContainerRef} className="lg:hidden absolute left-12 right-20 sm:left-16 sm:right-24 z-10">
+                <div ref={searchContainerRef} className="lg:hidden absolute left-12 right-20 sm:left-16 sm:right-24 z-10" onClick={(e) => e.stopPropagation()}>
                   {/* Mobile Search Bar */}
-                  <div className="flex items-center bg-white border-2 border-gray-300 rounded-lg px-3 py-2 focus-within:border-gray-900 transition-colors">
+                  <div className="flex items-center bg-white border-2 border-gray-300 rounded-lg px-3 py-2 focus-within:border-gray-900 transition-colors" onClick={(e) => e.stopPropagation()}>
                     <Search className="text-gray-400" size={18} />
                     <input
                       ref={searchInputRef}
                       type="text"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
+                      onClick={(e) => e.stopPropagation()}
+                      onFocus={(e) => e.stopPropagation()}
                       placeholder="Search products..."
                       className="flex-1 ml-2 bg-transparent outline-none text-gray-900 placeholder:text-gray-400 text-sm"
                     />
                     <button
-                      onClick={() => setIsSearchOpen(false)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setIsSearchOpen(false);
+                      }}
                       className="text-gray-400 hover:text-gray-600 transition-colors ml-2"
                       aria-label="Close search"
                     >
@@ -306,7 +324,7 @@ export default function Header() {
 
                 {/* Mobile Search Results Dropdown */}
                 {searchQuery.trim() && (
-                  <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg max-h-80 overflow-y-auto z-50">
+                  <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg max-h-80 overflow-y-auto z-50" onClick={(e) => e.stopPropagation()}>
                     {filteredProducts.length === 0 ? (
                       <div className="px-4 py-6 text-center text-gray-500 text-sm">
                         No products found
