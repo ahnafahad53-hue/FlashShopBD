@@ -4,32 +4,39 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Minus } from 'lucide-react';
 import Link from 'next/link';
-import Button from './Button';
 
 const faqs = [
   {
-    question: 'How often should I use the nasal cleaner?',
-    answer: 'For best results, use the nasal cleaner once or twice daily, preferably in the morning and evening. However, you can use it more frequently if recommended by your healthcare provider, especially during allergy season or when experiencing congestion.',
+    question: 'How do I place an order?',
+    answer: 'Simply browse our products, add items to your cart, and proceed to checkout. Fill in your delivery details and choose Cash on Delivery (COD) as your payment method. We\'ll call you to confirm your order before shipping.',
   },
   {
-    question: 'Can children use this product?',
-    answer: 'Yes, children aged 4 and above can use this product under adult supervision. Make sure to use gentle pressure and ensure the child is comfortable with the process. Always consult with a pediatrician before starting nasal irrigation for young children.',
+    question: 'What payment methods do you accept?',
+    answer: 'We currently accept Cash on Delivery (COD) only. You can pay for your order when it arrives at your doorstep. This ensures you only pay when you receive your products.',
   },
   {
-    question: 'What type of water should I use?',
-    answer: 'Always use distilled, sterile, or previously boiled (and cooled) water. Never use tap water directly as it may contain bacteria or other microorganisms. The water should be lukewarm, not hot or cold, for maximum comfort.',
+    question: 'How long does delivery take?',
+    answer: 'Delivery typically takes 2-3 business days inside Dhaka and 3-5 business days outside Dhaka. We ship to all areas of Bangladesh. You\'ll receive a confirmation call with tracking details after placing your order.',
   },
   {
-    question: 'How do I clean the bottle after use?',
-    answer: 'After each use, rinse the bottle and nozzle thoroughly with warm water. Once a day, clean with warm soapy water and rinse completely. Allow it to air dry completely before storing. The bottle is also dishwasher safe (top rack only).',
+    question: 'What are the delivery charges?',
+    answer: 'Delivery charges are ৳80 inside Dhaka and ৳150 outside Dhaka. These charges will be added to your order total at checkout.',
   },
   {
-    question: 'Is this safe for daily use?',
-    answer: 'Yes, the nasal cleaner is made from medical-grade, BPA-free materials and is designed for daily use. Regular nasal irrigation can help maintain healthy sinuses and prevent infections when used properly.',
+    question: 'Are your products authentic?',
+    answer: 'Yes! We guarantee 100% authentic products. All items are quality-checked before shipping. We source directly from authorized suppliers to ensure you receive genuine, high-quality products.',
   },
   {
-    question: 'What should I do if I feel discomfort?',
-    answer: 'If you experience any pain or discomfort, stop using the product immediately. Discomfort may indicate too much pressure, incorrect head position, or water that is too hot or cold. If discomfort persists, consult with a healthcare professional.',
+    question: 'Can I cancel or modify my order?',
+    answer: 'You can cancel or modify your order within 2 hours of placing it. Please contact us immediately via WhatsApp at +880 1345903907 or call us. Once the order is shipped, it cannot be cancelled.',
+  },
+  {
+    question: 'What is your return policy?',
+    answer: 'Due to hygiene and quality reasons, we do not accept returns or exchanges. Please check the product details carefully before ordering. If you receive a damaged or defective product, contact us within 24 hours with photos.',
+  },
+  {
+    question: 'How can I track my order?',
+    answer: 'After your order is shipped, we\'ll send you tracking details via SMS and WhatsApp. You can also contact our customer support anytime for order status updates.',
   },
 ];
 
@@ -48,10 +55,10 @@ export default function FAQ() {
           className="text-center mb-10 sm:mb-12 lg:mb-16"
         >
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4">
-            Questions? <span className="text-gray-900">We've Got Answers</span>
+            Frequently Asked <span className="text-gray-900">Questions</span>
           </h2>
           <p className="text-base sm:text-lg lg:text-xl text-gray-900">
-            Everything you need to know about our Nasal Cleaner
+            Everything you need to know about shopping at FlashShop
           </p>
         </motion.div>
 
@@ -112,9 +119,9 @@ export default function FAQ() {
           className="text-center mt-8"
         >
           <p className="text-gray-900 mb-4 text-lg">Still have questions?</p>
-          <Button href="/contact" className="px-6 py-3 font-semibold text-sm">
+          <a href="/contact" className="inline-flex items-center justify-center gap-2 px-8 py-3.5 text-sm font-medium uppercase tracking-wide bg-gray-900 text-white hover:bg-gray-800 transition-all duration-300 rounded-md">
             Contact Support
-          </Button>
+          </a>
         </motion.div>
       </div>
     </section>

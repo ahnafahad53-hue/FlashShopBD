@@ -2,7 +2,6 @@
 
 import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import Button from './Button';
 import { videoReviews } from '../data/reviewVideos';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -249,9 +248,9 @@ export default function Testimonials() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="text-center mt-8 sm:mt-10 md:mt-12"
         >
-          <Button href="/reviews" className="px-4 sm:px-6 py-2 sm:py-3 font-semibold text-xs sm:text-sm md:text-base">
+          <a href="/reviews" className="inline-flex items-center justify-center gap-2 px-8 py-3.5 text-sm font-medium uppercase tracking-wide bg-gray-900 text-white hover:bg-gray-800 transition-all duration-300 rounded-md">
             View All 127 Reviews
-          </Button>
+          </a>
         </motion.div>
       </div>
     </section>

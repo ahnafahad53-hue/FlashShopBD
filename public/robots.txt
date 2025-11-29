@@ -1,0 +1,36 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Disallow admin and private pages
+Disallow: /api/
+Disallow: /thank-you-order
+Disallow: /thank-you-contact
+
+# Sitemap location
+Sitemap: https://flashshop.com/sitemap.xml
+
+# Crawl-delay for better server performance
+Crawl-delay: 1
+
+# Special rules for Google bot
+User-agent: Googlebot
+Allow: /
+
+# Special rules for Bing bot
+User-agent: Bingbot
+Allow: /
+
+# Block bad bots
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+

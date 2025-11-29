@@ -6,11 +6,32 @@ import Link from 'next/link';
 
 export default function Hero() {
   return (
-    <section id="home" className="relative min-h-screen pt-16 sm:pt-20 lg:pt-24 pb-8 sm:pb-12 lg:pb-16 bg-white">
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.3fr] gap-6 sm:gap-8 lg:gap-12 items-center min-h-[calc(100vh-4rem)] sm:min-h-[calc(100vh-5rem)] lg:min-h-[calc(100vh-6rem)]">
-          {/* Left Content */}
-          <div className="space-y-6 sm:space-y-8 max-w-xl mx-auto lg:mx-0 text-center lg:text-left">
+    <section id="home" className="relative min-h-screen pt-16 sm:pt-20 lg:pt-24 pb-8 sm:pb-12 lg:pb-16 bg-white overflow-hidden">
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0">
+        {/* Desktop Background Image */}
+        <Image
+          src="/images/product-final-11.png"
+          alt="FlashShop Background"
+          fill
+          className="object-cover hidden sm:block"
+          priority
+        />
+        {/* Mobile Background Image */}
+        <Image
+          src="/images/hero-bg-mob-final.png"
+          alt="FlashShop Mobile Background"
+          fill
+          className="object-cover sm:hidden"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/80 to-transparent"></div>
+      </div>
+      
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center min-h-[calc(100vh-4rem)] sm:min-h-[calc(100vh-5rem)] lg:min-h-[calc(100vh-6rem)]">
+          {/* Content */}
+          <div className="space-y-6 sm:space-y-8 max-w-2xl text-left">
             {/* Trust Badge */}
             <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full">
               <div className="flex items-center">
@@ -24,15 +45,15 @@ export default function Hero() {
             {/* Main Heading */}
             <div className="space-y-3 sm:space-y-4 lg:space-y-6">
               <h1 className="hero-title text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 leading-[1.1]">
-                Breathe Freely,{' '}
+                Your Trusted{' '}
                 <span className="text-gray-900 inline-flex items-center gap-1 sm:gap-2">
-                  Live Better
+                  Online Store
                   <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 text-gray-900 inline-block" />
                 </span>
               </h1>
               <p className="hero-subtitle text-base sm:text-lg md:text-xl text-gray-900 leading-relaxed font-medium">
-                Experience instant sinus relief with our medical-grade nasal cleaner. 
-                Trusted by thousands for daily nasal care and allergy relief.
+                Discover quality products at FlashShop Bangladesh. Fast delivery, 
+                authentic items, and exceptional customer service - all in one place.
               </p>
               
               {/* Key Benefits */}
@@ -41,57 +62,29 @@ export default function Hero() {
                   <div className="flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-green-100 flex items-center justify-center">
                     <CheckCircle2 className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 text-green-600" />
                   </div>
-                  <span className="text-sm sm:text-base text-gray-900/90">Instant relief from sinusitis and migraine pain</span>
+                  <span className="text-sm sm:text-base text-gray-900/90">100% Authentic Products Guaranteed</span>
                 </div>
                 <div className="flex items-center gap-2 sm:gap-3">
                   <div className="flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-green-100 flex items-center justify-center">
                     <CheckCircle2 className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 text-green-600" />
                   </div>
-                  <span className="text-sm sm:text-base text-gray-900/90">Medical-grade, BPA-free materials</span>
-                </div>
-                <div className="flex items-center gap-2 sm:gap-3">
-                  <div className="flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-green-100 flex items-center justify-center">
-                    <CheckCircle2 className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 text-green-600" />
-                  </div>
-                  <span className="text-sm sm:text-base text-gray-900/90">Safe for daily use by the whole family</span>
+                  <span className="text-sm sm:text-base text-gray-900/90">Fast Delivery Across Bangladesh</span>
                 </div>
               </div>
             </div>
 
             {/* CTA Buttons */}
             <div className="hero-buttons flex flex-col sm:flex-row gap-3 sm:gap-4">
-              <a href="/checkout" className="px-8 py-4 text-base font-semibold bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 text-white hover:from-cyan-600 hover:via-blue-700 hover:to-indigo-700 shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-2 rounded-xl">
-                <span>Order Now</span>
+              <a href="/products" className="group px-8 py-3.5 text-sm font-medium uppercase tracking-wide bg-gray-900 text-white hover:bg-gray-800 transition-all duration-300 flex items-center justify-center gap-2 rounded-md">
+                <span>Shop Now</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </a>
               
-              <a href="#how-it-works" className="px-8 py-4 text-base font-semibold relative bg-white shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 flex items-center justify-center rounded-xl group">
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 p-[2px]">
-                  <div className="w-full h-full bg-white rounded-lg"></div>
-                </div>
-                <span className="relative bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 bg-clip-text text-transparent group-hover:text-white transition-colors duration-300">Learn More</span>
+              <a href="#features" className="px-8 py-3.5 text-sm font-medium uppercase tracking-wide text-gray-900 hover:text-gray-700 border-2 border-gray-900 hover:border-gray-700 transition-all duration-300 flex items-center justify-center rounded-md">
+                <span>Learn More</span>
               </a>
             </div>
 
-          </div>
-
-          {/* Right Content - Product Image */}
-          <div className="relative order-first lg:order-last">
-            <div className="relative aspect-square max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto">
-              {/* Glow effect behind product */}
-              <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 via-blue-500/20 to-indigo-500/20 rounded-full blur-xl sm:blur-2xl lg:blur-3xl"></div>
-              
-              {/* Product Image */}
-              <div className="hero-image relative w-full h-full">
-                <Image
-                  src="https://res.cloudinary.com/dgm2mosta/image/upload/v1761034793/shordi_New_New_dqkryu.png"
-                  alt="Smart Nasal Cleaner Bottle - FlashShop"
-                  fill
-                  className="object-contain drop-shadow-lg sm:drop-shadow-xl lg:drop-shadow-2xl"
-                  priority
-                  sizes="(max-width: 640px) 80vw, (max-width: 1024px) 40vw, 30vw"
-                />
-              </div>
-            </div>
           </div>
         </div>
       </div>

@@ -1,7 +1,8 @@
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
-import Features from '@/components/Features';
-import HowItWorks from '@/components/HowItWorks';
+import Categories from '@/components/Categories';
+import FeaturedProducts from '@/components/FeaturedProducts';
+import NewArrivals from '@/components/NewArrivals';
 import WhyChooseUs from '@/components/WhyChooseUs';
 import Testimonials from '@/components/Testimonials';
 import FAQ from '@/components/FAQ';
@@ -19,11 +20,14 @@ export default function Home() {
       {/* Hero Section - Full-width with product showcase */}
       <Hero />
 
-      {/* How It Works - Step-by-step guide */}
-      <HowItWorks />
+      {/* Shop by Category */}
+      <Categories />
 
-      {/* Product Features Grid - Benefits of using the nasal cleaner */}
-      <Features />
+      {/* Featured Products */}
+      <FeaturedProducts />
+
+      {/* New Arrivals */}
+      <NewArrivals />
 
       {/* Why Choose FlashShop - Trust indicators */}
       <WhyChooseUs />
@@ -41,86 +45,102 @@ export default function Home() {
       <Footer />
       </div>
 
-      {/* Structured Data for SEO (JSON-LD) */}
+      {/* Structured Data for SEO (JSON-LD) - Organization */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             '@context': 'https://schema.org',
-            '@type': 'Product',
-            name: 'Smart Nasal Cleaner Bottle',
-            image: 'https://flashshop.com/nasal-cleaner.jpg',
-            description: 'Smart Nasal Cleaner Bottle — gently cleanse and refresh your sinuses daily. Professional-grade nasal irrigation for allergy relief and better breathing.',
-            brand: {
-              '@type': 'Brand',
-              name: 'FlashShop',
+            '@type': 'Organization',
+            name: 'FlashShop Bangladesh',
+            alternateName: 'FlashShop',
+            url: 'https://flashshop.com',
+            logo: 'https://flashshop.com/flashshop.png',
+            description: 'FlashShop is Bangladesh\'s trusted online shopping destination for quality health, wellness, personal care, and kids products. Fast delivery across Bangladesh with 100% authentic products.',
+            address: {
+              '@type': 'PostalAddress',
+              addressLocality: 'Dhaka',
+              addressCountry: 'BD',
             },
-            offers: {
-              '@type': 'Offer',
-              url: 'https://flashshop.com',
-              priceCurrency: 'BDT',
-              price: '650',
-              priceValidUntil: '2025-12-31',
-              itemCondition: 'https://schema.org/NewCondition',
-              availability: 'https://schema.org/InStock',
-              seller: {
-                '@type': 'Organization',
-                name: 'FlashShop',
-              },
-              hasMerchantReturnPolicy: {
-                '@type': 'MerchantReturnPolicy',
-                applicableCountry: {
-                  '@type': 'Country',
-                  name: 'Bangladesh',
-                },
-                returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
-                merchantReturnDays: 0,
-                returnMethod: 'https://schema.org/ReturnByMail',
-              },
-              shippingDetails: {
-                '@type': 'OfferShippingDetails',
-                shippingRate: {
-                  '@type': 'MonetaryAmount',
-                  value: '100',
-                  currency: 'BDT',
-                },
-                shippingDestination: {
-                  '@type': 'DefinedRegion',
-                  addressCountry: 'BD',
-                },
-                deliveryTime: {
-                  '@type': 'ShippingDeliveryTime',
-                  businessDays: {
-                    '@type': 'OpeningHoursSpecification',
-                    dayOfWeek: [
-                      'https://schema.org/Monday',
-                      'https://schema.org/Tuesday',
-                      'https://schema.org/Wednesday',
-                      'https://schema.org/Thursday',
-                      'https://schema.org/Friday',
-                    ],
-                  },
-                  cutoffTime: '14:00',
-                  handlingTime: {
-                    '@type': 'QuantitativeValue',
-                    minValue: 1,
-                    maxValue: 1,
-                    unitCode: 'DAY',
-                  },
-                  transitTime: {
-                    '@type': 'QuantitativeValue',
-                    minValue: 1,
-                    maxValue: 3,
-                    unitCode: 'DAY',
-                  },
-                },
-                transitTimeLabel: '1-3 business days',
-              },
+            contactPoint: {
+              '@type': 'ContactPoint',
+              telephone: '+880-1345903907',
+              contactType: 'Customer Service',
+              areaServed: 'BD',
+              availableLanguage: ['en', 'bn'],
             },
+            sameAs: [
+              'https://www.facebook.com/share/17p5yog79E/',
+              'https://www.instagram.com/invites/contact/?utm_source=ig_contact_invite&utm_medium=copy_link&utm_content=zjb1k8d',
+              'https://youtube.com/@flashshop-z7o?si=yeLwx6pXkFcyZmBV',
+            ],
+          }),
+        }}
+      />
+
+      {/* Structured Data for SEO (JSON-LD) - E-commerce Store */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Store',
+            name: 'FlashShop Bangladesh',
+            image: 'https://flashshop.com/flashshop.png',
+            url: 'https://flashshop.com',
+            telephone: '+880-1345903907',
+            priceRange: '৳৳',
+            address: {
+              '@type': 'PostalAddress',
+              addressLocality: 'Dhaka',
+              addressCountry: 'Bangladesh',
+            },
+            geo: {
+              '@type': 'GeoCoordinates',
+              latitude: 23.8103,
+              longitude: 90.4125,
+            },
+            openingHoursSpecification: [
+              {
+                '@type': 'OpeningHoursSpecification',
+                dayOfWeek: [
+                  'Monday',
+                  'Tuesday',
+                  'Wednesday',
+                  'Thursday',
+                  'Friday',
+                  'Saturday',
+                  'Sunday',
+                ],
+                opens: '09:00',
+                closes: '21:00',
+              },
+            ],
             aggregateRating: {
               '@type': 'AggregateRating',
-              ratingValue: '4.8',
-              reviewCount: '127',
+              ratingValue: '4.9',
+              reviewCount: '10000',
+            },
+          }),
+        }}
+      />
+
+      {/* Structured Data for SEO (JSON-LD) - Website */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'WebSite',
+            name: 'FlashShop Bangladesh',
+            url: 'https://flashshop.com',
+            potentialAction: {
+              '@type': 'SearchAction',
+              target: {
+                '@type': 'EntryPoint',
+                urlTemplate: 'https://flashshop.com/products?q={search_term_string}',
+              },
+              'query-input': 'required name=search_term_string',
             },
           }),
         }}

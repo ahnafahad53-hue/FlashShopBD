@@ -1,19 +1,50 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ShoppingCart, Star, Package, AlertCircle, MessageSquare } from 'lucide-react';
+import { ShoppingCart, Star, Package, AlertCircle, MessageSquare, Play, Monitor, Smartphone, X, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import Button from './Button';
+import type { Product } from '@/data/products';
+import { products } from '@/data/products';
+import ProductCard from './ProductCard';
 
-const productImages = [
+// Default product images for nasal cleaner (used when product doesn't have images)
+const defaultProductImages = [
   { id: 1, src: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761633111/IMG_20251019_124825_co8dcd.jpg', alt: 'Smart Nasal Cleaner - Main View' },
   { id: 5, src: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761633116/IMG_20251019_131413_kf5jdi.jpg', alt: 'Smart Nasal Cleaner - Usage View' },
   { id: 2, src: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761633110/IMG_20251019_123820_p4kvve.jpg', alt: 'Smart Nasal Cleaner - Side View' },
   { id: 3, src: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761633108/IMG_20250925_162855_wtgfpz.jpg', alt: 'Smart Nasal Cleaner - Package View' },
-  // { id: 4, src: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761633102/IMG_20250929_083939_ibmkuj.jpg', alt: 'Smart Nasal Cleaner - Detail View' },
-  
+];
+
+const tutorialVideos = [
+  {
+    id: 'desktop-2', 
+    title: 'Daily Usage Tips',
+    description: 'Master the technique for effective nasal irrigation and care',
+    icon: Monitor,
+    videoUrl: 'https://res.cloudinary.com/dgm2mosta/video/upload/v1761671800/VID_20251028211747_on4ysh.mp4',
+    thumbnail: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761633114/IMG_20251019_131330_o2cvlq.jpg',
+    duration: '0:35'
+  },
+  {
+    id: 'desktop-1',
+    title: 'Complete Setup Guide',
+    description: 'Learn how to properly prepare and use your nasal cleaner bottle',
+    icon: Monitor,
+    videoUrl: 'https://res.cloudinary.com/dgm2mosta/video/upload/v1761671796/VID_20251028212619_n33cug.mp4',
+    thumbnail: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761633116/IMG_20251019_131413_kf5jdi.jpg',
+    duration: '0:32'
+  },
+  {
+    id: 'mobile-1',
+    title: 'Quick Start Guide',
+    description: 'Fast and easy tutorial for immediate relief and better breathing',
+    icon: Smartphone,
+    videoUrl: 'https://res.cloudinary.com/dgm2mosta/video/upload/v1761671859/InShot_20251028_212539309_wgmckk.mp4',
+    thumbnail: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761675280/gg_cjyzkl.webp',
+    duration: '0:48'
+  }
 ];
 
 const tabs = [
@@ -21,12 +52,599 @@ const tabs = [
   { id: 'reviews', label: 'Reviews', icon: MessageSquare },
   { id: 'description', label: 'Description', icon: Package },
   { id: 'precautions', label: 'Precautions', icon: AlertCircle },
- 
 ];
 
-export default function ProductDetails() {
+const productHighlights: Record<string, { label: string; value: string }[]> = {
+  'nasal-cleaner-01': [
+    { label: 'Material', value: 'Medical-grade BPA-Free plastic' },
+    { label: 'Capacity', value: '500ml squeeze bottle' },
+    { label: 'Includes', value: '2 soft silicone nozzles' },
+    { label: 'Delivery', value: 'Inside Dhaka 2-3 days' },
+  ],
+  'foot-odor-spray': [
+    { label: 'Type', value: 'Antibacterial deodorizing spray' },
+    { label: 'Size', value: '150ml portable bottle' },
+    { label: 'Best For', value: 'Feet, socks & shoes' },
+    { label: 'Fragrance', value: 'Cooling menthol finish' },
+  ],
+  'kids-comfy-pillow': [
+    { label: 'Material', value: 'Hypoallergenic memory foam' },
+    { label: 'Cover', value: 'Breathable removable knit cover' },
+    { label: 'Age Range', value: 'Ideal for ages 3-12 years' },
+    { label: 'Support', value: 'Ergonomic neck alignment' },
+  ],
+  'coming-soon-product': [
+    { label: 'Bundle Type', value: 'Premium wellness essentials' },
+    { label: 'Status', value: 'Limited launch incoming' },
+    { label: 'Payment', value: 'COD & pre-orders' },
+    { label: 'Delivery', value: 'Nationwide shipping planned' },
+  ],
+};
+
+const reviewColorClasses = [
+  'from-blue-50 to-indigo-50 border-blue-400',
+  'from-green-50 to-emerald-50 border-green-400',
+  'from-purple-50 to-pink-50 border-purple-400',
+  'from-orange-50 to-red-50 border-orange-400',
+];
+
+const productReviews: Record<
+  string,
+  { name: string; quote: string; time: string }[]
+> = {
+  'nasal-cleaner-01': [
+    {
+      name: 'Rahman Ahmed',
+      quote:
+        'Excellent product! Really helps with my sinus problems. Easy to use and very effective. Highly recommended!',
+      time: '2 weeks ago',
+    },
+    {
+      name: 'Fatima Begum',
+      quote:
+        'Perfect for allergy season! My whole family uses it. The quality is amazing and it is very gentle on the nose.',
+      time: '1 month ago',
+    },
+    {
+      name: 'Karim Hassan',
+      quote:
+        'Great value for money! Works exactly as described. My nasal congestion has improved significantly since using this.',
+      time: '3 weeks ago',
+    },
+    {
+      name: 'Ayesha Khan',
+      quote:
+        'Very easy to use and clean. The instructions are clear and the product is exactly what I needed for my sinus issues.',
+      time: '1 week ago',
+    },
+  ],
+  'foot-odor-spray': [
+    {
+      name: 'Nafisa Karim',
+      quote:
+        'My shoes finally stay fresh all day. The minty cooling feel is awesome and it dries super fast.',
+      time: '5 days ago',
+    },
+    {
+      name: 'Tanvir Hossain',
+      quote:
+        'I spray it on my gym sneakers and sandals. No more embarrassing smells even after long shifts.',
+      time: '2 weeks ago',
+    },
+    {
+      name: 'Farzana Rahman',
+      quote:
+        'Love that I can use it on both feet and shoes. It kills odor instantly without staining anything.',
+      time: '3 weeks ago',
+    },
+  ],
+  'kids-comfy-pillow': [
+    {
+      name: 'Sadia Noor',
+      quote:
+        'My daughter sleeps through the night now. The pillow is soft yet supportive and stays cool.',
+      time: '1 week ago',
+    },
+    {
+      name: 'Mahfuz Alam',
+      quote:
+        'Perfect height for my 6-year-old. The removable cover is easy to wash and dries quickly.',
+      time: '2 weeks ago',
+    },
+    {
+      name: 'Ruma Chowdhury',
+      quote:
+        'We take it everywhere. Helps with posture and keeps my kid comfortable during long study hours.',
+      time: '1 month ago',
+    },
+  ],
+};
+
+interface ProductDetailsProps {
+  product: Product;
+}
+
+export default function ProductDetails({ product }: ProductDetailsProps) {
   const [activeTab, setActiveTab] = useState('how-to-use');
   const [selectedImage, setSelectedImage] = useState(0);
+  const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
+
+  const handleVideoClick = (videoUrl: string) => {
+    setSelectedVideo(videoUrl);
+  };
+
+  const closeVideo = () => {
+    setSelectedVideo(null);
+  };
+
+  // Use product images if available, otherwise use default images
+  const productImages = product.images && product.images.length > 0
+    ? product.images.map((src, idx) => ({ 
+        id: idx + 1, 
+        src, 
+        alt: `${product.name} - View ${idx + 1}` 
+      }))
+    : product.id === 'nasal-cleaner-01' 
+      ? defaultProductImages 
+      : [{ id: 1, src: product.images?.[0] || '/main-pro.jpeg', alt: product.name }];
+
+  const highlights = productHighlights[product.id] ?? [
+    { label: 'Category', value: product.category },
+    { label: 'Payment', value: 'Cash on Delivery' },
+    { label: 'Availability', value: product.inStock ? 'In Stock' : 'Coming Soon' },
+    { label: 'Delivery', value: 'Inside Dhaka 2-3 days' },
+  ];
+
+  const renderDescriptionContent = () => {
+    if (product.id === 'nasal-cleaner-01') {
+      return (
+        <div className="prose max-w-none">
+          <h3 className="text-2xl font-bold text-gray-900 mb-6">Product Description</h3>
+          <div className="space-y-6 text-gray-900">
+            <div className="bg-gradient-to-r from-blue-50 to-cyan-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
+              <h4 className="font-semibold text-lg mb-3 text-blue-900">🏥 Medical-Grade Quality</h4>
+              <p className="mb-3">The Smart Nasal Cleaner Bottle is designed to provide gentle and effective nasal irrigation for daily sinus care.</p>
+              <p className="text-sm text-gray-700">Made from high-quality, medical-grade materials, this bottle ensures safe and comfortable use for the entire family.</p>
+            </div>
+
+            <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-400 p-6 rounded-r-lg">
+              <h4 className="font-semibold text-lg mb-3 text-green-900">✨ Key Features</h4>
+              <div className="space-y-2">
+                <div className="flex items-center space-x-2">
+                  <span className="text-green-600">✓</span>
+                  <span>Ergonomic design for comfortable grip</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="text-green-600">✓</span>
+                  <span>Soft silicone nozzle for gentle insertion</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="text-green-600">✓</span>
+                  <span>Squeeze-controlled water flow</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="text-green-600">✓</span>
+                  <span>Easy to clean and maintain</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="text-green-600">✓</span>
+                  <span>Dishwasher safe components</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-r from-purple-50 to-pink-50 border-l-4 border-purple-400 p-6 rounded-r-lg">
+              <h4 className="font-semibold text-lg mb-3 text-purple-900">🎯 Perfect For</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                <div className="flex items-center space-x-2">
+                  <span className="text-purple-600">•</span>
+                  <span>Daily sinus care</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="text-purple-600">•</span>
+                  <span>Allergy relief</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="text-purple-600">•</span>
+                  <span>Cold & flu symptoms</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="text-purple-600">•</span>
+                  <span>Nasal congestion</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (product.id === 'foot-odor-spray') {
+      return (
+        <div className="prose max-w-none">
+          <h3 className="text-2xl font-bold text-gray-900 mb-6">Stay Fresh & Confident</h3>
+          <div className="space-y-6 text-gray-900">
+            <div className="bg-gradient-to-r from-blue-50 to-cyan-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
+              <h4 className="font-semibold text-lg mb-3 text-blue-900">Instant Odor Control</h4>
+              <p>Neutralizes odor-causing bacteria within seconds and keeps your feet dry throughout the day.</p>
+            </div>
+            <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-400 p-6 rounded-r-lg">
+              <h4 className="font-semibold text-lg mb-3 text-green-900">Features</h4>
+              <ul className="space-y-2 text-sm">
+                <li>• Cooling menthol finish</li>
+                <li>• Works on bare feet, socks, and shoes</li>
+                <li>• No white residue or staining</li>
+                <li>• Safe for daily use</li>
+              </ul>
+            </div>
+            <div className="bg-gradient-to-r from-amber-50 to-orange-50 border-l-4 border-amber-400 p-6 rounded-r-lg">
+              <h4 className="font-semibold text-lg mb-3 text-amber-900">Perfect For</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                <span>• Office shoes & sneakers</span>
+                <span>• Gym sessions & sports</span>
+                <span>• Sandals & loafers</span>
+                <span>• Everyday foot care</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (product.id === 'kids-comfy-pillow') {
+      return (
+        <div className="prose max-w-none">
+          <h3 className="text-2xl font-bold text-gray-900 mb-6">Comfort for Growing Kids</h3>
+          <div className="space-y-6 text-gray-900">
+            <div className="bg-gradient-to-r from-purple-50 to-pink-50 border-l-4 border-purple-400 p-6 rounded-r-lg">
+              <h4 className="font-semibold text-lg mb-3 text-purple-900">Adaptive Support</h4>
+              <p>Memory foam core adapts to every sleeping position and keeps the spine aligned.</p>
+            </div>
+            <div className="bg-gradient-to-r from-blue-50 to-cyan-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
+              <h4 className="font-semibold text-lg mb-3 text-blue-900">Breathable & Hygienic</h4>
+              <p>Removable, washable cover keeps the pillow fresh while ventilation pores prevent heat build-up.</p>
+            </div>
+            <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-400 p-6 rounded-r-lg">
+              <h4 className="font-semibold text-lg mb-3 text-green-900">Perfect For</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                <span>• Kids transitioning from toddler pillows</span>
+                <span>• Study time and reading</span>
+                <span>• Travel and sleepovers</span>
+                <span>• Sensory-sensitive children</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (product.id === 'coming-soon-product') {
+      return (
+        <div className="prose max-w-none text-center">
+          <h3 className="text-2xl font-bold text-gray-900 mb-4">Premium Wellness Bundle</h3>
+          <p className="text-gray-700">We are finalizing the product mix to bring you the best all-in-one health package. Join our newsletter to get notified the moment it launches.</p>
+        </div>
+      );
+    }
+
+    return (
+      <div className="prose max-w-none">
+        <h3 className="text-2xl font-bold text-gray-900 mb-6">{product.name}</h3>
+        <p className="text-gray-700">{product.description}</p>
+      </div>
+    );
+  };
+
+  const renderHowToContent = () => {
+    if (product.id === 'nasal-cleaner-01') {
+      return (
+        <div className="prose max-w-none">
+          {/* Video Tutorials */}
+          <div className="mb-12">
+            <h3 className="text-2xl font-bold text-gray-900 mb-6">Watch Tutorial Videos</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {tutorialVideos.map((video, index) => (
+                <motion.div
+                  key={video.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="group cursor-pointer"
+                >
+                  <div
+                    className="relative bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 group-hover:scale-[1.02] cursor-pointer"
+                    onClick={() => handleVideoClick(video.videoUrl)}
+                  >
+                    <div className="relative aspect-[16/9] bg-gray-100 overflow-hidden">
+                      <Image
+                        src={video.thumbnail}
+                        alt={video.title}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      />
+
+                      <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                          <Play className="w-8 h-8 text-gray-700 ml-1" />
+                        </div>
+                      </div>
+
+                      <div className="absolute bottom-3 right-3 bg-black/80 text-white text-xs px-2 py-1 rounded">
+                        {video.duration}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Bengali Instructions */}
+          <h3 className="text-2xl font-bold text-gray-900 mb-6">ব্যবহার করার নিয়ম</h3>
+          <div className="space-y-6 text-gray-900">
+            <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg">
+              <h4 className="font-semibold text-lg mb-2">১. পানির প্রস্তুতি</h4>
+              <p className="mb-2">বোতলে আগে থেকে ফুটিয়ে রাখা পরিস্কার পানি নিন।</p>
+              <div className="text-sm text-gray-700 space-y-1">
+                <p>• কোনভাবেই ট্যাপ অথবা কলের পানি ব্যবহার করবেন না</p>
+                <p>• অতিরিক্ত গরম অথবা ঠান্ডা পানি ব্যবহার করবেন না</p>
+              </div>
+            </div>
+            <div className="bg-green-50 border-l-4 border-green-400 p-4 rounded-r-lg">
+              <h4 className="font-semibold text-lg mb-2">২. লবণ মিশ্রণ</h4>
+              <p className="mb-2">পানিতে স্যালাইন / লবণ মিশ্রণ যোগ করতে হবে।</p>
+              <div className="text-sm text-gray-700 space-y-1">
+                <p>• তাহলে পানি নাকে দিলে জ্বলবে না</p>
+                <p>• হাফ চা চামচ পরিমাণে লবণ যথেষ্ট হবে</p>
+              </div>
+            </div>
+            <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg">
+              <h4 className="font-semibold text-lg mb-2">৩. নাকের প্রবেশ</h4>
+              <p>নোজল (মুখ অংশ) নাকে আলতোভাবে প্রবেশ করান।</p>
+            </div>
+            <div className="bg-purple-50 border-l-4 border-purple-400 p-4 rounded-r-lg">
+              <h4 className="font-semibold text-lg mb-2">৪. চাপ প্রয়োগ</h4>
+              <p className="mb-2">বোতল হালকা চাপ দিন 👍 পানি এক নাসারন্ধ্র দিয়ে ঢুকে অপর নাসারন্ধ্র দিয়ে বের হবে।</p>
+              <p className="text-sm text-gray-700">(ভেতরে জমে থাকা সর্দি সহ)</p>
+            </div>
+            <div className="bg-orange-50 border-l-4 border-orange-400 p-4 rounded-r-lg">
+              <h4 className="font-semibold text-lg mb-2">৫. অন্য পাশ পরিস্কার</h4>
+              <p>একইভাবে অন্য পাশের নাকও পরিস্কার করুন।</p>
+            </div>
+            <div className="bg-red-50 border-l-4 border-red-400 p-4 rounded-r-lg">
+              <h4 className="font-semibold text-lg mb-2">৬. পরিস্কারকরণ</h4>
+              <p className="mb-2">ব্যবহার শেষে বোতলটি ভালোভাবে ধুয়ে রাখুন</p>
+              <p className="text-sm text-gray-700">(পুনরায় ব্যবহারের জন্য)</p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (product.id === 'foot-odor-spray') {
+      return (
+        <div className="prose max-w-none">
+          <h3 className="text-2xl font-bold text-gray-900 mb-6">How to Use the Spray</h3>
+          <div className="space-y-4 text-gray-900">
+            <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg">
+              <h4 className="font-semibold">1. Clean & Dry</h4>
+              <p>Wash and dry your feet or wipe the inside of your shoes before spraying.</p>
+            </div>
+            <div className="bg-green-50 border-l-4 border-green-400 p-4 rounded-r-lg">
+              <h4 className="font-semibold">2. Shake & Spray</h4>
+              <p>Shake well. Hold 15cm away and spray evenly on feet, socks, or shoes.</p>
+            </div>
+            <div className="bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-lg">
+              <h4 className="font-semibold">3. Let It Dry</h4>
+              <p>Allow a few seconds to dry before wearing shoes. Reapply after long wear.</p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (product.id === 'kids-comfy-pillow') {
+      return (
+        <div className="prose max-w-none">
+          <h3 className="text-2xl font-bold text-gray-900 mb-6">Setup & Care</h3>
+          <div className="space-y-4 text-gray-900">
+            <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg">
+              <h4 className="font-semibold">1. Fluff & Air Out</h4>
+              <p>Remove from packaging and let it air for a few hours so the foam fully expands.</p>
+            </div>
+            <div className="bg-green-50 border-l-4 border-green-400 p-4 rounded-r-lg">
+              <h4 className="font-semibold">2. Use With a Cover</h4>
+              <p>Slide on the breathable cover or your own pillowcase to keep it clean.</p>
+            </div>
+            <div className="bg-purple-50 border-l-4 border-purple-400 p-4 rounded-r-lg">
+              <h4 className="font-semibold">3. Regular Care</h4>
+              <p>Spot-clean the foam only. Machine wash the removable cover once a week.</p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="prose max-w-none text-gray-900">
+        <h3 className="text-2xl font-bold mb-4">Usage Guide</h3>
+        <p>Detailed usage instructions will be shared soon. For any questions, please reach out to our support team.</p>
+      </div>
+    );
+  };
+
+  const renderPrecautionsContent = () => {
+    if (product.id === 'foot-odor-spray') {
+      return (
+        <div className="prose max-w-none">
+          <h3 className="text-2xl font-bold text-gray-900 mb-6">Precautions & Safety</h3>
+          <div className="space-y-6 text-gray-900">
+            <div className="bg-gradient-to-r from-red-50 to-pink-50 border-l-4 border-red-400 p-6 rounded-r-lg">
+              <h4 className="font-semibold text-lg mb-3 text-red-900">Flammable</h4>
+              <p>Keep away from open flames or high heat. Store below 30°C.</p>
+            </div>
+            <div className="bg-gradient-to-r from-orange-50 to-yellow-50 border-l-4 border-orange-400 p-6 rounded-r-lg">
+              <h4 className="font-semibold text-lg mb-3 text-orange-900">Skin Safety</h4>
+              <p>For external use only. Do not use on broken or irritated skin.</p>
+            </div>
+            <div className="bg-gradient-to-r from-blue-50 to-cyan-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
+              <h4 className="font-semibold text-lg mb-3 text-blue-900">Patch Test</h4>
+              <p>Spray on a small area first if you have sensitive skin. Keep away from eyes and mouth.</p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (product.id === 'kids-comfy-pillow') {
+      return (
+        <div className="prose max-w-none">
+          <h3 className="text-2xl font-bold text-gray-900 mb-6">Care & Safety</h3>
+          <div className="space-y-6 text-gray-900">
+            <div className="bg-gradient-to-r from-red-50 to-pink-50 border-l-4 border-red-400 p-6 rounded-r-lg">
+              <h4 className="font-semibold text-lg mb-3 text-red-900">Foam Care</h4>
+              <p>Do not wash or submerge the memory foam. Spot clean only and keep away from direct sunlight.</p>
+            </div>
+            <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-400 p-6 rounded-r-lg">
+              <h4 className="font-semibold text-lg mb-3 text-green-900">Cover Maintenance</h4>
+              <p>Remove the cover and machine wash on gentle cycle. Lay flat to dry for best results.</p>
+            </div>
+            <div className="bg-gradient-to-r from-blue-50 to-cyan-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
+              <h4 className="font-semibold text-lg mb-3 text-blue-900">Usage Tips</h4>
+              <p>Allow the pillow to fully air out before first use and fluff gently every few days.</p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (product.id === 'nasal-cleaner-01') {
+      return (
+        <div className="prose max-w-none">
+          <h3 className="text-2xl font-bold text-gray-900 mb-6">Precautions & Safety</h3>
+          <div className="space-y-6 text-gray-900">
+            <div className="bg-gradient-to-r from-red-50 to-pink-50 border-l-4 border-red-400 p-6 rounded-r-lg">
+              <h4 className="font-semibold text-lg mb-3 text-red-900">🚰 Water Safety</h4>
+              <div className="space-y-2">
+                <div className="flex items-start space-x-2">
+                  <span className="text-red-600 mt-1">⚠️</span>
+                  <span>Always use distilled, sterile, or previously boiled water</span>
+                </div>
+                <div className="flex items-start space-x-2">
+                  <span className="text-red-600 mt-1">⚠️</span>
+                  <span>Never use tap water directly</span>
+                </div>
+              </div>
+            </div>
+            <div className="bg-gradient-to-r from-orange-50 to-yellow-50 border-l-4 border-orange-400 p-6 rounded-r-lg">
+              <h4 className="font-semibold text-lg mb-3 text-orange-900">🧽 Maintenance & Care</h4>
+              <div className="space-y-2">
+                <div className="flex items-start space-x-2">
+                  <span className="text-orange-600 mt-1">⚠️</span>
+                  <span>Clean the bottle thoroughly after each use</span>
+                </div>
+                <div className="flex items-start space-x-2">
+                  <span className="text-orange-600 mt-1">⚠️</span>
+                  <span>Replace the bottle every 3-6 months</span>
+                </div>
+              </div>
+            </div>
+            <div className="bg-gradient-to-r from-purple-50 to-indigo-50 border-l-4 border-purple-400 p-6 rounded-r-lg">
+              <h4 className="font-semibold text-lg mb-3 text-purple-900">🏥 Medical Considerations</h4>
+              <div className="space-y-2">
+                <div className="flex items-start space-x-2">
+                  <span className="text-purple-600 mt-1">⚠️</span>
+                  <span>Consult a doctor if you have ear infections or sinus surgery</span>
+                </div>
+                <div className="flex items-start space-x-2">
+                  <span className="text-purple-600 mt-1">⚠️</span>
+                  <span>Stop use if you experience pain or discomfort</span>
+                </div>
+              </div>
+            </div>
+            <div className="bg-gradient-to-r from-blue-50 to-cyan-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
+              <h4 className="font-semibold text-lg mb-3 text-blue-900">👶 Child Safety</h4>
+              <p>Children should use under adult supervision. Use gentle pressure only.</p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="prose max-w-none text-gray-900">
+        <h3 className="text-2xl font-bold mb-4">General Precautions</h3>
+        <p>Please follow the instructions included with the product. Keep away from heat, direct sunlight, and children when not in use.</p>
+      </div>
+    );
+  };
+
+  const renderReviewsContent = () => {
+    const reviews = productReviews[product.id] ?? [
+      {
+        name: 'FlashShop Customer',
+        quote: `Absolutely love the ${product.name}. Quality is great and delivery was fast!`,
+        time: 'Recently',
+      },
+      {
+        name: 'Verified Buyer',
+        quote: `This ${product.category.toLowerCase()} item from FlashShop exceeded my expectations.`,
+        time: 'This month',
+      },
+    ];
+
+    if (!reviews.length) {
+      return <p className="text-gray-600">Reviews will be available soon.</p>;
+    }
+
+    return (
+      <div className="space-y-6">
+        {reviews.map((review, idx) => (
+          <div
+            key={`${review.name}-${idx}`}
+            className={`bg-gradient-to-r ${reviewColorClasses[idx % reviewColorClasses.length]} border-l-4 p-6 rounded-r-lg`}
+          >
+            <div className="flex items-center space-x-3 mb-3">
+              <div className="flex">
+                {[...Array(5)].map((_, starIdx) => (
+                  <Star key={starIdx} className="text-yellow-400 fill-yellow-400" size={18} />
+                ))}
+              </div>
+              <span className="font-semibold text-gray-900">{review.name}</span>
+              <span className="text-sm text-gray-600">Verified Purchase</span>
+            </div>
+            <p className="text-gray-900 mb-2">"{review.quote}"</p>
+            <p className="text-sm text-gray-600">{review.time}</p>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
+  if (!isHydrated) {
+    return (
+      <section className="py-16 sm:py-20 lg:py-24 xl:py-28 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 animate-pulse">
+            <div className="h-[300px] sm:h-[400px] md:h-[500px] lg:h-[550px] rounded-2xl bg-gray-100" />
+            <div className="space-y-4">
+              <div className="h-6 w-32 bg-gray-200 rounded" />
+              <div className="h-10 w-full bg-gray-200 rounded" />
+              <div className="h-6 w-1/3 bg-gray-200 rounded" />
+              <div className="h-32 w-full bg-gray-100 rounded" />
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-16 sm:py-20 lg:py-24 xl:py-28 bg-white">
@@ -82,8 +700,17 @@ export default function ProductDetails() {
               viewport={{ once: true }}
               className="space-y-4"
             >
+              {/* Badge */}
+              {product.badge && (
+                <div className="inline-block">
+                  <span className="bg-blue-600 text-white px-3 py-1 rounded-md text-sm font-semibold">
+                    {product.badge}
+                  </span>
+                </div>
+              )}
+
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900">
-                Smart Nasal Cleaner Bottle
+                {product.name}
               </h1>
               
               {/* Rating */}
@@ -93,19 +720,30 @@ export default function ProductDetails() {
                     <Star
                       key={i}
                       className={`${
-                        i < 4 ? 'text-gray-900 fill-gray-900' : 'text-gray-500'
+                        i < Math.floor(product.rating) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'
                       }`}
                       size={20}
                     />
                   ))}
                 </div>
-                <span className="text-gray-900">(127 reviews)</span>
+                <span className="text-gray-900">
+                  {product.rating} ({product.reviews} reviews)
+                </span>
               </div>
 
               {/* Price */}
               <div className="flex items-baseline space-x-3 sm:space-x-4">
-                <span className="text-4xl sm:text-5xl font-bold text-gray-900">৳650</span>
-                <span className="text-xl sm:text-2xl text-gray-900 line-through">৳1,050</span>
+                <span className="text-4xl sm:text-5xl font-bold text-gray-900">৳{product.price}</span>
+                {product.originalPrice && (
+                  <>
+                    <span className="text-xl sm:text-2xl text-gray-900 line-through">
+                      ৳{product.originalPrice}
+                    </span>
+                    <span className="bg-green-50 text-green-700 px-3 py-1 rounded-md text-sm font-semibold">
+                      Save {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}%
+                    </span>
+                  </>
+                )}
               </div>
               
               {/* Delivery Info */}
@@ -118,33 +756,58 @@ export default function ProductDetails() {
 
               {/* Short Description */}
               <p className="text-lg text-gray-900 leading-relaxed">
-                Experience professional-grade nasal care at home. Our Smart Nasal Cleaner Bottle provides gentle, effective relief from congestion, allergies, and sinus discomfort.
+                {product.tagline}
               </p>
+              {product.description && (
+                <p className="text-base text-gray-600 leading-relaxed">
+                  {product.description}
+                </p>
+              )}
+
+              {/* Stock Status */}
+              {!product.inStock && (
+                <div className={`${
+                  product.badge === 'COMING SOON'
+                    ? 'bg-purple-50 border border-purple-200'
+                    : 'bg-red-50 border border-red-200'
+                } rounded-lg p-4`}>
+                  <p className={`text-sm font-medium ${
+                    product.badge === 'COMING SOON' ? 'text-purple-900' : 'text-red-900'
+                  }`}>
+                    {product.badge === 'COMING SOON' ? 'Coming Soon' : 'Out of Stock'}
+                  </p>
+                  <p className={`text-sm mt-1 ${
+                    product.badge === 'COMING SOON' ? 'text-purple-800' : 'text-red-800'
+                  }`}>
+                    {product.badge === 'COMING SOON' 
+                      ? 'This exciting new product will be available soon. Stay tuned!' 
+                      : 'This product is currently unavailable.'}
+                  </p>
+                </div>
+              )}
 
               {/* Order Now Button */}
-              <a href="/checkout" className="w-full py-4 px-8 font-semibold text-base bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 text-white hover:from-cyan-600 hover:via-blue-700 hover:to-indigo-700 shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-3 rounded-xl">
-                <ShoppingCart size={20} />
-                <span>Order Now</span>
-              </a>
+              {product.inStock ? (
+                <a href="/checkout" className="w-full py-4 px-8 font-medium text-sm uppercase tracking-wide bg-gray-900 text-white hover:bg-gray-800 transition-all duration-300 flex items-center justify-center gap-3 rounded-md group">
+                  <ShoppingCart size={20} />
+                  <span>Order Now</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                </a>
+              ) : (
+                <button disabled className="w-full py-4 px-8 font-medium text-sm uppercase tracking-wide bg-gray-300 text-gray-500 cursor-not-allowed flex items-center justify-center gap-3 rounded-md">
+                  <ShoppingCart size={20} />
+                  <span>Unavailable</span>
+                </button>
+              )}
 
               {/* Quick Info */}
               <div className="grid grid-cols-2 gap-4 pt-4">
-                <div className="p-4 rounded-lg">
-                  <p className="text-sm text-gray-900">Material</p>
-                  <p className="font-semibold text-gray-900">BPA-Free Plastic</p>
-                </div>
-                <div className="p-4 rounded-lg">
-                  <p className="text-sm text-gray-900">Capacity</p>
-                  <p className="font-semibold text-gray-900">500ml</p>
-                </div>
-                <div className="p-4 rounded-lg">
-                  <p className="text-sm text-gray-900">Reusable</p>
-                  <p className="font-semibold text-gray-900">Long-lasting</p>
-                </div>
-                <div className="p-4 rounded-lg">
-                  <p className="text-sm text-gray-900">Delivery</p>
-                  <p className="font-semibold text-gray-900">2-3 Days</p>
-                </div>
+                {highlights.map((item) => (
+                  <div key={item.label} className="p-4 rounded-lg bg-gray-50">
+                    <p className="text-sm text-gray-900">{item.label}</p>
+                    <p className="font-semibold text-gray-900">{item.value}</p>
+                  </div>
+                ))}
               </div>
             </motion.div>
           </div>
@@ -175,311 +838,84 @@ export default function ProductDetails() {
 
           {/* Tab Content */}
           <div className="p-8 rounded-2xl">
-            {activeTab === 'description' && (
-              <div className="prose max-w-none">
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">Product Description</h3>
-                <div className="space-y-6 text-gray-900">
-                  <div className="bg-gradient-to-r from-blue-50 to-cyan-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
-                    <h4 className="font-semibold text-lg mb-3 text-blue-900">🏥 Medical-Grade Quality</h4>
-                    <p className="mb-3">The Smart Nasal Cleaner Bottle is designed to provide gentle and effective nasal irrigation for daily sinus care.</p>
-                    <p className="text-sm text-gray-700">Made from high-quality, medical-grade materials, this bottle ensures safe and comfortable use for the entire family.</p>
-                  </div>
-
-                  <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-400 p-6 rounded-r-lg">
-                    <h4 className="font-semibold text-lg mb-3 text-green-900">✨ Key Features</h4>
-                    <div className="space-y-2">
-                      <div className="flex items-center space-x-2">
-                        <span className="text-green-600">✓</span>
-                        <span>Ergonomic design for comfortable grip</span>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <span className="text-green-600">✓</span>
-                        <span>Soft silicone nozzle for gentle insertion</span>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <span className="text-green-600">✓</span>
-                        <span>Squeeze-controlled water flow</span>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <span className="text-green-600">✓</span>
-                        <span>Easy to clean and maintain</span>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <span className="text-green-600">✓</span>
-                        <span>Dishwasher safe components</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="bg-gradient-to-r from-purple-50 to-pink-50 border-l-4 border-purple-400 p-6 rounded-r-lg">
-                    <h4 className="font-semibold text-lg mb-3 text-purple-900">🎯 Perfect For</h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
-                      <div className="flex items-center space-x-2">
-                        <span className="text-purple-600">•</span>
-                        <span>Daily sinus care</span>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <span className="text-purple-600">•</span>
-                        <span>Allergy relief</span>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <span className="text-purple-600">•</span>
-                        <span>Cold & flu symptoms</span>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <span className="text-purple-600">•</span>
-                        <span>Nasal congestion</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {activeTab === 'how-to-use' && (
-              <div className="prose max-w-none">
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">ব্যবহার করার নিয়ম</h3>
-                <div className="space-y-6 text-gray-900">
-                  <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg">
-                    <h4 className="font-semibold text-lg mb-2">১. পানির প্রস্তুতি</h4>
-                    <p className="mb-2">বোতলে আগে থেকে ফুটিয়ে রাখা পরিস্কার পানি নিন।</p>
-                    <div className="text-sm text-gray-700 space-y-1">
-                      <p>• কোনভাবেই ট্যাপ অথবা কলের পানি ব্যবহার করবেন না</p>
-                      <p>• অতিরিক্ত গরম অথবা ঠান্ডা পানি ব্যবহার করবেন না</p>
-                    </div>
-                  </div>
-
-                  <div className="bg-green-50 border-l-4 border-green-400 p-4 rounded-r-lg">
-                    <h4 className="font-semibold text-lg mb-2">২. লবণ মিশ্রণ</h4>
-                    <p className="mb-2">পানিতে স্যালাইন / লবণ মিশ্রণ যোগ করতে হবে।</p>
-                    <div className="text-sm text-gray-700 space-y-1">
-                      <p>• তাহলে পানি নাকে দিলে জ্বলবে না</p>
-                      <p>• হাফ চা চামচ পরিমাণে লবণ যথেষ্ট হবে</p>
-                    </div>
-                  </div>
-
-                  <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg">
-                    <h4 className="font-semibold text-lg mb-2">৩. নাকের প্রবেশ</h4>
-                    <p>নোজল (মুখ অংশ) নাকে আলতোভাবে প্রবেশ করান।</p>
-                  </div>
-
-                  <div className="bg-purple-50 border-l-4 border-purple-400 p-4 rounded-r-lg">
-                    <h4 className="font-semibold text-lg mb-2">৪. চাপ প্রয়োগ</h4>
-                    <p className="mb-2">বোতল হালকা চাপ দিন 👍 পানি এক নাসারন্ধ্র দিয়ে ঢুকে অপর নাসারন্ধ্র দিয়ে বের হবে।</p>
-                    <p className="text-sm text-gray-700">(ভেতরে জমে থাকা সর্দি সহ)</p>
-                  </div>
-
-                  <div className="bg-orange-50 border-l-4 border-orange-400 p-4 rounded-r-lg">
-                    <h4 className="font-semibold text-lg mb-2">৫. অন্য পাশ পরিস্কার</h4>
-                    <p>একইভাবে অন্য পাশের নাকও পরিস্কার করুন।</p>
-                  </div>
-
-                  <div className="bg-red-50 border-l-4 border-red-400 p-4 rounded-r-lg">
-                    <h4 className="font-semibold text-lg mb-2">৬. পরিস্কারকরণ</h4>
-                    <p className="mb-2">ব্যবহার শেষে বোতলটি ভালোভাবে ধুয়ে রাখুন</p>
-                    <p className="text-sm text-gray-700">(পুনরায় ব্যবহারের জন্য)</p>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {activeTab === 'precautions' && (
-              <div className="prose max-w-none">
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">Precautions & Safety</h3>
-                <div className="space-y-6 text-gray-900">
-                  <div className="bg-gradient-to-r from-red-50 to-pink-50 border-l-4 border-red-400 p-6 rounded-r-lg">
-                    <h4 className="font-semibold text-lg mb-3 text-red-900">🚰 Water Safety</h4>
-                    <div className="space-y-2">
-                      <div className="flex items-start space-x-2">
-                        <span className="text-red-600 mt-1">⚠️</span>
-                        <span>Always use distilled, sterile, or previously boiled water</span>
-                      </div>
-                      <div className="flex items-start space-x-2">
-                        <span className="text-red-600 mt-1">⚠️</span>
-                        <span>Never use tap water directly</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="bg-gradient-to-r from-orange-50 to-yellow-50 border-l-4 border-orange-400 p-6 rounded-r-lg">
-                    <h4 className="font-semibold text-lg mb-3 text-orange-900">🧽 Maintenance & Care</h4>
-                    <div className="space-y-2">
-                      <div className="flex items-start space-x-2">
-                        <span className="text-orange-600 mt-1">⚠️</span>
-                        <span>Clean the bottle thoroughly after each use</span>
-                      </div>
-                      <div className="flex items-start space-x-2">
-                        <span className="text-orange-600 mt-1">⚠️</span>
-                        <span>Replace the bottle every 3-6 months</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="bg-gradient-to-r from-purple-50 to-indigo-50 border-l-4 border-purple-400 p-6 rounded-r-lg">
-                    <h4 className="font-semibold text-lg mb-3 text-purple-900">🏥 Medical Considerations</h4>
-                    <div className="space-y-2">
-                      <div className="flex items-start space-x-2">
-                        <span className="text-purple-600 mt-1">⚠️</span>
-                        <span>Consult a doctor if you have ear infections or sinus surgery</span>
-                      </div>
-                      <div className="flex items-start space-x-2">
-                        <span className="text-purple-600 mt-1">⚠️</span>
-                        <span>Stop use if you experience pain or discomfort</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="bg-gradient-to-r from-blue-50 to-cyan-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
-                    <h4 className="font-semibold text-lg mb-3 text-blue-900">👶 Child Safety</h4>
-                    <div className="space-y-2">
-                      <div className="flex items-start space-x-2">
-                        <span className="text-blue-600 mt-1">⚠️</span>
-                        <span>Children should use under adult supervision</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-400 p-6 rounded-r-lg">
-                    <h4 className="font-semibold text-lg mb-3 text-green-900">✅ Safe Usage Tips</h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
-                      <div className="flex items-center space-x-2">
-                        <span className="text-green-600">✓</span>
-                        <span>Use lukewarm water only</span>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <span className="text-green-600">✓</span>
-                        <span>Gentle pressure application</span>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <span className="text-green-600">✓</span>
-                        <span>Store in clean, dry place</span>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <span className="text-green-600">✓</span>
-                        <span>Follow manufacturer instructions</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {activeTab === 'reviews' && (
-              <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">Customer Reviews</h3>
-                <div className="space-y-6">
-                  {/* Review 1 */}
-                  <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
-                    <div className="flex items-center space-x-3 mb-3">
-                      <div className="flex">
-                        {[...Array(5)].map((_, idx) => (
-                          <Star
-                            key={idx}
-                            className="text-yellow-400 fill-yellow-400"
-                            size={18}
-                          />
-                        ))}
-                      </div>
-                      <span className="font-semibold text-gray-900">Rahman Ahmed</span>
-                      <span className="text-sm text-gray-600">Verified Purchase</span>
-                    </div>
-                    <p className="text-gray-900 mb-2">
-                      "Excellent product! Really helps with my sinus problems. Easy to use and very effective. Highly recommended!"
-                    </p>
-                    <p className="text-sm text-gray-600">2 weeks ago</p>
-                  </div>
-
-                  {/* Review 2 */}
-                  <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-400 p-6 rounded-r-lg">
-                    <div className="flex items-center space-x-3 mb-3">
-                      <div className="flex">
-                        {[...Array(5)].map((_, idx) => (
-                          <Star
-                            key={idx}
-                            className="text-yellow-400 fill-yellow-400"
-                            size={18}
-                          />
-                        ))}
-                      </div>
-                      <span className="font-semibold text-gray-900">Fatima Begum</span>
-                      <span className="text-sm text-gray-600">Verified Purchase</span>
-                    </div>
-                    <p className="text-gray-900 mb-2">
-                      "Perfect for allergy season! My whole family uses it. The quality is amazing and it's very gentle on the nose."
-                    </p>
-                    <p className="text-sm text-gray-600">1 month ago</p>
-                  </div>
-
-                  {/* Review 3 */}
-                  <div className="bg-gradient-to-r from-purple-50 to-pink-50 border-l-4 border-purple-400 p-6 rounded-r-lg">
-                    <div className="flex items-center space-x-3 mb-3">
-                      <div className="flex">
-                        {[...Array(5)].map((_, idx) => (
-                          <Star
-                            key={idx}
-                            className="text-yellow-400 fill-yellow-400"
-                            size={18}
-                          />
-                        ))}
-                      </div>
-                      <span className="font-semibold text-gray-900">Karim Hassan</span>
-                      <span className="text-sm text-gray-600">Verified Purchase</span>
-                    </div>
-                    <p className="text-gray-900 mb-2">
-                      "Great value for money! Works exactly as described. My nasal congestion has improved significantly since using this."
-                    </p>
-                    <p className="text-sm text-gray-600">3 weeks ago</p>
-                  </div>
-
-                  {/* Review 4 */}
-                  <div className="bg-gradient-to-r from-orange-50 to-red-50 border-l-4 border-orange-400 p-6 rounded-r-lg">
-                    <div className="flex items-center space-x-3 mb-3">
-                      <div className="flex">
-                        {[...Array(5)].map((_, idx) => (
-                          <Star
-                            key={idx}
-                            className="text-yellow-400 fill-yellow-400"
-                            size={18}
-                          />
-                        ))}
-                      </div>
-                      <span className="font-semibold text-gray-900">Ayesha Khan</span>
-                      <span className="text-sm text-gray-600">Verified Purchase</span>
-                    </div>
-                    <p className="text-gray-900 mb-2">
-                      "Very easy to use and clean. The instructions are clear and the product is exactly what I needed for my sinus issues."
-                    </p>
-                    <p className="text-sm text-gray-600">1 week ago</p>
-                  </div>
-
-                  {/* Overall Rating Summary */}
-                  <div className="bg-gradient-to-r from-gray-50 to-blue-50 border-l-4 border-gray-400 p-6 rounded-r-lg">
-                    <h4 className="font-semibold text-lg mb-3 text-gray-900">📊 Overall Rating</h4>
-                    <div className="flex items-center space-x-4">
-                      <div className="text-center">
-                        <div className="text-3xl font-bold text-gray-900">4.8</div>
-                        <div className="flex">
-                          {[...Array(5)].map((_, idx) => (
-                            <Star
-                              key={idx}
-                              className="text-yellow-400 fill-yellow-400"
-                              size={16}
-                            />
-                          ))}
-                        </div>
-                      </div>
-                      <div className="text-sm text-gray-700">
-                        <p>Based on 127 verified reviews</p>
-                        <p className="mt-1">98% of customers recommend this product</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
+            {activeTab === 'description' && renderDescriptionContent()}
+            {activeTab === 'how-to-use' && renderHowToContent()}
+            {activeTab === 'precautions' && renderPrecautionsContent()}
+            {activeTab === 'reviews' && renderReviewsContent()}
           </div>
         </div>
+
+        {/* You May Also Like Section */}
+        <div className="mt-20 pt-12 border-t border-gray-200">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-10"
+          >
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
+              You May Also Like
+            </h2>
+            <p className="text-gray-600 text-lg">
+              Discover more quality products from FlashShop
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8">
+            {products
+              .filter((p) => p.id !== product.id)
+              .slice(0, 4)
+              .map((relatedProduct, index) => (
+                <motion.div
+                  key={relatedProduct.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
+                  <ProductCard product={relatedProduct} />
+                </motion.div>
+              ))}
+          </div>
+
+          {products.filter((p) => p.id !== product.id).length === 0 && (
+            <div className="text-center py-12">
+              <p className="text-gray-600">More products coming soon!</p>
+            </div>
+          )}
+        </div>
       </div>
+
+      {/* Inline Video Modal */}
+      {selectedVideo && (
+        <div 
+          className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-2 sm:p-4"
+          onClick={closeVideo}
+        >
+          <div 
+            className="relative w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl xl:max-w-3xl bg-white rounded-xl overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={closeVideo}
+              className="absolute top-2 right-2 z-10 bg-black/70 hover:bg-black/90 text-white rounded-full p-1.5 sm:p-2 transition-colors duration-200"
+            >
+              <X className="w-4 h-4 sm:w-5 sm:h-5" />
+            </button>
+            
+            <video
+              src={selectedVideo}
+              controls
+              autoPlay
+              className="w-full h-auto max-h-[70vh] sm:max-h-[80vh]"
+              onEnded={closeVideo}
+            >
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

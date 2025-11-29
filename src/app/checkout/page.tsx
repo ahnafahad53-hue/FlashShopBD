@@ -2,12 +2,14 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, ShoppingCart, MapPin, User, Phone, CreditCard } from 'lucide-react';
+import { ArrowLeft, ShoppingCart, MapPin, User, CreditCard, Plus, Minus, PackageX } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useCart } from '@/context/CartContext';
 
 export default function CheckoutPage() {
   const router = useRouter();
+  const { items: cartItems, updateQuantity, clearCart } = useCart();
   const [formData, setFormData] = useState({
     fullName: '',
     phone: '',
@@ -17,14 +19,25 @@ export default function CheckoutPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Pricing constants
-  const basePrice = 650;
   const insideDhakaDelivery = 80;
   const outsideDhakaDelivery = 150;
-  
-  // Calculate total price
+
+  const selectedItems = cartItems.filter((item) => item.quantity > 0);
+  const hasItems = cartItems.length > 0;
+
+  const subtotal = selectedItems.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+
   const deliveryCost = formData.deliveryLocation === 'inside' ? insideDhakaDelivery : outsideDhakaDelivery;
-  const totalPrice = basePrice + deliveryCost;
+  const totalPrice = subtotal + (subtotal > 0 ? deliveryCost : 0);
+
+  const handleQuantityChange = (productId: string, delta: number) => {
+    const target = cartItems.find((item) => item.id === productId);
+    if (!target) return;
+    updateQuantity(productId, target.quantity + delta);
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -51,7 +64,14 @@ export default function CheckoutPage() {
       // Prepare the order data
       const orderData = {
         ...formData,
-        productPrice: basePrice,
+        items: selectedItems.map((item) => ({
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          quantity: item.quantity,
+        })),
+        productPrice: subtotal,
+        subtotal,
         deliveryCost,
         totalPrice
       };
@@ -63,7 +83,7 @@ export default function CheckoutPage() {
       try {
         console.log('Sending order data to Google Sheets:', orderData);
 
-        const scriptUrl = 'https://script.google.com/macros/s/AKfycbzS41m_8996mHVnWgi35cLAc3EbugT09kyR5qh3BjS9oqV2OCgy_QGwvdxyX0pNiPHf/exec';
+        const scriptUrl = 'https://script.google.com/macros/s/AKfycbx9ehCGKevh-NM8qKPA_8CMQ9DzbwBcooRbNv2mu17AwbPJF1UPTrJ2q0wq20zFRb5a/exec';
 
         // Note: Apps Script should set CORS headers and accept text/plain to avoid preflight
         const res = await fetch(scriptUrl, {
@@ -104,6 +124,7 @@ export default function CheckoutPage() {
       
 
       // Redirect to thank you page instead of showing alert
+      clearCart();
       router.push('/thank-you-order');
     } catch (error) {
       console.error('Error submitting order:', error);
@@ -118,7 +139,7 @@ export default function CheckoutPage() {
     }
   };
 
-  const isFormValid = formData.fullName && formData.phone && formData.fullAddress;
+  const isFormValid = formData.fullName && formData.phone && formData.fullAddress && subtotal > 0;
 
   return (
     <div className="min-h-screen bg-white">
@@ -140,42 +161,124 @@ export default function CheckoutPage() {
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Order Summary */}
           <div className="space-y-6">
-            <div className="bg-gray-50 rounded-xl p-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+            <div className="bg-gray-50 rounded-xl p-6 space-y-5">
+              <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
                 <ShoppingCart size={24} />
-                Order Summary / অর্ডার সারসংক্ষেপ
+                Choose Products / পণ্য নির্বাচন করুন
               </h2>
-              
-              {/* Product */}
-              <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-white rounded-lg">
-                <div className="relative w-16 h-16 sm:w-20 sm:h-20 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
-                  <Image
-                    src="https://res.cloudinary.com/dgm2mosta/image/upload/v1761633111/IMG_20251019_124825_co8dcd.jpg"
-                    alt="Smart Nasal Cleaner Bottle"
-                    fill
-                    className="object-contain"
-                  />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <h3 className="font-semibold text-gray-900 text-sm sm:text-base">Smart Nasal Cleaner Bottle</h3>
-                  <p className="text-xs sm:text-sm text-gray-600">Medical-grade, BPA-free</p>
-                </div>
-              </div>
 
-              {/* Price Breakdown */}
-              <div className="border-t border-gray-200 pt-4 mt-6 space-y-2">
+              {hasItems ? (
+                <div className="space-y-4">
+                  {cartItems.map((item) => {
+                    const isOutOfStock = item.stock === 0;
+                    const remaining = Math.max(0, item.stock - item.quantity);
+                    return (
+                      <div
+                        key={item.id}
+                        className={`p-4 rounded-2xl border transition-colors ${
+                          item.quantity > 0 ? 'border-gray-900 bg-white' : 'border-gray-200 bg-white'
+                        }`}
+                      >
+                        <div className="flex gap-4">
+                          <div className="relative w-16 h-16 sm:w-20 sm:h-20 bg-gray-100 rounded-xl overflow-hidden flex-shrink-0 flex items-center justify-center">
+                            {item.images && item.images.length > 0 ? (
+                              <Image
+                                src={item.images[0]}
+                                alt={item.name}
+                                fill
+                                className="object-contain"
+                              />
+                            ) : (
+                              <div className="text-xs text-gray-500 text-center px-2">Coming soon</div>
+                            )}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <h3 className="font-semibold text-gray-900 text-sm sm:text-base">{item.name}</h3>
+                                <p className="text-xs sm:text-sm text-gray-600">{item.tagline}</p>
+                              </div>
+                              <div className="text-right">
+                                <p className="text-lg font-bold text-gray-900">৳{item.price}</p>
+                                {item.originalPrice && (
+                                  <p className="text-xs text-gray-400 line-through">৳{item.originalPrice}</p>
+                                )}
+                              </div>
+                            </div>
+                            <div className="mt-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-xs text-gray-500">
+                              <div className={`font-medium ${isOutOfStock ? 'text-red-600' : 'text-gray-600'}`}>
+                                {isOutOfStock ? (
+                                  <span className="inline-flex items-center gap-1 text-red-600">
+                                    <PackageX size={14} /> Out of stock
+                                  </span>
+                                ) : (
+                                  <>In stock: {item.stock} pcs</>
+                                )}
+                              </div>
+                              <div className="flex items-center gap-1 text-gray-600">
+                                Selected: {item.quantity} {item.quantity === 1 ? 'pc' : 'pcs'}
+                              </div>
+                            </div>
+                            <div className="mt-4 flex flex-wrap items-center justify-between gap-4">
+                              <div className="flex items-center gap-2">
+                                <button
+                                  type="button"
+                                  onClick={() => handleQuantityChange(item.id, -1)}
+                                  disabled={item.quantity <= 0}
+                                  className="p-2 rounded-full border border-gray-300 text-gray-700 disabled:opacity-40"
+                                >
+                                  <Minus size={14} />
+                                </button>
+                                <span className="w-8 text-center font-semibold text-gray-900">{item.quantity}</span>
+                                <button
+                                  type="button"
+                                  onClick={() => handleQuantityChange(item.id, 1)}
+                                  disabled={item.quantity >= item.stock}
+                                  className="p-2 rounded-full border border-gray-300 text-gray-700 disabled:opacity-40"
+                                >
+                                  <Plus size={14} />
+                                </button>
+                              </div>
+                              {item.quantity > 0 && (
+                                <p className="text-xs text-gray-500">
+                                  {remaining === 0 ? 'All selected' : `${remaining} left in stock`}
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="text-center text-gray-500 py-12 space-y-4">
+                  <p>Your cart is empty. Please add products before checking out.</p>
+                  <Link
+                    href="/products"
+                    className="inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold tracking-wide uppercase border border-gray-900 text-gray-900 rounded-md hover:bg-gray-900 hover:text-white transition-colors"
+                  >
+                    Browse Products
+                  </Link>
+                </div>
+              )}
+
+              <div className="border-t border-gray-200 pt-4 space-y-2">
                 <div className="flex justify-between text-gray-900">
-                  <span>Product Price</span>
-                  <span>৳{basePrice}</span>
+                  <span>Subtotal</span>
+                  <span>৳{subtotal}</span>
                 </div>
                 <div className="flex justify-between text-gray-900">
                   <span className="text-sm sm:text-base">Delivery Charge ({formData.deliveryLocation === 'inside' ? 'Inside Dhaka' : 'Outside Dhaka'})</span>
-                  <span>৳{deliveryCost}</span>
+                  <span>৳{subtotal > 0 ? deliveryCost : 0}</span>
                 </div>
                 <div className="border-t border-gray-200 pt-2 mt-2 flex justify-between items-center text-lg font-bold text-gray-900">
                   <span>Total</span>
                   <span>৳{totalPrice}</span>
                 </div>
+                {subtotal === 0 && (
+                  <p className="text-sm text-red-600">Please select at least one product to place your order.</p>
+                )}
                 <p className="text-sm text-gray-600 mt-2">Cash on Delivery</p>
               </div>
             </div>
@@ -335,9 +438,9 @@ export default function CheckoutPage() {
                 <button
                   type="submit"
                   disabled={!isFormValid || isSubmitting}
-                  className={`w-full py-4 rounded-xl font-semibold text-lg transition-all duration-300 flex items-center justify-center gap-2 ${
+                  className={`w-full py-4 rounded-md font-medium text-sm uppercase tracking-wide transition-all duration-300 flex items-center justify-center gap-2 ${
                     isFormValid && !isSubmitting
-                      ? 'bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 text-white hover:scale-[1.02] hover:shadow-lg'
+                      ? 'bg-gray-900 text-white hover:bg-gray-800'
                       : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                   }`}
                 >
@@ -347,10 +450,10 @@ export default function CheckoutPage() {
                       Processing Order...
                     </>
                   ) : (
-                    <>
-                      <MapPin size={20} />
-                      Place Order / অর্ডার করুন - ৳{totalPrice}
-                    </>
+                      <>
+                        <MapPin size={20} />
+                        Place Order / অর্ডার করুন - ৳{totalPrice}
+                      </>
                   )}
                 </button>
 

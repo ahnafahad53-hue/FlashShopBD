@@ -9,10 +9,6 @@ export default function Footer() {
 
   return (
     <footer id="contact" className="relative">
-      {/* Footer Separator Line */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
-      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-500 rounded-full"></div>
-      
       {/* Footer Background */}
       <div className="bg-gray-50 text-gray-900 pt-8">
         {/* Main Footer Content */}

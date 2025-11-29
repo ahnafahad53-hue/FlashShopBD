@@ -7,26 +7,22 @@ const reasons = [
   {
     icon: Award,
     title: 'FlashShop™ Quality',
-    description: 'Premium products tested and verified for your safety and satisfaction.',
-    color: 'from-amber-500 to-orange-500'
+    description: 'Premium products tested and verified for your safety and satisfaction.'
   },
   {
     icon: Truck,
     title: 'Fast Delivery',
-    description: 'Get your order within 2-3 days anywhere in Bangladesh. Free shipping on all orders.',
-    color: 'from-blue-500 to-cyan-500'
+    description: 'Get your order within 2-3 days anywhere in Bangladesh. Free shipping on all orders.'
   },
   {
     icon: ShieldCheck,
-    title: 'Safe Materials (BPA Free)',
-    description: 'Medical-grade, BPA-free materials that are safe for daily use by the whole family.',
-    color: 'from-emerald-500 to-teal-500'
+    title: 'Quality Assurance',
+    description: 'All products are thoroughly checked and verified to meet high quality standards.'
   },
   {
     icon: HeartHandshake,
     title: 'Friendly Support',
-    description: 'Questions? Message us on WhatsApp for quick help every day.',
-    color: 'from-purple-500 to-pink-500'
+    description: 'Questions? Message us on WhatsApp for quick help every day.'
   },
 ];
 
@@ -65,8 +61,8 @@ export default function WhyChooseUs() {
               >
                 <div className="p-8 h-64 sm:h-72 lg:h-80 group hover:scale-[1.02] transition-all duration-300 bg-white border border-gray-200 rounded-xl flex flex-col shadow-sm hover:shadow-md">
                     {/* Icon */}
-                    <div className="w-16 h-16 rounded-xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300" style={{ backgroundColor: '#E4E5E8' }}>
-                      <Icon className="text-gray-900" size={32} />
+                    <div className="w-16 h-16 rounded-xl bg-gray-900 flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
+                      <Icon className="text-white" size={32} />
                     </div>
                     
                     {/* Content */}

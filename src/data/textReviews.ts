@@ -37,7 +37,7 @@ export const fbReviews: FBStyleReview[] = [
     id: 'fb-4',
     name: 'Rakib Hasan',
     date: 'Sep 18',
-    content: 'Onk din dhore matha betha chilo, ei nasal cleaner ta use kore onek comfort feel korlam.',
+    content: 'ফুট স্প্রে টা ব্যবহার করেছি, অনেক ভালো লেগেছে। জিমের পর জুতোতে স্প্রে করেছি, গন্ধ সম্পূর্ণ চলে গেছে। সত্যিই কার্যকর।',
     avatar: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761759852/photo-1532284166236-8a7bb97578e9_gmxhoh.avif'
   },
   {
@@ -58,14 +58,14 @@ export const fbReviews: FBStyleReview[] = [
     id: 'fb-7',
     name: 'Moumita Roy',
     date: 'Sep 09',
-    content: 'Very useful for sinus issues. The build quality feels solid and it’s comfortable to use.',
+    content: 'আমার মেয়ে এই বালিশ দিয়ে অনেক ভালো ঘুমাচ্ছে! মেমরি ফোমটা পারফেক্ট এবং কভারটা খুব নরম। মান অনেক ভালো।',
     avatar: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761759850/photo-1650603698444-34fc6ab53313_kevgef.avif'
   },
   {
     id: 'fb-8',
     name: 'Shahriar Alam',
     date: 'Sep 07',
-    content: 'Amar cheleder jonne nisi. Tara practice korte korte habituated hoye geche, bhalo lagse.',
+    content: 'Amar cheleder jonne pillow ta nisi. Tara onek comfortable sleep korche, neck support o bhalo. Quality excellent.',
     avatar: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761759851/photo-1670400273456-583a44d9c8ab_adkbky.avif'
   },
   {
@@ -93,7 +93,7 @@ export const fbReviews: FBStyleReview[] = [
     id: 'fb-12',
     name: 'Mehedi Hasan',
     date: 'Oct 09',
-    content: 'এটা ব্যবহার করার পর ঘুম অনেক ভালো হচ্ছে। নাক ডাকা কমে গেছে। ধন্যবাদ।',
+    content: 'ফুট স্প্রে ব্যবহার করে অনেক সন্তুষ্ট। অফিসের জুতোতে স্প্রে করেছি, সারাদিন ফ্রেশ থাকে। গন্ধ সম্পূর্ণ দূর হয়ে যায়।',
     avatar: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761759848/photo-1627610699236-c5294a233329_vh34pb.avif'
   }
 ];
@@ -104,7 +104,7 @@ fbReviews.push(
     id: 'fb-13',
     name: 'Rashid Hasan',
     date: 'Nov 05',
-    content: 'আমি কিনেছি আলহামদুলিল্লাহ। প্রতিদিন ব্যবহার করি, আগের থেকে অনেক ভালো আছি।',
+    content: 'চিলড্রেন বালিশটা অনেক ভালো। আমার মেয়ে অনেক আরামদায়ক ঘুমাচ্ছে, ঘাড়ে ব্যথাও নেই। মান অনেক ভালো।',
     avatar: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761759850/photo-1646415753793-dcfda1dfeee3_wry4up.avif'
   },
   {
@@ -118,14 +118,14 @@ fbReviews.push(
     id: 'fb-15',
     name: 'Towhidul Islam',
     date: 'Nov 02',
-    content: 'Dust allergy-e onek help korse. Build quality bhalo, use kora easy.',
+    content: 'Foot spray ta gym er por use kori. Shoes e spray disi, odor completely gone. Long lasting effect, value for money.',
     avatar: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761759849/photo-1634843824979-c89d2910b80f_rasl1d.avif'
   },
   {
     id: 'fb-16',
     name: 'Nusrat Jahan',
     date: 'Nov 01',
-    content: 'ডেলিভারি ফাস্ট ছিল। ইন্সট্রাকশন ফলো করে ইউজ করা বেশ সহজ এবং ফল পাওয়া গেছে।',
+    content: 'বালিশটা আমার ছেলের জন্য নিয়েছি। সে অনেক আরামদায়ক ঘুমাচ্ছে, মেমরি ফোমের উচ্চতা পারফেক্ট। ডেলিভারি দ্রুত ছিল।',
     avatar: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761759847/480973823_665672969147783_8757347325153148406_n_qduq1g.jpg'
   },
   {
