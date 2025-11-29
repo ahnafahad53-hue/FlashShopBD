@@ -15,8 +15,10 @@ export default function Header() {
   const [activeLink, setActiveLink] = useState('HOME');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [headerHeight, setHeaderHeight] = useState(56);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const searchContainerRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
   const { totalQuantity, openDrawer } = useCart();
 
   useEffect(() => {
@@ -26,6 +28,19 @@ export default function Header() {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Update header height for mobile menu positioning
+  useEffect(() => {
+    const updateHeaderHeight = () => {
+      if (headerRef.current) {
+        setHeaderHeight(headerRef.current.offsetHeight);
+      }
+    };
+
+    updateHeaderHeight();
+    window.addEventListener('resize', updateHeaderHeight);
+    return () => window.removeEventListener('resize', updateHeaderHeight);
   }, []);
 
   // Focus search input when search is opened
@@ -65,6 +80,43 @@ export default function Header() {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isSearchOpen]);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
+
+  // Close mobile menu when clicking outside
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (
+        isMobileMenuOpen &&
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(target) &&
+        !target.closest('button[aria-label="Toggle menu"]')
+      ) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    if (isMobileMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isMobileMenuOpen]);
 
   // Handle product click navigation
   const handleProductClick = (e: React.MouseEvent, productId: string) => {
@@ -125,7 +177,7 @@ export default function Header() {
 
   return (
     <>
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200">
+    <header ref={headerRef} className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200">
       <nav className="w-full">
         <div className="w-full max-w-[1440px] mx-auto px-3 sm:px-4 lg:px-8">
           <div className="flex items-center justify-between h-14 sm:h-16 lg:h-18 relative">
@@ -501,63 +553,85 @@ export default function Header() {
               )}
             </div>
 
-            {/* Mobile Navigation */}
+            {/* Mobile Navigation Overlay */}
             {isMobileMenuOpen && !isSearchOpen && (
-              <div className="lg:hidden bg-white/95 backdrop-blur-md border-t border-gray-200">
-                <div className="px-4 sm:px-6 lg:px-8 py-4 space-y-4">
-                  {navLinks.map((link) => (
-                    link.isPage ? (
-                      <Link
-                        key={link.href}
-                        href={link.href}
-                        onClick={() => {
-                          setActiveLink(link.label);
-                          setIsMobileMenuOpen(false);
-                        }}
-                        className={`block font-medium transition-all duration-300 cursor-pointer py-2 text-sm sm:text-base ${
-                          activeLink === link.label
-                            ? 'text-gray-900'
-                            : 'text-gray-600 hover:text-gray-900'
-                        }`}
-                      >
-                        {link.label}
-                      </Link>
-                    ) : (
-                      <a
-                        key={link.href}
-                        href={link.href}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setActiveLink(link.label);
-                          setIsMobileMenuOpen(false);
-                          
-                          // Check if we're on the home page
-                          if (window.location.pathname === '/') {
-                            // If on home page, just scroll to section
-                            const element = document.querySelector(link.href);
-                            if (element) {
-                              element.scrollIntoView({ 
-                                behavior: 'smooth',
-                                block: 'start'
-                              });
-                            }
-                          } else {
-                            // If on other pages, navigate to home page with hash
-                            window.location.href = `/${link.href}`;
-                          }
-                        }}
-                        className={`block font-medium transition-all duration-300 cursor-pointer py-2 text-sm sm:text-base ${
-                          activeLink === link.label
-                            ? 'text-gray-900'
-                            : 'text-gray-600 hover:text-gray-900'
-                        }`}
-                      >
-                        {link.label}
-                      </a>
-                    )
-                  ))}
+              <>
+                {/* Backdrop */}
+                <div 
+                  className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden transition-opacity duration-300"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                />
+                
+                {/* Mobile Menu */}
+                <div 
+                  ref={mobileMenuRef}
+                  className={`fixed left-0 right-0 bg-white shadow-xl z-50 lg:hidden transition-transform duration-300 ease-in-out ${
+                    isMobileMenuOpen ? 'translate-y-0' : '-translate-y-full'
+                  }`}
+                  style={{ 
+                    top: `${headerHeight}px`,
+                    maxHeight: `calc(100vh - ${headerHeight}px)`
+                  }}
+                >
+                  <div className="overflow-y-auto" style={{ 
+                    maxHeight: `calc(100vh - ${headerHeight}px)`
+                  }}>
+                    <div className="px-4 sm:px-6 py-6 space-y-1">
+                      {navLinks.map((link) => (
+                        link.isPage ? (
+                          <Link
+                            key={link.href}
+                            href={link.href}
+                            onClick={() => {
+                              setActiveLink(link.label);
+                              setIsMobileMenuOpen(false);
+                            }}
+                            className={`block font-medium transition-all duration-200 cursor-pointer py-3 px-4 rounded-lg text-base sm:text-lg ${
+                              activeLink === link.label
+                                ? 'text-gray-900 bg-gray-100'
+                                : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
+                            }`}
+                          >
+                            {link.label}
+                          </Link>
+                        ) : (
+                          <a
+                            key={link.href}
+                            href={link.href}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setActiveLink(link.label);
+                              setIsMobileMenuOpen(false);
+                              
+                              // Check if we're on the home page
+                              if (window.location.pathname === '/') {
+                                // If on home page, just scroll to section
+                                const element = document.querySelector(link.href);
+                                if (element) {
+                                  element.scrollIntoView({ 
+                                    behavior: 'smooth',
+                                    block: 'start'
+                                  });
+                                }
+                              } else {
+                                // If on other pages, navigate to home page with hash
+                                window.location.href = `/${link.href}`;
+                              }
+                            }}
+                            className={`block font-medium transition-all duration-200 cursor-pointer py-3 px-4 rounded-lg text-base sm:text-lg ${
+                              activeLink === link.label
+                                ? 'text-gray-900 bg-gray-100'
+                                : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
+                            }`}
+                          >
+                            {link.label}
+                          </a>
+                        )
+                      ))}
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </>
             )}
           </div>
         </div>

@@ -18,7 +18,7 @@ export interface Product {
 export const products: Product[] = [
   {
     id: 'nasal-cleaner-01',
-    name: 'Smart Nasal Cleaner Bottle',
+    name: 'Smart Nasal Cleaner Bottle (স্মার্ট নাসাল ক্লিনার বোতল)',
     tagline: 'Gentle nasal irrigation for daily sinus care and allergy relief',
     price: 650,
     originalPrice: 1050,
@@ -39,7 +39,7 @@ export const products: Product[] = [
   },
   {
     id: 'foot-odor-spray',
-    name: 'Foot Odor Eliminator Spray',
+    name: 'Anti Bacterial foot spray (অ্যান্টি ব্যাকটেরিয়াল ফুট স্প্রে)',
     tagline: 'Instantly eliminate foot odor and keep feet fresh all day',
     price: 450,
     originalPrice: 750,
@@ -51,15 +51,17 @@ export const products: Product[] = [
     inStock: true,
     stock: 90,
     images: [
-      '/images/spray-1.jpg',
       '/images/spray-2.jpg',
+      '/images/spray-1.jpg',
+      
       '/images/spray-3.jpg',
+      '/images/spray-4.jpg',
     ],
     description: 'Powerful foot odor eliminator spray that neutralizes bad smells instantly. Long-lasting formula keeps your feet fresh and dry throughout the day. Safe for daily use on feet and shoes. Antibacterial properties prevent odor-causing bacteria.',
   },
   {
     id: 'kids-comfy-pillow',
-    name: 'Children\'s Comfort Pillow',
+    name: 'Head shaping pillow (হেড শেপিং পিলো)',
     tagline: 'Ultra-soft memory foam pillow for peaceful sleep',
     price: 890,
     originalPrice: 1290,
@@ -73,6 +75,8 @@ export const products: Product[] = [
     images: [
       '/images/pillow.jpg',
       '/images/pillow-2.jpg',
+      '/images/pillow-3.jpg',
+      '/images/pillow-4.jpg',
     ],
     description: 'Premium quality children\'s pillow designed for optimal neck support and comfort. Made with hypoallergenic memory foam that adapts to your child\'s sleeping position. Breathable cover keeps them cool all night. Perfect for ages 3-12 years.',
   },

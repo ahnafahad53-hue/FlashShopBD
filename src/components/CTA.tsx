@@ -18,7 +18,7 @@ export default function CTA() {
 
           {/* CTA Button */}
           <div className="mb-2 sm:mb-4">
-            <a href="/checkout" className="inline-flex items-center justify-center gap-2 px-8 py-3.5 text-sm font-medium uppercase tracking-wide bg-gray-900 text-white hover:bg-gray-800 transition-all duration-300 rounded-md group">
+            <a href="/checkout" className="inline-flex items-center justify-center gap-2 px-8 py-3.5 text-sm font-medium uppercase tracking-wide bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 transition-all duration-300 rounded-md group shadow-lg hover:shadow-xl">
               <span>Order Now</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
             </a>

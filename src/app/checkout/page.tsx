@@ -83,7 +83,7 @@ export default function CheckoutPage() {
       try {
         console.log('Sending order data to Google Sheets:', orderData);
 
-        const scriptUrl = 'https://script.google.com/macros/s/AKfycbx9ehCGKevh-NM8qKPA_8CMQ9DzbwBcooRbNv2mu17AwbPJF1UPTrJ2q0wq20zFRb5a/exec';
+        const scriptUrl = 'https://script.google.com/macros/s/AKfycbwQCeUQEHO0RLHXnlS3N8UJJaci5-Jt1XGEUzOtR-c288HTVF0uQjAePyUXUncxzZzc/exec';
 
         // Note: Apps Script should set CORS headers and accept text/plain to avoid preflight
         const res = await fetch(scriptUrl, {

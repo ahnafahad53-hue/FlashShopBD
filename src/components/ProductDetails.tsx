@@ -1,12 +1,14 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { ShoppingCart, Star, Package, AlertCircle, MessageSquare, Play, Monitor, Smartphone, X, ArrowRight } from 'lucide-react';
+import { ShoppingCart, Star, Package, AlertCircle, MessageSquare, Play, Monitor, Smartphone, X, ArrowRight, Plus, Minus } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Product } from '@/data/products';
 import { products } from '@/data/products';
+import { useCart } from '@/context/CartContext';
 import ProductCard from './ProductCard';
 
 // Default product images for nasal cleaner (used when product doesn't have images)
@@ -48,7 +50,7 @@ const tutorialVideos = [
 ];
 
 const tabs = [
-  { id: 'how-to-use', label: 'How to Use', icon: AlertCircle },
+  { id: 'how-to-use', label: 'ব্যবহার করার নিয়ম', icon: AlertCircle },
   { id: 'reviews', label: 'Reviews', icon: MessageSquare },
   { id: 'description', label: 'Description', icon: Package },
   { id: 'precautions', label: 'Precautions', icon: AlertCircle },
@@ -165,14 +167,57 @@ interface ProductDetailsProps {
 }
 
 export default function ProductDetails({ product }: ProductDetailsProps) {
+  const router = useRouter();
+  const { addToCart, updateQuantity, items, closeDrawer } = useCart();
   const [activeTab, setActiveTab] = useState('how-to-use');
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
   const [isHydrated, setIsHydrated] = useState(false);
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     setIsHydrated(true);
   }, []);
+
+  // Get current quantity from cart if product is already in cart
+  const cartItem = items.find(item => item.id === product.id);
+  const currentCartQuantity = cartItem?.quantity || 0;
+
+  // Sync quantity with cart when cart changes or component mounts
+  useEffect(() => {
+    if (cartItem && cartItem.quantity > 0) {
+      setQuantity(cartItem.quantity);
+    } else {
+      setQuantity(1);
+    }
+  }, [cartItem]);
+
+  const handleQuantityChange = (delta: number) => {
+    const newQuantity = Math.max(1, Math.min(product.stock, quantity + delta));
+    setQuantity(newQuantity);
+  };
+
+  const handleOrderNow = () => {
+    // Check if product is already in cart
+    if (cartItem) {
+      // If already in cart, update quantity to the selected quantity
+      updateQuantity(product.id, quantity);
+    } else {
+      // If not in cart, add it first
+      addToCart(product);
+      // Then update to the desired quantity if more than 1
+      if (quantity > 1) {
+        // Use setTimeout to ensure cart state is updated first
+        setTimeout(() => {
+          updateQuantity(product.id, quantity);
+        }, 50);
+      }
+    }
+    // Close drawer if it opened
+    closeDrawer();
+    // Navigate to checkout
+    router.push('/checkout');
+  };
 
   const handleVideoClick = (videoUrl: string) => {
     setSelectedVideo(videoUrl);
@@ -431,19 +476,19 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
     if (product.id === 'foot-odor-spray') {
       return (
         <div className="prose max-w-none">
-          <h3 className="text-2xl font-bold text-gray-900 mb-6">How to Use the Spray</h3>
-          <div className="space-y-4 text-gray-900">
+          <h3 className="text-2xl font-bold text-gray-900 mb-6">ব্যবহার করার নিয়ম</h3>
+          <div className="space-y-6 text-gray-900">
             <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg">
-              <h4 className="font-semibold">1. Clean & Dry</h4>
-              <p>Wash and dry your feet or wipe the inside of your shoes before spraying.</p>
+              <h4 className="font-semibold text-lg mb-2">১. পরিস্কার ও শুকনো করুন</h4>
+              <p className="mb-2">স্প্রে করার আগে পা ধুয়ে শুকিয়ে নিন অথবা জুতার ভিতর পরিস্কার করুন।</p>
             </div>
             <div className="bg-green-50 border-l-4 border-green-400 p-4 rounded-r-lg">
-              <h4 className="font-semibold">2. Shake & Spray</h4>
-              <p>Shake well. Hold 15cm away and spray evenly on feet, socks, or shoes.</p>
+              <h4 className="font-semibold text-lg mb-2">২. ঝাঁকিয়ে স্প্রে করুন</h4>
+              <p className="mb-2">বোতলটি ভালোভাবে ঝাঁকিয়ে নিন। ১৫ সেন্টিমিটার দূরত্বে রেখে পা, মোজা বা জুতায় সমানভাবে স্প্রে করুন।</p>
             </div>
             <div className="bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-lg">
-              <h4 className="font-semibold">3. Let It Dry</h4>
-              <p>Allow a few seconds to dry before wearing shoes. Reapply after long wear.</p>
+              <h4 className="font-semibold text-lg mb-2">৩. শুকাতে দিন</h4>
+              <p className="mb-2">জুতা পরার আগে কয়েক সেকেন্ড শুকাতে দিন। দীর্ঘ সময় ব্যবহারের পর পুনরায় ব্যবহার করুন।</p>
             </div>
           </div>
         </div>
@@ -453,19 +498,19 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
     if (product.id === 'kids-comfy-pillow') {
       return (
         <div className="prose max-w-none">
-          <h3 className="text-2xl font-bold text-gray-900 mb-6">Setup & Care</h3>
-          <div className="space-y-4 text-gray-900">
+          <h3 className="text-2xl font-bold text-gray-900 mb-6">ব্যবহার করার নিয়ম</h3>
+          <div className="space-y-6 text-gray-900">
             <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg">
-              <h4 className="font-semibold">1. Fluff & Air Out</h4>
-              <p>Remove from packaging and let it air for a few hours so the foam fully expands.</p>
+              <h4 className="font-semibold text-lg mb-2">১. খুলে বাতাসে রাখুন</h4>
+              <p className="mb-2">প্যাকেজিং থেকে বের করে কয়েক ঘন্টা বাতাসে রাখুন যাতে ফোম সম্পূর্ণভাবে প্রসারিত হতে পারে।</p>
             </div>
             <div className="bg-green-50 border-l-4 border-green-400 p-4 rounded-r-lg">
-              <h4 className="font-semibold">2. Use With a Cover</h4>
-              <p>Slide on the breathable cover or your own pillowcase to keep it clean.</p>
+              <h4 className="font-semibold text-lg mb-2">২. কভার দিয়ে ব্যবহার করুন</h4>
+              <p className="mb-2">পরিস্কার রাখার জন্য শ্বাস-প্রশ্বাসযোগ্য কভার বা আপনার নিজের পিলো কেস ব্যবহার করুন।</p>
             </div>
             <div className="bg-purple-50 border-l-4 border-purple-400 p-4 rounded-r-lg">
-              <h4 className="font-semibold">3. Regular Care</h4>
-              <p>Spot-clean the foam only. Machine wash the removable cover once a week.</p>
+              <h4 className="font-semibold text-lg mb-2">৩. নিয়মিত যত্ন</h4>
+              <p className="mb-2">শুধুমাত্র ফোমের দাগ পরিস্কার করুন। অপসারণযোগ্য কভার সপ্তাহে একবার মেশিনে ধুয়ে নিন।</p>
             </div>
           </div>
         </div>
@@ -474,8 +519,8 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
 
     return (
       <div className="prose max-w-none text-gray-900">
-        <h3 className="text-2xl font-bold mb-4">Usage Guide</h3>
-        <p>Detailed usage instructions will be shared soon. For any questions, please reach out to our support team.</p>
+        <h3 className="text-2xl font-bold mb-4">ব্যবহার করার নিয়ম</h3>
+        <p>বিস্তারিত ব্যবহারের নির্দেশনা শীঘ্রই শেয়ার করা হবে। কোন প্রশ্ন থাকলে আমাদের সাপোর্ট টিমের সাথে যোগাযোগ করুন।</p>
       </div>
     );
   };
@@ -786,13 +831,51 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                 </div>
               )}
 
+              {/* Quantity Controls */}
+              {product.inStock && (
+                <div className="flex items-center justify-between gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                  <div className="flex items-center gap-3">
+                    <span className="text-sm font-medium text-gray-700">Quantity:</span>
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => handleQuantityChange(-1)}
+                        disabled={quantity <= 1}
+                        className="p-2 rounded-full border border-gray-300 text-gray-700 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                        aria-label="Decrease quantity"
+                      >
+                        <Minus size={16} />
+                      </button>
+                      <span className="w-12 text-center font-semibold text-gray-900 text-lg">
+                        {quantity}
+                      </span>
+                      <button
+                        onClick={() => handleQuantityChange(1)}
+                        disabled={quantity >= product.stock}
+                        className="p-2 rounded-full border border-gray-300 text-gray-700 hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                        aria-label="Increase quantity"
+                      >
+                        <Plus size={16} />
+                      </button>
+                    </div>
+                  </div>
+                  {product.stock > 0 && (
+                    <span className="text-xs text-gray-600">
+                      {product.stock - quantity} left in stock
+                    </span>
+                  )}
+                </div>
+              )}
+
               {/* Order Now Button */}
               {product.inStock ? (
-                <a href="/checkout" className="w-full py-4 px-8 font-medium text-sm uppercase tracking-wide bg-gray-900 text-white hover:bg-gray-800 transition-all duration-300 flex items-center justify-center gap-3 rounded-md group">
+                <button 
+                  onClick={handleOrderNow}
+                  className="w-full py-4 px-8 font-medium text-sm uppercase tracking-wide bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 transition-all duration-300 flex items-center justify-center gap-3 rounded-md group shadow-lg hover:shadow-xl"
+                >
                   <ShoppingCart size={20} />
-                  <span>Order Now</span>
+                  <span>Order Now ({quantity} {quantity === 1 ? 'item' : 'items'})</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-                </a>
+                </button>
               ) : (
                 <button disabled className="w-full py-4 px-8 font-medium text-sm uppercase tracking-wide bg-gray-300 text-gray-500 cursor-not-allowed flex items-center justify-center gap-3 rounded-md">
                   <ShoppingCart size={20} />
