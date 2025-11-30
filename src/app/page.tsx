@@ -54,8 +54,8 @@ export default function Home() {
             '@type': 'Organization',
             name: 'FlashShop Bangladesh',
             alternateName: 'FlashShop',
-            url: 'https://flashshop.com',
-            logo: 'https://flashshop.com/flashshop.png',
+            url: 'https://www.flashshopbd.com',
+            logo: 'https://www.flashshopbd.com/flashshop.png',
             description: 'FlashShop is Bangladesh\'s trusted online shopping destination for quality health, wellness, personal care, and kids products. Fast delivery across Bangladesh with 100% authentic products.',
             address: {
               '@type': 'PostalAddress',
@@ -86,8 +86,8 @@ export default function Home() {
             '@context': 'https://schema.org',
             '@type': 'Store',
             name: 'FlashShop Bangladesh',
-            image: 'https://flashshop.com/flashshop.png',
-            url: 'https://flashshop.com',
+            image: 'https://www.flashshopbd.com/flashshop.png',
+            url: 'https://www.flashshopbd.com',
             telephone: '+880-1345903907',
             priceRange: '৳৳',
             address: {
@@ -133,12 +133,12 @@ export default function Home() {
             '@context': 'https://schema.org',
             '@type': 'WebSite',
             name: 'FlashShop Bangladesh',
-            url: 'https://flashshop.com',
+            url: 'https://www.flashshopbd.com',
             potentialAction: {
               '@type': 'SearchAction',
               target: {
                 '@type': 'EntryPoint',
-                urlTemplate: 'https://flashshop.com/products?q={search_term_string}',
+                urlTemplate: 'https://www.flashshopbd.com/products?q={search_term_string}',
               },
               'query-input': 'required name=search_term_string',
             },

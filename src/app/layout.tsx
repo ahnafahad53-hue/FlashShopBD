@@ -55,7 +55,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_BD',
-    url: 'https://flashshopbd.com',
+    url: 'https://www.flashshopbd.com',
     title: 'FlashShop Bangladesh - Online Shopping | Quality Products | Fast Delivery',
     description: 'Shop quality health, wellness, personal care & kids products online in Bangladesh. Fast delivery, 100% authentic, COD available. Your trusted online shopping partner.',
     siteName: 'FlashShop Bangladesh',
@@ -105,7 +105,7 @@ export default function RootLayout({
         {/* Additional SEO Meta Tags */}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#2563eb" />
-        <link rel="canonical" href="https://flashshopbd.com" />
+        <link rel="canonical" href="https://www.flashshopbd.com" />
         
         {/* Google Analytics */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-LB4F7582J6"></script>
