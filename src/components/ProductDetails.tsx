@@ -65,14 +65,14 @@ const productHighlights: Record<string, { label: string; value: string }[]> = {
   ],
   'foot-odor-spray': [
     { label: 'Type', value: 'Antibacterial deodorizing spray' },
-    { label: 'Size', value: '150ml portable bottle' },
+    { label: 'Size', value: '60ml portable bottle' },
     { label: 'Best For', value: 'Feet, socks & shoes' },
     { label: 'Fragrance', value: 'Cooling menthol finish' },
   ],
   'kids-comfy-pillow': [
     { label: 'Material', value: 'Hypoallergenic memory foam' },
     { label: 'Cover', value: 'Breathable removable knit cover' },
-    { label: 'Age Range', value: 'Ideal for ages 3-12 years' },
+    { label: 'Age Range', value: 'Ideal for ages 0-3 years' },
     { label: 'Support', value: 'Ergonomic neck alignment' },
   ],
   'coming-soon-product': [
@@ -748,7 +748,17 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               {/* Badge */}
               {product.badge && (
                 <div className="inline-block">
-                  <span className="bg-blue-600 text-white px-3 py-1 rounded-md text-sm font-semibold">
+                  <span className={`text-white px-3 py-1 rounded-md text-sm font-semibold ${
+                    product.badge === 'BEST SELLER' 
+                      ? 'bg-gradient-to-r from-orange-500 to-red-600'
+                      : product.badge === 'NEW ARRIVAL'
+                      ? 'bg-gradient-to-r from-green-500 to-emerald-600'
+                      : product.badge === 'TRENDING'
+                      ? 'bg-gradient-to-r from-pink-500 to-rose-600'
+                      : product.badge === 'COMING SOON'
+                      ? 'bg-gradient-to-r from-purple-500 to-indigo-600'
+                      : 'bg-blue-600'
+                  }`}>
                     {product.badge}
                   </span>
                 </div>
@@ -870,7 +880,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               {product.inStock ? (
                 <button 
                   onClick={handleOrderNow}
-                  className="w-full py-4 px-8 font-medium text-sm uppercase tracking-wide bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 transition-all duration-300 flex items-center justify-center gap-3 rounded-md group shadow-lg hover:shadow-xl"
+                  className="w-full py-4 px-8 font-medium text-sm uppercase tracking-wide bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 text-white hover:from-cyan-600 hover:via-blue-700 hover:to-indigo-700 transition-all duration-300 flex items-center justify-center gap-3 rounded-md group shadow-lg hover:shadow-xl"
                 >
                   <ShoppingCart size={20} />
                   <span>Order Now ({quantity} {quantity === 1 ? 'item' : 'items'})</span>

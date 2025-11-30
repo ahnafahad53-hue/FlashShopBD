@@ -35,21 +35,27 @@ export default function ProductCard({ product }: ProductCardProps) {
           {/* Badge */}
           {product.badge && (
             <div className="absolute top-2 left-2 z-10">
-              <span className="bg-blue-600 text-white px-2 py-0.5 rounded text-xs font-semibold shadow-sm">
+              <span className={`text-white px-2 py-0.5 rounded text-xs font-semibold shadow-sm ${
+                product.badge === 'BEST SELLER' 
+                  ? 'bg-gradient-to-r from-orange-500 to-red-600'
+                  : product.badge === 'NEW ARRIVAL'
+                  ? 'bg-gradient-to-r from-green-500 to-emerald-600'
+                  : product.badge === 'TRENDING'
+                  ? 'bg-gradient-to-r from-pink-500 to-rose-600'
+                  : product.badge === 'COMING SOON'
+                  ? 'bg-gradient-to-r from-purple-500 to-indigo-600'
+                  : 'bg-blue-600'
+              }`}>
                 {product.badge}
               </span>
             </div>
           )}
 
-          {/* Stock Status */}
-          {!product.inStock && (
+          {/* Stock Status - Only show if badge is not COMING SOON */}
+          {!product.inStock && product.badge !== 'COMING SOON' && (
             <div className="absolute top-2 right-2 z-10">
-              <span className={`${
-                product.badge === 'COMING SOON' 
-                  ? 'bg-purple-500' 
-                  : 'bg-red-500'
-              } text-white px-2 py-0.5 rounded text-xs font-semibold shadow-sm`}>
-                {product.badge === 'COMING SOON' ? 'Coming Soon' : 'Out of Stock'}
+              <span className="bg-red-500 text-white px-2 py-0.5 rounded text-xs font-semibold shadow-sm">
+                Out of Stock
               </span>
             </div>
           )}
