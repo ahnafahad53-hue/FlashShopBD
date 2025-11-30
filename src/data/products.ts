@@ -51,11 +51,10 @@ export const products: Product[] = [
     inStock: true,
     stock: 90,
     images: [
-      '/images/spray-2.jpg',
-      '/images/spray-1.jpg',
-      
-      '/images/spray-3.jpg',
-      '/images/spray-4.jpg',
+      'https://res.cloudinary.com/dgm2mosta/image/upload/v1764521832/spray-2_ayshp9.jpg',
+      'https://res.cloudinary.com/dgm2mosta/image/upload/v1764521828/spray-1_pokfw3.jpg',
+      'https://res.cloudinary.com/dgm2mosta/image/upload/v1764521830/spray-4_dx3jxr.jpg',
+      'https://res.cloudinary.com/dgm2mosta/image/upload/v1764521831/spray-3_qs8y1k.jpg',
     ],
     description: 'Powerful foot odor eliminator spray that neutralizes bad smells instantly. Long-lasting formula keeps your feet fresh and dry throughout the day. Safe for daily use on feet and shoes. Antibacterial properties prevent odor-causing bacteria.',
   },
@@ -74,10 +73,10 @@ export const products: Product[] = [
     stock: 60,
     images: [
       
-      '/images/pillow-2.jpg',
-      '/images/pillow-3.jpg',
-      '/images/pillow-4.jpg',
-      '/images/pillow.jpg',
+      'https://res.cloudinary.com/dgm2mosta/image/upload/v1764521823/pillow-2_pqwye1.jpg',
+      'https://res.cloudinary.com/dgm2mosta/image/upload/v1764521824/pillow-3_j38nyh.jpg',
+      'https://res.cloudinary.com/dgm2mosta/image/upload/v1764521827/pillow-4_ibsojs.jpg',
+      'https://res.cloudinary.com/dgm2mosta/image/upload/v1764521827/pillow_qxrggj.jpg',
     ],
     description: 'Premium quality children\'s pillow designed for optimal neck support and comfort. Made with hypoallergenic memory foam that adapts to your child\'s sleeping position. Breathable cover keeps them cool all night. Perfect for ages 0-3 years.',
   },
@@ -94,7 +93,7 @@ export const products: Product[] = [
     inStock: false,
     stock: 0,
     images: [
-      '/images/oil-spray.jpg',
+      'https://res.cloudinary.com/dgm2mosta/image/upload/v1764521824/oil-spray_drrayq.jpg',
     ],
     description: 'High-quality spray oil pot perfect for various applications. Stay tuned for this exciting new product launch!',
   },
@@ -111,7 +110,7 @@ export const products: Product[] = [
     inStock: false,
     stock: 0,
     images: [
-      '/images/Fujiqui.jpg',
+      'https://res.cloudinary.com/dgm2mosta/image/upload/v1764521824/Fujiqui_nsmknz.jpg',
     ],
     description: 'An innovative LED table lamp that will revolutionize your workspace and home lighting. Coming soon to FlashShop!',
   },
@@ -128,7 +127,7 @@ export const products: Product[] = [
     inStock: false,
     stock: 0,
     images: [
-      '/images/wheel cover.jpg',
+      'https://res.cloudinary.com/dgm2mosta/image/upload/v1764521837/wheel_cover_sgmcnb.jpg',
     ],
     description: 'Premium car steering wheel cover for vehicle protection and comfort. This exciting new product will be available soon!',
   },

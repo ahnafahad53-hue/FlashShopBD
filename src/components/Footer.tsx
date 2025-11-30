@@ -18,7 +18,7 @@ export default function Footer() {
           <div>
             <div className="mb-6">
               <Image
-                src="/flashshop.png"
+                src="https://res.cloudinary.com/dgm2mosta/image/upload/v1764521881/flashshop-mobile_i0d0po.png"
                 alt="FlashShop Logo"
                 width={180}
                 height={50}

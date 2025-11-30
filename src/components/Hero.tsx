@@ -11,7 +11,7 @@ export default function Hero() {
       <div className="absolute inset-0 z-0">
         {/* Desktop Background Image */}
         <Image
-          src="/images/product-final-11.png"
+          src="https://res.cloudinary.com/dgm2mosta/image/upload/v1764521833/product-final-11_era5wm.png"
           alt="FlashShop Background"
           fill
           className="object-cover hidden sm:block"
@@ -19,7 +19,7 @@ export default function Hero() {
         />
         {/* Mobile Background Image */}
         <Image
-          src="/images/hero-bg-mob-final.png"
+          src="https://res.cloudinary.com/dgm2mosta/image/upload/v1764521834/hero-bg-mob-final_sdvzpw.png"
           alt="FlashShop Mobile Background"
           fill
           className="object-cover sm:hidden"

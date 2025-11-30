@@ -190,7 +190,7 @@ export default function Header() {
               className="lg:hidden absolute left-1/2 transform -translate-x-1/2 z-10 cursor-pointer"
             >
               <Image
-                src="/flashshop-mobile.png"
+                src="https://res.cloudinary.com/dgm2mosta/image/upload/v1764521881/flashshop-mobile_i0d0po.png"
                 alt="FlashShop Logo"
                 width={120}
                 height={48}
