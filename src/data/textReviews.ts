@@ -65,7 +65,7 @@ export const fbReviews: FBStyleReview[] = [
     id: 'fb-8',
     name: 'Shahriar Alam',
     date: 'Sep 07',
-    content: 'Amar cheleder jonne pillow ta nisi. Tara onek comfortable sleep korche, neck support o bhalo. Quality excellent.',
+    content: 'Amar cheler jonne pillow ta nisi. Tara onek comfortable sleep korche, neck support o bhalo. Quality excellent.',
     avatar: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761759851/photo-1670400273456-583a44d9c8ab_adkbky.avif'
   },
   {
