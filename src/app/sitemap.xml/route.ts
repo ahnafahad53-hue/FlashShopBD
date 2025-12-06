@@ -14,6 +14,16 @@ export async function GET(request: Request) {
     { url: 'checkout', priority: '0.5', changefreq: 'monthly' },
   ];
 
+  // Helper function to escape XML content
+  const escapeXml = (str: string): string => {
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&apos;');
+  };
+
   // Add all product pages with images
   const productPages = products.map(product => {
     const productUrl = `products/${product.id}`;
@@ -27,9 +37,9 @@ export async function GET(request: Request) {
     if (mainImage) {
       imageTag = `
     <image:image>
-      <image:loc>${mainImage}</image:loc>
-      <image:title>${product.name}</image:title>
-      <image:caption>${product.tagline}</image:caption>
+      <image:loc>${escapeXml(mainImage)}</image:loc>
+      <image:title>${escapeXml(product.name)}</image:title>
+      <image:caption>${escapeXml(product.tagline || '')}</image:caption>
     </image:image>`;
     }
     
