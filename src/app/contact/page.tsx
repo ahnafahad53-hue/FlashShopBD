@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, Clock } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { trackMetaPixelEvent } from '@/components/MetaPixel';
 
 export default function Contact() {
   const router = useRouter();
@@ -42,6 +43,21 @@ export default function Contact() {
 
       console.log('Response status:', response.status);
       console.log('Response headers:', response.headers);
+
+      // Track Contact event with advanced matching
+      const nameParts = formData.name.trim().split(' ');
+      const firstName = nameParts[0] || '';
+      const lastName = nameParts.slice(1).join(' ') || '';
+      
+      trackMetaPixelEvent('Contact', {
+        email: formData.email || undefined,
+        phone: formData.phone || undefined,
+        firstName: firstName || undefined,
+        lastName: lastName || undefined,
+        city: 'Dhaka',
+        state: 'Dhaka',
+        country: 'BD',
+      });
 
       // Since we're using no-cors, we can't read the response
       // But we can assume success if no error was thrown

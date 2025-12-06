@@ -6,6 +6,7 @@ import { ArrowLeft, ShoppingCart, MapPin, User, CreditCard, Plus, Minus, Package
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
+import { trackMetaPixelEvent } from '@/components/MetaPixel';
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -122,6 +123,31 @@ export default function CheckoutPage() {
         localStorage.setItem('lastOrderId', createdOrderId);
       }
       
+
+      // Track Purchase event with advanced matching
+      if (typeof window !== 'undefined' && window.fbq) {
+        // Extract first and last name from fullName
+        const nameParts = formData.fullName.trim().split(' ');
+        const firstName = nameParts[0] || '';
+        const lastName = nameParts.slice(1).join(' ') || '';
+        
+        // Track Purchase event with advanced matching
+        trackMetaPixelEvent('Purchase', {
+          email: formData.email || undefined,
+          phone: formData.phone || undefined,
+          firstName: firstName || undefined,
+          lastName: lastName || undefined,
+          city: 'Dhaka',
+          state: 'Dhaka',
+          country: 'BD',
+        });
+        
+        // Also track the purchase value
+        window.fbq('track', 'Purchase', {
+          value: totalPrice,
+          currency: 'BDT',
+        });
+      }
 
       // Redirect to thank you page instead of showing alert
       clearCart();
