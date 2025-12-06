@@ -15,6 +15,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.flashshopbd.com'),
   title: 'FlashShop Bangladesh | Online Shopping | Quality Products Fast Delivery',
   description: 'FlashShop - Your trusted online shopping destination in Bangladesh. Buy quality health & wellness, personal care, kids products with fast delivery across Bangladesh. 100% authentic products, COD available. Order now!',
   keywords: [
