@@ -1,13 +1,14 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 
 export default function MetaPixel() {
   const pathname = usePathname();
+  const initialized = useRef(false);
 
   useEffect(() => {
-    // Initialize Meta Pixel
+    // Initialize Meta Pixel only once
     if (typeof window !== 'undefined' && !window.fbq) {
       (function(f: any, b: any, e: any, v: any, n: any, t: any, s: any) {
         if (f.fbq) return;
@@ -38,11 +39,11 @@ export default function MetaPixel() {
 
       // Initialize pixel with empty advanced matching (will be populated when data is available)
       window.fbq('init', '840498368356556', {});
-      window.fbq('track', 'PageView');
-    }
-
-    // Track page view on route change
-    if (typeof window !== 'undefined' && window.fbq) {
+      window.fbq('track', 'PageView'); // Initial PageView
+      initialized.current = true;
+    } 
+    // Track page view on route change ONLY (not on initial mount)
+    else if (initialized.current && typeof window !== 'undefined' && window.fbq) {
       window.fbq('track', 'PageView');
     }
   }, [pathname]);
@@ -50,10 +51,18 @@ export default function MetaPixel() {
   return null;
 }
 
-// Helper function to track events with advanced matching
+// Helper function to track events with advanced matching and event parameters
 export function trackMetaPixelEvent(
   eventName: string,
-  data?: {
+  eventParams?: {
+    value?: number;
+    currency?: string;
+    content_type?: string;
+    content_ids?: string[];
+    contents?: Array<{ id: string; quantity: number }>;
+    num_items?: number;
+  },
+  advancedMatchingData?: {
     email?: string;
     phone?: string;
     firstName?: string;
@@ -67,36 +76,38 @@ export function trackMetaPixelEvent(
   if (typeof window !== 'undefined' && window.fbq) {
     const advancedMatching: any = {};
     
-    if (data?.email) {
-      advancedMatching.em = data.email; // Will be hashed automatically by Meta Pixel
+    // Build advanced matching object
+    if (advancedMatchingData?.email) {
+      advancedMatching.em = advancedMatchingData.email; // Will be hashed automatically by Meta Pixel
     }
-    if (data?.phone) {
-      advancedMatching.ph = data.phone.replace(/\D/g, ''); // Remove non-digits
+    if (advancedMatchingData?.phone) {
+      advancedMatching.ph = advancedMatchingData.phone.replace(/\D/g, ''); // Remove non-digits
     }
-    if (data?.firstName) {
-      advancedMatching.fn = data.firstName;
+    if (advancedMatchingData?.firstName) {
+      advancedMatching.fn = advancedMatchingData.firstName;
     }
-    if (data?.lastName) {
-      advancedMatching.ln = data.lastName;
+    if (advancedMatchingData?.lastName) {
+      advancedMatching.ln = advancedMatchingData.lastName;
     }
-    if (data?.city) {
-      advancedMatching.ct = data.city;
+    if (advancedMatchingData?.city) {
+      advancedMatching.ct = advancedMatchingData.city;
     }
-    if (data?.state) {
-      advancedMatching.st = data.state;
+    if (advancedMatchingData?.state) {
+      advancedMatching.st = advancedMatchingData.state;
     }
-    if (data?.zipCode) {
-      advancedMatching.zp = data.zipCode;
+    if (advancedMatchingData?.zipCode) {
+      advancedMatching.zp = advancedMatchingData.zipCode;
     }
-    if (data?.country) {
-      advancedMatching.country = data.country;
+    if (advancedMatchingData?.country) {
+      advancedMatching.country = advancedMatchingData.country;
     }
 
-    // Track event with advanced matching if available
+    // Track event with both event parameters and advanced matching
+    // This is the correct way to combine both in a SINGLE event
     if (Object.keys(advancedMatching).length > 0) {
-      window.fbq('track', eventName, {}, advancedMatching);
+      window.fbq('track', eventName, eventParams || {}, advancedMatching);
     } else {
-      window.fbq('track', eventName);
+      window.fbq('track', eventName, eventParams || {});
     }
   }
 }

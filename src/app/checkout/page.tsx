@@ -124,15 +124,28 @@ export default function CheckoutPage() {
       }
       
 
-      // Track Purchase event with advanced matching
+      // Track Purchase event with advanced matching AND purchase value in a SINGLE event
       if (typeof window !== 'undefined' && window.fbq) {
         // Extract first and last name from fullName
         const nameParts = formData.fullName.trim().split(' ');
         const firstName = nameParts[0] || '';
         const lastName = nameParts.slice(1).join(' ') || '';
         
-        // Track Purchase event with advanced matching
-        trackMetaPixelEvent('Purchase', {
+        // Prepare event parameters for the purchase
+        const purchaseEventParams = {
+          value: totalPrice,
+          currency: 'BDT',
+          content_type: 'product',
+          content_ids: selectedItems.map(item => item.id),
+          contents: selectedItems.map(item => ({
+            id: item.id,
+            quantity: item.quantity
+          })),
+          num_items: selectedItems.reduce((total, item) => total + item.quantity, 0),
+        };
+
+        // Prepare advanced matching data
+        const advancedMatchingData = {
           email: formData.email || undefined,
           phone: formData.phone || undefined,
           firstName: firstName || undefined,
@@ -140,13 +153,10 @@ export default function CheckoutPage() {
           city: 'Dhaka',
           state: 'Dhaka',
           country: 'BD',
-        });
+        };
         
-        // Also track the purchase value
-        window.fbq('track', 'Purchase', {
-          value: totalPrice,
-          currency: 'BDT',
-        });
+        // Track Purchase event with BOTH event params AND advanced matching in ONE call
+        trackMetaPixelEvent('Purchase', purchaseEventParams, advancedMatchingData);
       }
 
       // Redirect to thank you page instead of showing alert

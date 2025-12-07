@@ -49,7 +49,7 @@ export default function Contact() {
       const firstName = nameParts[0] || '';
       const lastName = nameParts.slice(1).join(' ') || '';
       
-      trackMetaPixelEvent('Contact', {
+      trackMetaPixelEvent('Contact', {}, {
         email: formData.email || undefined,
         phone: formData.phone || undefined,
         firstName: firstName || undefined,
