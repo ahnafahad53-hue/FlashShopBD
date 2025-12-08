@@ -5,7 +5,7 @@ import SmoothScrollProvider from '@/components/SmoothScrollProvider';
 import FloatingCTA from '@/components/FloatingCTA';
 import { CartProvider } from '@/context/CartContext';
 import CartDrawer from '@/components/CartDrawer';
-import MetaPixel from '@/components/MetaPixel';
+import FacebookPixel from '@/components/FacebookPixel';
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -109,8 +109,8 @@ export default function RootLayout({
         <meta name="theme-color" content="#2563eb" />
         <link rel="canonical" href="https://www.flashshopbd.com" />
         
-        {/* Google Analytics */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-LB4F7582J6"></script>
+        {/* Google Analytics - TEMPORARILY DISABLED TO FIX META PIXEL DUPLICATE COUNTING */}
+        {/* <script async src="https://www.googletagmanager.com/gtag/js?id=G-LB4F7582J6"></script>
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -120,21 +120,11 @@ export default function RootLayout({
               gtag('config', 'G-LB4F7582J6');
             `,
           }}
-        />
+        /> */}
 
-        {/* Meta Pixel Noscript Fallback */}
-        <noscript>
-          <img
-            height="1"
-            width="1"
-            style={{ display: 'none' }}
-            src="https://www.facebook.com/tr?id=840498368356556&ev=PageView&noscript=1"
-            alt=""
-          />
-        </noscript>
       </head>
       <body className={`${inter.className} font-inter antialiased`}>
-        <MetaPixel />
+        <FacebookPixel />
         <SmoothScrollProvider>
           <CartProvider>
             {children}

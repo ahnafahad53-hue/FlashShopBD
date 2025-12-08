@@ -6,7 +6,12 @@ import { ArrowLeft, ShoppingCart, MapPin, User, CreditCard, Plus, Minus, Package
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
-import { trackMetaPixelEvent } from '@/components/MetaPixel';
+
+declare global {
+  interface Window {
+    fbq: any;
+  }
+}
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -57,6 +62,12 @@ export default function CheckoutPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Prevent duplicate submissions
+    if (isSubmitting) {
+      return;
+    }
+    
     setIsSubmitting(true);
 
     try {
@@ -123,40 +134,16 @@ export default function CheckoutPage() {
         localStorage.setItem('lastOrderId', createdOrderId);
       }
       
-
-      // Track Purchase event with advanced matching AND purchase value in a SINGLE event
-      if (typeof window !== 'undefined' && window.fbq) {
-        // Extract first and last name from fullName
-        const nameParts = formData.fullName.trim().split(' ');
-        const firstName = nameParts[0] || '';
-        const lastName = nameParts.slice(1).join(' ') || '';
-        
-        // Prepare event parameters for the purchase
-        const purchaseEventParams = {
+      // Track Purchase event (Meta Standard Event) with deduplication
+      const orderIdentifier = createdOrderId || `${Date.now()}-${totalPrice}`;
+      const purchaseTracked = sessionStorage.getItem(`purchase_${orderIdentifier}`);
+      
+      if (typeof window !== 'undefined' && window.fbq && !purchaseTracked) {
+        sessionStorage.setItem(`purchase_${orderIdentifier}`, 'true');
+        window.fbq('track', 'Purchase', {
           value: totalPrice,
-          currency: 'BDT',
-          content_type: 'product',
-          content_ids: selectedItems.map(item => item.id),
-          contents: selectedItems.map(item => ({
-            id: item.id,
-            quantity: item.quantity
-          })),
-          num_items: selectedItems.reduce((total, item) => total + item.quantity, 0),
-        };
-
-        // Prepare advanced matching data
-        const advancedMatchingData = {
-          email: formData.email || undefined,
-          phone: formData.phone || undefined,
-          firstName: firstName || undefined,
-          lastName: lastName || undefined,
-          city: 'Dhaka',
-          state: 'Dhaka',
-          country: 'BD',
-        };
-        
-        // Track Purchase event with BOTH event params AND advanced matching in ONE call
-        trackMetaPixelEvent('Purchase', purchaseEventParams, advancedMatchingData);
+          currency: 'BDT'
+        });
       }
 
       // Redirect to thank you page instead of showing alert
