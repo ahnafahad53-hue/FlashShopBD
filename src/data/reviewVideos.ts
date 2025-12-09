@@ -13,6 +13,11 @@ export const videoReviews: ReviewVideo[] = [
     caption: 'Real customer video review 1',
   },
   {
+    id: 'v5',
+    src: 'https://res.cloudinary.com/dgm2mosta/video/upload/v1765286635/InShot_20251209_071807694_tx69u0.mp4',
+    caption: 'Real customer video review',
+  },
+  {
     id: 'v2',
     src: 'https://res.cloudinary.com/dgm2mosta/video/upload/v1761642958/InShot_20251028_142003655_rdzoy6.mp4',
     caption: 'Real customer video review 2',
