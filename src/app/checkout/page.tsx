@@ -7,12 +7,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
 
-declare global {
-  interface Window {
-    fbq: any;
-  }
-}
-
 export default function CheckoutPage() {
   const router = useRouter();
   const { items: cartItems, updateQuantity, clearCart } = useCart();
@@ -134,18 +128,6 @@ export default function CheckoutPage() {
         localStorage.setItem('lastOrderId', createdOrderId);
       }
       
-      // Track Purchase event (Meta Standard Event) with deduplication
-      const orderIdentifier = createdOrderId || `${Date.now()}-${totalPrice}`;
-      const purchaseTracked = sessionStorage.getItem(`purchase_${orderIdentifier}`);
-      
-      if (typeof window !== 'undefined' && window.fbq && !purchaseTracked) {
-        sessionStorage.setItem(`purchase_${orderIdentifier}`, 'true');
-        window.fbq('track', 'Purchase', {
-          value: totalPrice,
-          currency: 'BDT'
-        });
-      }
-
       // Redirect to thank you page instead of showing alert
       clearCart();
       router.push('/thank-you-order');
