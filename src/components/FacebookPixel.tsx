@@ -2,18 +2,10 @@
 
 import Script from 'next/script';
 
-const FacebookPixel = () => {
-  const pixelId = process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID;
+// Hard-coded FlashShop Meta Pixel ID as requested
+const PIXEL_ID = '840498368356556';
 
-  // If no Pixel ID is configured, don't render anything
-  if (!pixelId) {
-    if (process.env.NODE_ENV === 'development') {
-      console.warn(
-        '[FacebookPixel] NEXT_PUBLIC_FACEBOOK_PIXEL_ID is not set. Meta Pixel will not be initialized.'
-      );
-    }
-    return null;
-  }
+const FacebookPixel = () => {
 
   return (
     <>
@@ -39,7 +31,7 @@ const FacebookPixel = () => {
               s.parentNode.insertBefore(t,s)
             }(window, document,'script',
             'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '${pixelId}');
+            fbq('init', '${PIXEL_ID}');
             fbq('track', 'PageView');
           `,
         }}
@@ -50,7 +42,7 @@ const FacebookPixel = () => {
           height="1"
           width="1"
           style={{ display: 'none' }}
-          src={`https://www.facebook.com/tr?id=${pixelId}&ev=PageView&noscript=1`}
+          src={`https://www.facebook.com/tr?id=${PIXEL_ID}&ev=PageView&noscript=1`}
         />
       </noscript>
     </>
