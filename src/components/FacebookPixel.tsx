@@ -1,53 +1,42 @@
 'use client';
 
+'use client';
+
 import Script from 'next/script';
 
-// Hard-coded FlashShop Meta Pixel ID as requested
-const PIXEL_ID = '840498368356556';
-
 const FacebookPixel = () => {
-
   return (
     <>
-      {/* Meta Pixel Script */}
+      {/* Meta Pixel Code */}
       <Script
-        strategy="afterInteractive"
         id="facebook-pixel"
+        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
-            !function(f,b,e,v,n,t,s) {
-              if(f.fbq) return;
-              n=f.fbq=function(){n.callMethod?
-                n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-              if(!f._fbq) f._fbq=n;
-              n.push=n;
-              n.loaded=!0;
-              n.version='2.0';
-              n.queue=[];
-              t=b.createElement(e);
-              t.async=!0;
-              t.src=v;
-              s=b.getElementsByTagName(e)[0];
-              s.parentNode.insertBefore(t,s)
-            }(window, document,'script',
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
             'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '${PIXEL_ID}');
+            fbq('init', '26207232875539007');
             fbq('track', 'PageView');
           `,
         }}
       />
       <noscript>
         <img
-          alt="facebook-pixel"
           height="1"
           width="1"
           style={{ display: 'none' }}
-          src={`https://www.facebook.com/tr?id=${PIXEL_ID}&ev=PageView&noscript=1`}
+          src="https://www.facebook.com/tr?id=26207232875539007&ev=PageView&noscript=1"
         />
       </noscript>
+      {/* End Meta Pixel Code */}
     </>
   );
 };
 
 export default FacebookPixel;
-
