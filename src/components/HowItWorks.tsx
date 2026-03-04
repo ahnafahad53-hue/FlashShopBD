@@ -6,12 +6,12 @@ import { useState } from 'react';
 
 const tutorialVideos = [
   {
-    id: 'desktop-2', 
+    id: 'desktop-2',
     title: 'Daily Usage Tips',
     description: 'Master the technique for effective nasal irrigation and care',
     icon: Monitor,
-    videoUrl: 'https://res.cloudinary.com/dgm2mosta/video/upload/v1761671800/VID_20251028211747_on4ysh.mp4',
-    thumbnail: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761633114/IMG_20251019_131330_o2cvlq.jpg', // Add your thumbnail image URL here
+    videoUrl: 'https://res.cloudinary.com/dctw9lg1d/video/upload/v1772634230/VID_20251028211747_tnvrtv.mp4',
+    thumbnail: 'https://res.cloudinary.com/dctw9lg1d/image/upload/v1772635340/Screenshot_2026-03-04_at_8.41.52_PM_m96g9n.png', // Optional: replace with a true image URL
     duration: '0:35'
   },
   {
@@ -20,17 +20,18 @@ const tutorialVideos = [
     description: 'Learn how to properly prepare and use your nasal cleaner bottle',
     device: 'desktop',
     icon: Monitor,
-    videoUrl: 'https://res.cloudinary.com/dgm2mosta/video/upload/v1761671796/VID_20251028212619_n33cug.mp4',
-    thumbnail: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761633116/IMG_20251019_131413_kf5jdi.jpg', // Add your thumbnail image URL here
+    videoUrl: 'https://res.cloudinary.com/dctw9lg1d/video/upload/v1772634275/VID_20251028212619_brfily.mp4',
+    thumbnail: 'https://res.cloudinary.com/dctw9lg1d/video/upload/v1772634275/VID_20251028212619_brfily.jpg', // Optional: replace with a true image URL
     duration: '0:32'
   },
   {
+    id: 'mobile-1',
 
     title: 'Quick Start Guide',
     description: 'Fast and easy tutorial for immediate relief and better breathing',
     icon: Smartphone,
-    videoUrl: 'https://res.cloudinary.com/dgm2mosta/video/upload/v1761671859/InShot_20251028_212539309_wgmckk.mp4',
-    thumbnail: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761675280/gg_cjyzkl.webp', // Add your thumbnail image URL here
+    videoUrl: 'https://res.cloudinary.com/dctw9lg1d/video/upload/v1772634200/InShot_20251028_212539309_wjdo0p.mp4',
+    thumbnail: 'https://res.cloudinary.com/dctw9lg1d/video/upload/v1772634200/InShot_20251028_212539309_wjdo0p.jpg', // Optional: replace with a true image URL
     duration: '0:48'
   }
 ];
@@ -113,49 +114,29 @@ export default function HowItWorks() {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="group cursor-pointer"
                 >
-                  <div 
+                  <div
                     className="relative bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 group-hover:scale-[1.02] cursor-pointer"
                     onClick={() => handleVideoClick(video.videoUrl)}
                   >
-                    {/* Video Thumbnail */}
+                    {/* Video Thumbnail (MP4 preview with poster) */}
                     <div className="relative aspect-[16/9] bg-gray-100 overflow-hidden">
-                      {/* Thumbnail Image */}
-                      <img 
-                        src={video.thumbnail}
-                        alt={video.title}
+                      <video
                         className="w-full h-full object-cover"
-                        style={{ 
-                          width: '100%', 
-                          height: '100%', 
-                          objectFit: 'cover',
-                          objectPosition: 'center',
-                          display: 'block'
-                        }}
-                        onError={(e) => {
-                          // Fallback to gradient background if thumbnail fails to load
-                          e.currentTarget.style.display = 'none';
-                          const fallback = e.currentTarget.nextElementSibling as HTMLElement;
-                          if (fallback) fallback.style.display = 'flex';
-                        }}
-                      />
-                      
-                      {/* Fallback gradient background */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 items-center justify-center hidden">
-                        <div className="text-center">
-                          <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center mb-3 mx-auto group-hover:scale-110 transition-transform duration-300">
-                            <Play className="w-8 h-8 text-gray-700 ml-1" />
-                          </div>
-                          <p className="text-sm text-gray-600 font-medium">Click to play</p>
-                        </div>
-                      </div>
-                      
+                        muted
+                        playsInline
+                        preload="metadata"
+                        poster={video.thumbnail}
+                      >
+                        <source src={video.videoUrl} type="video/mp4" />
+                      </video>
+
                       {/* Play Button Overlay */}
                       <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                           <Play className="w-8 h-8 text-gray-700 ml-1" />
                         </div>
                       </div>
-                      
+
                       {/* Duration Badge */}
                       <div className="absolute bottom-3 right-3 bg-black/80 text-white text-xs px-2 py-1 rounded">
                         {video.duration}
@@ -237,13 +218,16 @@ export default function HowItWorks() {
             
             {/* Video Player */}
             <video
-              src={selectedVideo}
+              key={selectedVideo}
               controls
               autoPlay
+              playsInline
+              preload="metadata"
               className="w-full h-auto max-h-[70vh] sm:max-h-[80vh]"
               onEnded={closeVideo}
               style={{ maxWidth: '100%', height: 'auto' }}
             >
+              <source src={selectedVideo!} type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </div>

@@ -30,10 +30,11 @@ export const products: Product[] = [
     inStock: true,
     stock: 120,
     images: [
-      'https://res.cloudinary.com/dgm2mosta/image/upload/v1761633111/IMG_20251019_124825_co8dcd.jpg',
-      'https://res.cloudinary.com/dgm2mosta/image/upload/v1761633116/IMG_20251019_131413_kf5jdi.jpg',
-      'https://res.cloudinary.com/dgm2mosta/image/upload/v1761633110/IMG_20251019_123820_p4kvve.jpg',
-      'https://res.cloudinary.com/dgm2mosta/image/upload/v1761633108/IMG_20250925_162855_wtgfpz.jpg',
+      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1772633605/IMG_20260122_150253_mh6sbf.jpg',
+      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1772633620/IMG_20251019_131330_jdjzod.jpg',
+      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1772633616/IMG_20251019_131413_ppnawx.jpg',
+      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1772633609/IMG_20251019_123820_zevzs2.jpg',
+      
     ],
     description: 'Professional-grade nasal irrigation bottle designed for gentle and effective sinus care. Made from medical-grade, BPA-free materials. Perfect for relieving sinusitis, allergies, and congestion. Easy to use and clean.',
   },
