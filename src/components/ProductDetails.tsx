@@ -21,12 +21,12 @@ const defaultProductImages = [
 
 const tutorialVideos = [
   {
-    id: 'desktop-2', 
+    id: 'desktop-2',
     title: 'Daily Usage Tips',
     description: 'Master the technique for effective nasal irrigation and care',
     icon: Monitor,
-    videoUrl: 'https://res.cloudinary.com/dgm2mosta/video/upload/v1761671800/VID_20251028211747_on4ysh.mp4',
-    thumbnail: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761633114/IMG_20251019_131330_o2cvlq.jpg',
+    videoUrl: '/images/VID_20251028211747.mp4',
+    thumbnail: '/images/1.png',
     duration: '0:35'
   },
   {
@@ -34,8 +34,8 @@ const tutorialVideos = [
     title: 'Complete Setup Guide',
     description: 'Learn how to properly prepare and use your nasal cleaner bottle',
     icon: Monitor,
-    videoUrl: 'https://res.cloudinary.com/dgm2mosta/video/upload/v1761671796/VID_20251028212619_n33cug.mp4',
-    thumbnail: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761633116/IMG_20251019_131413_kf5jdi.jpg',
+    videoUrl: '/images/VID_20251028212619.mp4',
+    thumbnail: '/images/2.png',
     duration: '0:32'
   },
   {
@@ -43,8 +43,8 @@ const tutorialVideos = [
     title: 'Quick Start Guide',
     description: 'Fast and easy tutorial for immediate relief and better breathing',
     icon: Smartphone,
-    videoUrl: 'https://res.cloudinary.com/dgm2mosta/video/upload/v1761671859/InShot_20251028_212539309_wgmckk.mp4',
-    thumbnail: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761675280/gg_cjyzkl.webp',
+    videoUrl: '/images/InShot_20251028_212539309.mp4',
+    thumbnail: '/images/3.png',
     duration: '0:48'
   }
 ];
@@ -982,28 +982,35 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
 
       {/* Inline Video Modal */}
       {selectedVideo && (
-        <div 
-          className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-2 sm:p-4"
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Video player"
+          className="fixed inset-0 bg-black/85 z-[100] flex items-center justify-center p-4"
           onClick={closeVideo}
         >
-          <div 
-            className="relative w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl xl:max-w-3xl bg-white rounded-xl overflow-hidden"
+          <div
+            className="relative w-full max-w-2xl bg-black rounded-xl overflow-hidden shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             <button
+              type="button"
               onClick={closeVideo}
-              className="absolute top-2 right-2 z-10 bg-black/70 hover:bg-black/90 text-white rounded-full p-1.5 sm:p-2 transition-colors duration-200"
+              className="absolute top-2 right-2 z-10 rounded-full p-2 bg-black/60 hover:bg-black/80 text-white transition-colors"
+              aria-label="Close video"
             >
-              <X className="w-4 h-4 sm:w-5 sm:h-5" />
+              <X className="w-5 h-5" />
             </button>
-            
             <video
-              src={selectedVideo}
+              key={selectedVideo}
               controls
               autoPlay
-              className="w-full h-auto max-h-[70vh] sm:max-h-[80vh]"
+              playsInline
+              preload="auto"
+              className="w-full h-auto max-h-[85vh]"
               onEnded={closeVideo}
             >
+              <source src={selectedVideo} type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </div>

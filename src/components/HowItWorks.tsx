@@ -10,8 +10,8 @@ const tutorialVideos = [
     title: 'Daily Usage Tips',
     description: 'Master the technique for effective nasal irrigation and care',
     icon: Monitor,
-    videoUrl: 'https://res.cloudinary.com/dctw9lg1d/video/upload/v1772634230/VID_20251028211747_tnvrtv.mp4',
-    thumbnail: 'https://res.cloudinary.com/dctw9lg1d/image/upload/v1772635340/Screenshot_2026-03-04_at_8.41.52_PM_m96g9n.png', // Optional: replace with a true image URL
+    videoUrl: '/images/VID_20251028211747.mp4',
+    thumbnail: '/images/1.png',
     duration: '0:35'
   },
   {
@@ -20,18 +20,17 @@ const tutorialVideos = [
     description: 'Learn how to properly prepare and use your nasal cleaner bottle',
     device: 'desktop',
     icon: Monitor,
-    videoUrl: 'https://res.cloudinary.com/dctw9lg1d/video/upload/v1772634275/VID_20251028212619_brfily.mp4',
-    thumbnail: 'https://res.cloudinary.com/dctw9lg1d/video/upload/v1772634275/VID_20251028212619_brfily.jpg', // Optional: replace with a true image URL
+    videoUrl: '/images/VID_20251028212619.mp4',
+    thumbnail: '/images/2.png',
     duration: '0:32'
   },
   {
     id: 'mobile-1',
-
     title: 'Quick Start Guide',
     description: 'Fast and easy tutorial for immediate relief and better breathing',
     icon: Smartphone,
-    videoUrl: 'https://res.cloudinary.com/dctw9lg1d/video/upload/v1772634200/InShot_20251028_212539309_wjdo0p.mp4',
-    thumbnail: 'https://res.cloudinary.com/dctw9lg1d/video/upload/v1772634200/InShot_20251028_212539309_wjdo0p.jpg', // Optional: replace with a true image URL
+    videoUrl: '/images/InShot_20251028_212539309.mp4',
+    thumbnail: '/images/3.png',
     duration: '0:48'
   }
 ];
@@ -118,22 +117,34 @@ export default function HowItWorks() {
                     className="relative bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 group-hover:scale-[1.02] cursor-pointer"
                     onClick={() => handleVideoClick(video.videoUrl)}
                   >
-                    {/* Video Thumbnail (MP4 preview with poster) */}
-                    <div className="relative aspect-[16/9] bg-gray-100 overflow-hidden">
-                      <video
-                        className="w-full h-full object-cover"
-                        muted
-                        playsInline
-                        preload="metadata"
-                        poster={video.thumbnail}
+                    {/* Video Thumbnail: image with fallback so it never shows broken */}
+                    <div className="relative aspect-[16/9] bg-gray-200 overflow-hidden">
+                      <img
+                        src={video.thumbnail}
+                        alt={video.title}
+                        className="absolute inset-0 w-full h-full object-cover"
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none';
+                          const fallback = e.currentTarget.nextElementSibling as HTMLElement;
+                          if (fallback) fallback.style.display = 'flex';
+                        }}
+                      />
+                      <div
+                        className="absolute inset-0 bg-gradient-to-br from-gray-300 to-gray-400 flex items-center justify-center"
+                        style={{ display: 'none' }}
                       >
-                        <source src={video.videoUrl} type="video/mp4" />
-                      </video>
+                        <div className="flex flex-col items-center justify-center gap-2">
+                          <div className="w-14 h-14 sm:w-16 sm:h-16 bg-white/95 rounded-full flex items-center justify-center shadow-lg">
+                            <Play className="w-7 h-7 sm:w-8 sm:h-8 text-gray-700 ml-0.5" fill="currentColor" />
+                          </div>
+                          <span className="text-sm font-medium text-gray-700">Click to play</span>
+                        </div>
+                      </div>
 
-                      {/* Play Button Overlay */}
-                      <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                          <Play className="w-8 h-8 text-gray-700 ml-1" />
+                      {/* Play overlay on hover */}
+                      <div className="absolute inset-0 bg-black/25 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                        <div className="w-14 h-14 sm:w-16 sm:h-16 bg-white/95 rounded-full flex items-center justify-center shadow-lg">
+                          <Play className="w-7 h-7 sm:w-8 sm:h-8 text-gray-700 ml-0.5" fill="currentColor" />
                         </div>
                       </div>
 
@@ -198,36 +209,37 @@ export default function HowItWorks() {
         </motion.div>
       </div>
 
-      {/* Inline Video Modal */}
+      {/* Inline Video Modal — click card opens this, Cloudinary video plays here */}
       {selectedVideo && (
-        <div 
-          className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-2 sm:p-4"
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Video player"
+          className="fixed inset-0 bg-black/85 z-[100] flex items-center justify-center p-4"
           onClick={closeVideo}
         >
-          <div 
-            className="relative w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl xl:max-w-3xl bg-white rounded-xl overflow-hidden"
+          <div
+            className="relative w-full max-w-2xl bg-black rounded-xl overflow-hidden shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Close Button */}
             <button
+              type="button"
               onClick={closeVideo}
-              className="absolute top-2 right-2 z-10 bg-black/70 hover:bg-black/90 text-white rounded-full p-1.5 sm:p-2 transition-colors duration-200"
+              className="absolute top-2 right-2 z-10 rounded-full p-2 bg-black/60 hover:bg-black/80 text-white transition-colors"
+              aria-label="Close video"
             >
-              <X className="w-4 h-4 sm:w-5 sm:h-5" />
+              <X className="w-5 h-5" />
             </button>
-            
-            {/* Video Player */}
             <video
               key={selectedVideo}
               controls
               autoPlay
               playsInline
-              preload="metadata"
-              className="w-full h-auto max-h-[70vh] sm:max-h-[80vh]"
+              preload="auto"
+              className="w-full h-auto max-h-[85vh]"
               onEnded={closeVideo}
-              style={{ maxWidth: '100%', height: 'auto' }}
             >
-              <source src={selectedVideo!} type="video/mp4" />
+              <source src={selectedVideo} type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </div>
