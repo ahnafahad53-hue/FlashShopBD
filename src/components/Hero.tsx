@@ -7,25 +7,27 @@ import Link from 'next/link';
 export default function Hero() {
   return (
     <section id="home" className="relative min-h-screen pt-16 sm:pt-20 lg:pt-24 pb-8 sm:pb-12 lg:pb-16 bg-white overflow-hidden">
-      {/* Background Image */}
-      <div className="absolute inset-0 z-0">
-        {/* Desktop Background Image */}
+      {/* Background Image - desktop and mobile */}
+      <div className="absolute inset-0 z-0 min-h-screen">
+        {/* Desktop: Cloudinary */}
         <Image
           src="https://res.cloudinary.com/dgm2mosta/image/upload/v1764521833/product-final-11_era5wm.png"
-          alt="FlashShop Background"
+          alt=""
           fill
-          className="object-cover hidden sm:block"
+          className="object-cover object-center hidden sm:block"
           priority
+          sizes="100vw"
         />
-        {/* Mobile Background Image */}
+        {/* Mobile: local file so it always loads (Cloudinary URL can fail on mobile) */}
         <Image
-          src="https://res.cloudinary.com/dgm2mosta/image/upload/v1764521834/hero-bg-mob-final_sdvzpw.png"
-          alt="FlashShop Mobile Background"
+          src="/images/hero-bg-mob-final.png"
+          alt=""
           fill
-          className="object-cover sm:hidden"
+          className="object-cover object-center sm:hidden"
           priority
+          sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/20 to-white/10"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/20 to-white/10" aria-hidden="true" />
       </div>
       
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
