@@ -177,6 +177,8 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
 
   useEffect(() => {
     setIsHydrated(true);
+    // Scroll to top when component mounts
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
   // Get current quantity from cart if product is already in cart
@@ -673,6 +675,51 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
     );
   };
 
+  // Get related products with smart selection
+  const getRelatedProducts = () => {
+    // Filter out current product and only show in-stock products
+    const availableProducts = products.filter(
+      (p) => p.id !== product.id && p.inStock && p.price > 0
+    );
+
+    if (availableProducts.length === 0) return [];
+
+    // Shuffle function
+    const shuffleArray = <T,>(array: T[]): T[] => {
+      const shuffled = [...array];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      return shuffled;
+    };
+
+    // Get products from same category first
+    const sameCategoryProducts = availableProducts.filter(
+      (p) => p.category === product.category
+    );
+
+    // Get products from other categories
+    const otherCategoryProducts = availableProducts.filter(
+      (p) => p.category !== product.category
+    );
+
+    // Shuffle both arrays
+    const shuffledSameCategory = shuffleArray(sameCategoryProducts);
+    const shuffledOtherCategory = shuffleArray(otherCategoryProducts);
+
+    // Combine: prioritize same category, then fill with others
+    let relatedProducts = [...shuffledSameCategory];
+
+    // If we need more products, add from other categories
+    if (relatedProducts.length < 4) {
+      relatedProducts = [...relatedProducts, ...shuffledOtherCategory];
+    }
+
+    // Take only 4 products
+    return relatedProducts.slice(0, 4);
+  };
+
   if (!isHydrated) {
     return (
       <section className="py-16 sm:py-20 lg:py-24 xl:py-28 bg-white">
@@ -956,23 +1003,20 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
           </motion.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8">
-            {products
-              .filter((p) => p.id !== product.id)
-              .slice(0, 4)
-              .map((relatedProduct, index) => (
-                <motion.div
-                  key={relatedProduct.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                >
-                  <ProductCard product={relatedProduct} />
-                </motion.div>
-              ))}
+            {getRelatedProducts().map((relatedProduct, index) => (
+              <motion.div
+                key={relatedProduct.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <ProductCard product={relatedProduct} />
+              </motion.div>
+            ))}
           </div>
 
-          {products.filter((p) => p.id !== product.id).length === 0 && (
+          {getRelatedProducts().length === 0 && (
             <div className="text-center py-12">
               <p className="text-gray-600">More products coming soon!</p>
             </div>

@@ -4,7 +4,33 @@ import Link from 'next/link';
 import ProductCard from '@/components/ProductCard';
 import { products } from '@/data/products';
 
-const featuredProducts = products.slice(0, 3);
+// Get featured products with smart selection
+const getFeaturedProducts = () => {
+  // Filter for in-stock products with actual prices and badges
+  const availableFeatured = products.filter(
+    (p) => p.inStock && p.price > 0 && p.badge
+  );
+
+  if (availableFeatured.length === 0) {
+    // Fallback to any in-stock products if no featured products exist
+    return products.filter((p) => p.inStock && p.price > 0).slice(0, 4);
+  }
+
+  // Shuffle function
+  const shuffleArray = <T,>(array: T[]): T[] => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
+
+  // Shuffle and take up to 4 products
+  return shuffleArray(availableFeatured).slice(0, 4);
+};
+
+const featuredProducts = getFeaturedProducts();
 
 export default function FeaturedProducts() {
   if (!featuredProducts.length) return null;
@@ -20,7 +46,7 @@ export default function FeaturedProducts() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {featuredProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
