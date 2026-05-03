@@ -30,13 +30,15 @@ export default function CheckoutPage() {
     0
   );
 
-  const deliveryCost = formData.deliveryLocation === 'inside' ? insideDhakaDelivery : outsideDhakaDelivery;
+  const hasFreeDelivery = selectedItems.some((item) => item.isFreeDelivery && item.quantity > 0);
+  const baseDeliveryCost = formData.deliveryLocation === 'inside' ? insideDhakaDelivery : outsideDhakaDelivery;
+  const deliveryCost = hasFreeDelivery ? 0 : baseDeliveryCost;
   const totalPrice = subtotal + (subtotal > 0 ? deliveryCost : 0);
 
-  const handleQuantityChange = (productId: string, delta: number) => {
-    const target = cartItems.find((item) => item.id === productId);
+  const handleQuantityChange = (productId: string, delta: number, color?: string) => {
+    const target = cartItems.find((item) => item.id === productId && item.selectedColor === color);
     if (!target) return;
-    updateQuantity(productId, target.quantity + delta);
+    updateQuantity(productId, target.quantity + delta, color);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -72,9 +74,10 @@ export default function CheckoutPage() {
         ...formData,
         items: selectedItems.map((item) => ({
           id: item.id,
-          name: item.name,
+          name: item.name + (item.selectedColor ? ` (${item.selectedColor})` : ''),
           price: item.price,
           quantity: item.quantity,
+          color: item.selectedColor
         })),
         productPrice: subtotal,
         subtotal,
@@ -177,9 +180,10 @@ export default function CheckoutPage() {
                   {cartItems.map((item) => {
                     const isOutOfStock = item.stock === 0;
                     const remaining = Math.max(0, item.stock - item.quantity);
+                    const itemKey = `${item.id}-${item.selectedColor || 'none'}`;
                     return (
                       <div
-                        key={item.id}
+                        key={itemKey}
                         className={`p-4 rounded-2xl border transition-colors ${
                           item.quantity > 0 ? 'border-gray-900 bg-white' : 'border-gray-200 bg-white'
                         }`}
@@ -201,6 +205,9 @@ export default function CheckoutPage() {
                             <div className="flex items-center justify-between">
                               <div>
                                 <h3 className="font-semibold text-gray-900 text-sm sm:text-base">{item.name}</h3>
+                                {item.selectedColor && (
+                                  <p className="text-xs font-bold text-blue-600">Color: {item.selectedColor}</p>
+                                )}
                                 <p className="text-xs sm:text-sm text-gray-600">{item.tagline}</p>
                               </div>
                               <div className="text-right">
@@ -228,7 +235,7 @@ export default function CheckoutPage() {
                               <div className="flex items-center gap-2">
                                 <button
                                   type="button"
-                                  onClick={() => handleQuantityChange(item.id, -1)}
+                                  onClick={() => handleQuantityChange(item.id, -1, item.selectedColor)}
                                   disabled={item.quantity <= 0}
                                   className="p-2 rounded-full border border-gray-300 text-gray-700 disabled:opacity-40"
                                 >
@@ -237,7 +244,7 @@ export default function CheckoutPage() {
                                 <span className="w-8 text-center font-semibold text-gray-900">{item.quantity}</span>
                                 <button
                                   type="button"
-                                  onClick={() => handleQuantityChange(item.id, 1)}
+                                  onClick={() => handleQuantityChange(item.id, 1, item.selectedColor)}
                                   disabled={item.quantity >= item.stock}
                                   className="p-2 rounded-full border border-gray-300 text-gray-700 disabled:opacity-40"
                                 >
@@ -274,9 +281,24 @@ export default function CheckoutPage() {
                   <span>৳{subtotal}</span>
                 </div>
                 <div className="flex justify-between text-gray-900">
-                  <span className="text-sm sm:text-base">Delivery Charge ({formData.deliveryLocation === 'inside' ? 'Inside Dhaka' : 'Outside Dhaka'})</span>
-                  <span>৳{subtotal > 0 ? deliveryCost : 0}</span>
+                  <span className="text-sm sm:text-base">
+                    Delivery Charge ({formData.deliveryLocation === 'inside' ? 'Inside Dhaka' : 'Outside Dhaka'})
+                    {hasFreeDelivery && (
+                      <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
+                        FREE DELIVERY
+                      </span>
+                    )}
+                  </span>
+                  <span className={hasFreeDelivery ? 'line-through text-gray-400' : ''}>
+                    ৳{subtotal > 0 ? (hasFreeDelivery ? baseDeliveryCost : deliveryCost) : 0}
+                  </span>
                 </div>
+                {hasFreeDelivery && (
+                  <div className="flex justify-between text-green-600 font-medium">
+                    <span>Discount (Free Delivery)</span>
+                    <span>-৳{baseDeliveryCost}</span>
+                  </div>
+                )}
                 <div className="border-t border-gray-200 pt-2 mt-2 flex justify-between items-center text-lg font-bold text-gray-900">
                   <span>Total</span>
                   <span>৳{totalPrice}</span>
@@ -386,7 +408,12 @@ export default function CheckoutPage() {
                       />
                       <div className="flex-1">
                         <div className="font-semibold text-gray-900">Inside Dhaka / ঢাকার ভিতরে</div>
-                        <div className="text-sm text-gray-600">৳{insideDhakaDelivery}</div>
+                        <div className="flex items-center gap-2">
+                          <div className={`text-sm ${hasFreeDelivery ? 'line-through text-gray-400' : 'text-gray-600'}`}>৳{insideDhakaDelivery}</div>
+                          {hasFreeDelivery && (
+                            <div className="text-xs font-bold text-green-600 uppercase">Free</div>
+                          )}
+                        </div>
                       </div>
                       {formData.deliveryLocation === 'inside' && (
                         <div className="ml-2 text-blue-500">
@@ -412,7 +439,12 @@ export default function CheckoutPage() {
                       />
                       <div className="flex-1">
                         <div className="font-semibold text-gray-900">Outside Dhaka / ঢাকার বাইরে</div>
-                        <div className="text-sm text-gray-600">৳{outsideDhakaDelivery}</div>
+                        <div className="flex items-center gap-2">
+                          <div className={`text-sm ${hasFreeDelivery ? 'line-through text-gray-400' : 'text-gray-600'}`}>৳{outsideDhakaDelivery}</div>
+                          {hasFreeDelivery && (
+                            <div className="text-xs font-bold text-green-600 uppercase">Free</div>
+                          )}
+                        </div>
                       </div>
                       {formData.deliveryLocation === 'outside' && (
                         <div className="ml-2 text-blue-500">

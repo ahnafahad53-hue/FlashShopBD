@@ -1,18 +1,19 @@
 'use client';
 
-import { createContext, useCallback, useContext, useMemo, useState } from 'react';
+import { createContext, useCallback, useContext, useMemo, useState, useEffect } from 'react';
 import type { Product } from '@/data/products';
 
 interface CartItem extends Product {
   quantity: number;
+  selectedColor?: string;
 }
 
 interface CartContextValue {
   items: CartItem[];
   totalQuantity: number;
-  addToCart: (product: Product) => void;
-  removeFromCart: (productId: string) => void;
-  updateQuantity: (productId: string, quantity: number) => void;
+  addToCart: (product: Product, color?: string) => void;
+  removeFromCart: (productId: string, color?: string) => void;
+  updateQuantity: (productId: string, quantity: number, color?: string) => void;
   clearCart: () => void;
   isDrawerOpen: boolean;
   openDrawer: () => void;
@@ -25,38 +26,57 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  const addToCart = useCallback((product: Product) => {
+  // Load cart from localStorage on mount
+  useEffect(() => {
+    const savedCart = localStorage.getItem('cartItems');
+    if (savedCart) {
+      try {
+        setItems(JSON.parse(savedCart));
+      } catch (e) {
+        console.error('Failed to parse cart from localStorage', e);
+      }
+    }
+  }, []);
+
+  // Save cart to localStorage on change
+  useEffect(() => {
+    localStorage.setItem('cartItems', JSON.stringify(items));
+  }, [items]);
+
+  const addToCart = useCallback((product: Product, color?: string) => {
     if (!product.inStock || product.stock <= 0) return;
     setItems((prev) => {
-      const existing = prev.find((item) => item.id === product.id);
+      const existing = prev.find((item) => item.id === product.id && item.selectedColor === color);
       if (existing) {
         if (existing.quantity >= product.stock) {
           return prev;
         }
         return prev.map((item) =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+          item.id === product.id && item.selectedColor === color 
+            ? { ...item, quantity: item.quantity + 1 } 
+            : item
         );
       }
 
-      return [...prev, { ...product, quantity: 1 }];
+      return [...prev, { ...product, quantity: 1, selectedColor: color }];
     });
     setIsDrawerOpen(true);
   }, []);
 
-  const removeFromCart = useCallback((productId: string) => {
-    setItems((prev) => prev.filter((item) => item.id !== productId));
+  const removeFromCart = useCallback((productId: string, color?: string) => {
+    setItems((prev) => prev.filter((item) => !(item.id === productId && item.selectedColor === color)));
   }, []);
 
-  const updateQuantity = useCallback((productId: string, quantity: number) => {
+  const updateQuantity = useCallback((productId: string, quantity: number, color?: string) => {
     setItems((prev) => {
-      const target = prev.find((item) => item.id === productId);
+      const target = prev.find((item) => item.id === productId && item.selectedColor === color);
       if (!target) return prev;
       const safeQuantity = Math.max(0, Math.min(target.stock ?? target.quantity, quantity));
       if (safeQuantity === 0) {
-        return prev.filter((item) => item.id !== productId);
+        return prev.filter((item) => !(item.id === productId && item.selectedColor === color));
       }
       return prev.map((item) =>
-        item.id === productId ? { ...item, quantity: safeQuantity } : item
+        item.id === productId && item.selectedColor === color ? { ...item, quantity: safeQuantity } : item
       );
     });
   }, []);

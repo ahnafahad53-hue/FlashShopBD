@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-family-sans: var(--font-inter), 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-family-sans: var(--font-outfit), 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 /* Custom smooth scrolling */
@@ -42,14 +42,14 @@ html.lenis {
 /* Base layer customizations */
 @layer base {
   * {
-    font-family: var(--font-inter), 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: var(--font-outfit), 'Outfit', system-ui, -apple-system, sans-serif;
   }
 
   body {
     background-color: #fefefe;
     color: #1e293b;
     font-feature-settings: 'rlig' 1, 'calt' 1;
-    font-family: var(--font-inter), 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: var(--font-outfit), 'Outfit', system-ui, -apple-system, sans-serif;
     position: relative;
   }
 
@@ -62,7 +62,7 @@ html.lenis {
   h6 {
     font-weight: 700;
     letter-spacing: -0.03em;
-    font-family: var(--font-inter), 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: var(--font-outfit), 'Outfit', system-ui, -apple-system, sans-serif;
     color: #0f172a;
   }
   

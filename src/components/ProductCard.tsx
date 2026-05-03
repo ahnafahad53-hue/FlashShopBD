@@ -17,7 +17,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   const handleAddToCart = (e: MouseEvent) => {
     e.preventDefault();
-    addToCart(product);
+    addToCart(product, product.colors?.[0]);
   };
 
   return (
@@ -37,13 +37,13 @@ export default function ProductCard({ product }: ProductCardProps) {
             <div className="absolute top-2 left-2 z-10">
               <span className={`text-white px-2 py-0.5 rounded text-xs font-semibold shadow-sm ${
                 product.badge === 'BEST SELLER' 
-                  ? 'bg-gradient-to-r from-orange-500 to-red-600'
+                  ? 'bg-red-600'
                   : product.badge === 'NEW ARRIVAL'
-                  ? 'bg-gradient-to-r from-green-500 to-emerald-600'
+                  ? 'bg-green-600'
                   : product.badge === 'TRENDING'
-                  ? 'bg-gradient-to-r from-pink-500 to-rose-600'
+                  ? 'bg-rose-600'
                   : product.badge === 'COMING SOON'
-                  ? 'bg-gradient-to-r from-purple-500 to-indigo-600'
+                  ? 'bg-purple-600'
                   : 'bg-blue-600'
               }`}>
                 {product.badge}
@@ -126,6 +126,14 @@ export default function ProductCard({ product }: ProductCardProps) {
               </span>
             )}
           </div>
+
+          {/* Free Delivery Promo */}
+          {product.isFreeDelivery && (
+            <div className="bg-green-50 text-green-700 px-2 py-0.5 rounded text-[10px] font-bold inline-flex items-center gap-1 w-fit">
+              <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+              FREE DELIVERY
+            </div>
+          )}
 
           {/* Add to Cart Button */}
           <button 

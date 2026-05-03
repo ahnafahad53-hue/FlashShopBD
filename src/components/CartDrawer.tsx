@@ -47,7 +47,7 @@ export default function CartDrawer() {
             </div>
           ) : (
             items.map((item) => (
-              <div key={item.id} className="flex gap-4 border border-gray-100 rounded-2xl p-4">
+              <div key={`${item.id}-${item.selectedColor || 'none'}`} className="flex gap-4 border border-gray-100 rounded-2xl p-4">
                 <div className="relative w-24 h-24 bg-gray-50 rounded-xl overflow-hidden flex items-center justify-center">
                   <Image
                     src={item.images?.[0] || '/main-pro.jpeg'}
@@ -60,10 +60,15 @@ export default function CartDrawer() {
                   <div className="flex items-start justify-between">
                     <div>
                       <h3 className="text-sm font-semibold text-gray-900">{item.name}</h3>
-                      <p className="text-xs text-gray-500 mt-1">Quantity: {item.quantity}</p>
+                      <div className="flex flex-col gap-1 mt-1">
+                        <p className="text-xs text-gray-500">Quantity: {item.quantity}</p>
+                        {item.selectedColor && (
+                          <p className="text-xs font-medium text-blue-600">Color: {item.selectedColor}</p>
+                        )}
+                      </div>
                     </div>
                     <button
-                      onClick={() => removeFromCart(item.id)}
+                      onClick={() => removeFromCart(item.id, item.selectedColor)}
                       className="text-xs text-gray-400 hover:text-red-500 transition-colors"
                     >
                       Remove

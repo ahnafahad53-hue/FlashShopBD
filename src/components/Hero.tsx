@@ -11,7 +11,7 @@ export default function Hero() {
       <div className="absolute inset-0 z-0 min-h-screen">
         {/* Desktop: Cloudinary */}
         <Image
-          src="https://res.cloudinary.com/dgm2mosta/image/upload/v1764521833/product-final-11_era5wm.png"
+          src="/images/hero-win.png"
           alt=""
           fill
           className="object-cover object-center hidden sm:block"
@@ -29,7 +29,7 @@ export default function Hero() {
         />
         <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/20 to-white/10" aria-hidden="true" />
       </div>
-      
+
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center min-h-[calc(100vh-4rem)] sm:min-h-[calc(100vh-5rem)] lg:min-h-[calc(100vh-6rem)]">
           {/* Content */}
@@ -54,10 +54,10 @@ export default function Hero() {
                 </span>
               </h1>
               <p className="hero-subtitle text-base sm:text-lg md:text-xl text-gray-900 leading-relaxed font-medium">
-                Discover quality products at FlashShop Bangladesh. Fast delivery, 
+                Discover quality products at FlashShop Bangladesh. Fast delivery,
                 authentic items, and exceptional customer service - all in one place.
               </p>
-              
+
               {/* Key Benefits */}
               <div className="flex flex-col gap-2 sm:gap-3">
                 <div className="flex items-center gap-2 sm:gap-3">
@@ -81,7 +81,7 @@ export default function Hero() {
                 <span>Shop Now</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </a>
-              
+
               <a href="#features" className="px-8 py-3.5 text-sm font-medium uppercase tracking-wide text-gray-900 hover:text-gray-700 border-2 border-gray-900 hover:border-gray-700 transition-all duration-300 flex items-center justify-center rounded-md">
                 <span>Learn More</span>
               </a>

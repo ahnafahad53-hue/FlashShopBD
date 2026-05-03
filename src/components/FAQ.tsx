@@ -20,7 +20,7 @@ const faqs = [
   },
   {
     question: 'What are the delivery charges?',
-    answer: 'Delivery charges are ৳80 inside Dhaka and ৳150 outside Dhaka. These charges will be added to your order total at checkout.',
+    answer: 'Delivery charges are ৳80 inside Dhaka and ৳150 outside Dhaka. However, we offer FREE delivery on special combo packs and certain promotional items. Look for the "FREE DELIVERY" badge on products.',
   },
   {
     question: 'Are your products authentic?',

@@ -13,6 +13,8 @@ export interface Product {
   images?: string[];
   description?: string;
   stock: number;
+  isFreeDelivery?: boolean;
+  colors?: string[];
 }
 
 export const products: Product[] = [
@@ -76,57 +78,57 @@ export const products: Product[] = [
     ],
     description: 'Premium quality children\'s pillow designed for optimal neck support and comfort. Made with hypoallergenic memory foam that adapts to your child\'s sleeping position. Breathable cover keeps them cool all night. Perfect for ages 0-3 years.',
   },
-  {
-    id: 'spray-oil',
-    name: 'Spray Oil Pot (স্প্রে অয়েল পট)',
-    tagline: 'Premium quality spray oil pot for versatile use - Coming soon',
-    price: 0,
-    rating: 0,
-    reviews: 0,
-    badge: 'COMING SOON',
-    emoji: '🛢️',
-    category: 'Personal Care',
-    inStock: false,
-    stock: 0,
-    images: [
-      'https://res.cloudinary.com/dgm2mosta/image/upload/v1764521824/oil-spray_drrayq.jpg',
-    ],
-    description: 'High-quality spray oil pot perfect for various applications. Stay tuned for this exciting new product launch!',
-  },
-  {
-    id: 'fujiqui',
-    name: 'Fujiqui LED Table Lamp (ফুজিকুই এলইডি টেবিল ল্যাম্প)',
-    tagline: 'Innovative LED table lamp - Arriving soon',
-    price: 0,
-    rating: 0,
-    reviews: 0,
-    badge: 'COMING SOON',
-    emoji: '💡',
-    category: 'Home & Living',
-    inStock: false,
-    stock: 0,
-    images: [
-      'https://res.cloudinary.com/dgm2mosta/image/upload/v1764521824/Fujiqui_nsmknz.jpg',
-    ],
-    description: 'An innovative LED table lamp that will revolutionize your workspace and home lighting. Coming soon to FlashShop!',
-  },
-  {
-    id: 'wheel-cover',
-    name: 'Car Steering Wheel Cover (কার স্টিয়ারিং হুইল কভার)',
-    tagline: 'Protective car steering wheel cover - Coming soon',
-    price: 0,
-    rating: 0,
-    reviews: 0,
-    badge: 'COMING SOON',
-    emoji: '🚗',
-    category: 'Automotive',
-    inStock: false,
-    stock: 0,
-    images: [
-      'https://res.cloudinary.com/dgm2mosta/image/upload/v1764521837/wheel_cover_sgmcnb.jpg',
-    ],
-    description: 'Premium car steering wheel cover for vehicle protection and comfort. This exciting new product will be available soon!',
-  },
+  // {
+  //   id: 'spray-oil',
+  //   name: 'Spray Oil Pot (স্প্রে অয়েল পট)',
+  //   tagline: 'Premium quality spray oil pot for versatile use - Coming soon',
+  //   price: 0,
+  //   rating: 0,
+  //   reviews: 0,
+  //   badge: 'COMING SOON',
+  //   emoji: '🛢️',
+  //   category: 'Personal Care',
+  //   inStock: false,
+  //   stock: 0,
+  //   images: [
+  //     'https://res.cloudinary.com/dgm2mosta/image/upload/v1764521824/oil-spray_drrayq.jpg',
+  //   ],
+  //   description: 'High-quality spray oil pot perfect for various applications. Stay tuned for this exciting new product launch!',
+  // },
+  // {
+  //   id: 'fujiqui',
+  //   name: 'Fujiqui LED Table Lamp (ফুজিকুই এলইডি টেবিল ল্যাম্প)',
+  //   tagline: 'Innovative LED table lamp - Arriving soon',
+  //   price: 0,
+  //   rating: 0,
+  //   reviews: 0,
+  //   badge: 'COMING SOON',
+  //   emoji: '💡',
+  //   category: 'Home & Living',
+  //   inStock: false,
+  //   stock: 0,
+  //   images: [
+  //     'https://res.cloudinary.com/dgm2mosta/image/upload/v1764521824/Fujiqui_nsmknz.jpg',
+  //   ],
+  //   description: 'An innovative LED table lamp that will revolutionize your workspace and home lighting. Coming soon to FlashShop!',
+  // },
+  // {
+  //   id: 'wheel-cover',
+  //   name: 'Car Steering Wheel Cover (কার স্টিয়ারিং হুইল কভার)',
+  //   tagline: 'Protective car steering wheel cover - Coming soon',
+  //   price: 0,
+  //   rating: 0,
+  //   reviews: 0,
+  //   badge: 'COMING SOON',
+  //   emoji: '🚗',
+  //   category: 'Automotive',
+  //   inStock: false,
+  //   stock: 0,
+  //   images: [
+  //     'https://res.cloudinary.com/dgm2mosta/image/upload/v1764521837/wheel_cover_sgmcnb.jpg',
+  //   ],
+  //   description: 'Premium car steering wheel cover for vehicle protection and comfort. This exciting new product will be available soon!',
+  // },
   {
     id: 'car-seat-gap-filler',
     name: 'Car Seat Gap Filler (কার সিট গ্যাপ ফিলার)',
@@ -149,8 +151,8 @@ export const products: Product[] = [
     description: 'Premium car seat gap filler designed to prevent items from falling between your car seats and center console. Made from high-quality, durable materials that fit perfectly in most vehicles. Easy to install and remove, keeps your car clean and organized.',
   },
   {
-    id: 'car-steering-wheel-cover',
-    name: 'Car Steering Wheel Cover (কার স্টিয়ারিং হুইল কভার)',
+    id: 'Carbon-fiber-steering-wheel-cover',
+    name: 'Carbon fiber Car Steering Wheel Cover (কার স্টিয়ারিং হুইল কভার)',
     tagline: 'Premium steering wheel cover for comfort and protection',
     price: 350,
     originalPrice: 550,
@@ -162,11 +164,13 @@ export const products: Product[] = [
     inStock: true,
     stock: 95,
     images: [
+      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579940/IMG_20260430_125558_ctvedz.jpg',
       'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579929/IMG_20260430_125155_zyiqfe.jpg',
       'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579928/IMG_20260430_125740_za8pgy.jpg',
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579940/IMG_20260430_125558_ctvedz.jpg',
+
       'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579934/IMG_20260430_124902_kipwg3.jpg',
     ],
+    colors: ['Black', 'White', 'Brown',],
     description: 'Premium quality car steering wheel cover designed for enhanced grip and comfort. Made from durable, breathable materials that protect your steering wheel from wear and tear. Easy to install with a universal fit for most car models. Provides better control and reduces hand fatigue during long drives.',
   },
   {
@@ -210,6 +214,27 @@ export const products: Product[] = [
       'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777580229/brush-3_mzgeka.jpg',
     ],
     description: 'Elegant makeup brush storage box designed to keep your beauty tools organized and protected. Features multiple compartments to store brushes of different sizes. Made from high-quality, transparent material that allows you to easily see your collection. Perfect for makeup enthusiasts and professionals alike.',
+  },
+  {
+    id: 'car-combo-01',
+    name: 'Car Gap Filler & Steering Cover Combo (কার গ্যাপ ফিলার এবং স্টিয়ারিং কভার কম্বো)',
+    tagline: 'Best value car interior protection combo with free delivery',
+    price: 750,
+    originalPrice: 1300,
+    rating: 4.9,
+    reviews: 142,
+    badge: 'COMBO OFFER',
+    emoji: '🎁',
+    category: 'Automotive',
+    inStock: true,
+    stock: 50,
+    isFreeDelivery: true,
+    images: [
+      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579626/car4_lkaagg.jpg',
+      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579929/IMG_20260430_125155_zyiqfe.jpg',
+    ],
+    colors: ['White', 'Black', 'Brown'],
+    description: 'Get our two most popular car accessories in one value-packed combo! This offer includes the premium Car Seat Gap Filler to keep your interior tidy and the Carbon Fiber Steering Wheel Cover for ultimate grip and style. Plus, enjoy FREE delivery across Bangladesh with this combo pack!',
   },
 ];
 

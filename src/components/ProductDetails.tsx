@@ -84,10 +84,10 @@ const productHighlights: Record<string, { label: string; value: string }[]> = {
 };
 
 const reviewColorClasses = [
-  'from-blue-50 to-indigo-50 border-blue-400',
-  'from-green-50 to-emerald-50 border-green-400',
-  'from-purple-50 to-pink-50 border-purple-400',
-  'from-orange-50 to-red-50 border-orange-400',
+  'bg-gray-50 border-gray-200',
+  'bg-slate-50 border-slate-200',
+  'bg-zinc-50 border-zinc-200',
+  'bg-neutral-50 border-neutral-200',
 ];
 
 const productReviews: Record<
@@ -174,6 +174,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
   const [isHydrated, setIsHydrated] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const [selectedColor, setSelectedColor] = useState<string | undefined>(product.colors?.[0]);
 
   useEffect(() => {
     setIsHydrated(true);
@@ -182,17 +183,17 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
   }, []);
 
   // Get current quantity from cart if product is already in cart
-  const cartItem = items.find(item => item.id === product.id);
+  const cartItem = items.find(item => item.id === product.id && item.selectedColor === selectedColor);
   const currentCartQuantity = cartItem?.quantity || 0;
 
-  // Sync quantity with cart when cart changes or component mounts
+  // Sync quantity with cart when cart changes, color changes, or component mounts
   useEffect(() => {
     if (cartItem && cartItem.quantity > 0) {
       setQuantity(cartItem.quantity);
     } else {
       setQuantity(1);
     }
-  }, [cartItem]);
+  }, [cartItem, selectedColor]);
 
   const handleQuantityChange = (delta: number) => {
     const newQuantity = Math.max(1, Math.min(product.stock, quantity + delta));
@@ -203,15 +204,15 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
     // Check if product is already in cart
     if (cartItem) {
       // If already in cart, update quantity to the selected quantity
-      updateQuantity(product.id, quantity);
+      updateQuantity(product.id, quantity, selectedColor);
     } else {
       // If not in cart, add it first
-      addToCart(product);
+      addToCart(product, selectedColor);
       // Then update to the desired quantity if more than 1
       if (quantity > 1) {
         // Use setTimeout to ensure cart state is updated first
         setTimeout(() => {
-          updateQuantity(product.id, quantity);
+          updateQuantity(product.id, quantity, selectedColor);
         }, 50);
       }
     }
@@ -253,13 +254,13 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
         <div className="prose max-w-none">
           <h3 className="text-2xl font-bold text-gray-900 mb-6">Product Description</h3>
           <div className="space-y-6 text-gray-900">
-            <div className="bg-gradient-to-r from-blue-50 to-cyan-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
+            <div className="bg-blue-50/50 border border-blue-100 p-6 rounded-xl">
               <h4 className="font-semibold text-lg mb-3 text-blue-900">🏥 Medical-Grade Quality</h4>
               <p className="mb-3">The Smart Nasal Cleaner Bottle is designed to provide gentle and effective nasal irrigation for daily sinus care.</p>
               <p className="text-sm text-gray-700">Made from high-quality, medical-grade materials, this bottle ensures safe and comfortable use for the entire family.</p>
             </div>
 
-            <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-400 p-6 rounded-r-lg">
+            <div className="bg-green-50/50 border border-green-100 p-6 rounded-xl">
               <h4 className="font-semibold text-lg mb-3 text-green-900">✨ Key Features</h4>
               <div className="space-y-2">
                 <div className="flex items-center space-x-2">
@@ -285,7 +286,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               </div>
             </div>
 
-            <div className="bg-gradient-to-r from-purple-50 to-pink-50 border-l-4 border-purple-400 p-6 rounded-r-lg">
+            <div className="bg-purple-50/50 border border-purple-100 p-6 rounded-xl">
               <h4 className="font-semibold text-lg mb-3 text-purple-900">🎯 Perfect For</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
                 <div className="flex items-center space-x-2">
@@ -316,11 +317,11 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
         <div className="prose max-w-none">
           <h3 className="text-2xl font-bold text-gray-900 mb-6">Stay Fresh & Confident</h3>
           <div className="space-y-6 text-gray-900">
-            <div className="bg-gradient-to-r from-blue-50 to-cyan-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
+            <div className="bg-blue-50/50 border border-blue-100 p-6 rounded-xl">
               <h4 className="font-semibold text-lg mb-3 text-blue-900">Instant Odor Control</h4>
               <p>Neutralizes odor-causing bacteria within seconds and keeps your feet dry throughout the day.</p>
             </div>
-            <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-400 p-6 rounded-r-lg">
+            <div className="bg-green-50/50 border border-green-100 p-6 rounded-xl">
               <h4 className="font-semibold text-lg mb-3 text-green-900">Features</h4>
               <ul className="space-y-2 text-sm">
                 <li>• Cooling menthol finish</li>
@@ -329,7 +330,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                 <li>• Safe for daily use</li>
               </ul>
             </div>
-            <div className="bg-gradient-to-r from-amber-50 to-orange-50 border-l-4 border-amber-400 p-6 rounded-r-lg">
+            <div className="bg-amber-50/50 border border-amber-100 p-6 rounded-xl">
               <h4 className="font-semibold text-lg mb-3 text-amber-900">Perfect For</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
                 <span>• Office shoes & sneakers</span>
@@ -348,15 +349,15 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
         <div className="prose max-w-none">
           <h3 className="text-2xl font-bold text-gray-900 mb-6">Comfort for Growing Kids</h3>
           <div className="space-y-6 text-gray-900">
-            <div className="bg-gradient-to-r from-purple-50 to-pink-50 border-l-4 border-purple-400 p-6 rounded-r-lg">
+            <div className="bg-purple-50/50 border border-purple-100 p-6 rounded-xl">
               <h4 className="font-semibold text-lg mb-3 text-purple-900">Adaptive Support</h4>
               <p>Memory foam core adapts to every sleeping position and keeps the spine aligned.</p>
             </div>
-            <div className="bg-gradient-to-r from-blue-50 to-cyan-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
+            <div className="bg-blue-50/50 border border-blue-100 p-6 rounded-xl">
               <h4 className="font-semibold text-lg mb-3 text-blue-900">Breathable & Hygienic</h4>
               <p>Removable, washable cover keeps the pillow fresh while ventilation pores prevent heat build-up.</p>
             </div>
-            <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-400 p-6 rounded-r-lg">
+            <div className="bg-green-50/50 border border-green-100 p-6 rounded-xl">
               <h4 className="font-semibold text-lg mb-3 text-green-900">Perfect For</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
                 <span>• Kids transitioning from toddler pillows</span>
@@ -364,6 +365,42 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                 <span>• Travel and sleepovers</span>
                 <span>• Sensory-sensitive children</span>
               </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (product.id === 'Carbon-fiber-steering-wheel-cover' || product.id === 'car-combo-01') {
+      const isCombo = product.id === 'car-combo-01';
+      return (
+        <div className="prose max-w-none">
+          <h3 className="text-2xl font-bold text-gray-900 mb-6">{isCombo ? 'Ultimate Car Interior Combo' : 'Premium Steering Protection'}</h3>
+          <div className="space-y-6 text-gray-900">
+            <div className="bg-blue-50/50 border border-blue-100 p-6 rounded-xl">
+              <h4 className="font-semibold text-lg mb-3 text-blue-900">✨ Premium Carbon Fiber Design</h4>
+              <p>Our steering wheel cover features a high-quality carbon fiber texture that not only looks sporty but provides exceptional grip and durability.</p>
+              {product.colors && (
+                <p className="mt-2 text-sm font-bold text-blue-700">Available in: {product.colors.join(', ')}</p>
+              )}
+            </div>
+            
+            {isCombo && (
+              <div className="bg-green-50/50 border border-green-100 p-6 rounded-xl">
+                <h4 className="font-semibold text-lg mb-3 text-green-900">🚗 Car Seat Gap Filler Included</h4>
+                <p>Keep your car organized and prevent phones, coins, and keys from falling into the "black hole" between your seats.</p>
+              </div>
+            )}
+
+            <div className="bg-purple-50/50 border border-purple-100 p-6 rounded-xl">
+              <h4 className="font-semibold text-lg mb-3 text-purple-900">🎯 Why Choose This {isCombo ? 'Combo' : 'Cover'}?</h4>
+              <ul className="space-y-2 text-sm">
+                <li>• Non-slip surface for safer driving</li>
+                <li>• Sweat-absorbent and breathable material</li>
+                <li>• Protects original steering wheel from wear</li>
+                <li>• Universal fit for most cars (38cm/15")</li>
+                {isCombo && <li className="font-bold text-green-600">• FREE Delivery Included in this Combo!</li>}
+              </ul>
             </div>
           </div>
         </div>
@@ -436,7 +473,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
           {/* Bengali Instructions */}
           <h3 className="text-2xl font-bold text-gray-900 mb-6">ব্যবহার করার নিয়ম</h3>
           <div className="space-y-6 text-gray-900">
-            <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg">
+            <div className="bg-blue-50/50 border border-blue-100 p-4 rounded-xl">
               <h4 className="font-semibold text-lg mb-2">১. পানির প্রস্তুতি</h4>
               <p className="mb-2">বোতলে আগে থেকে ফুটিয়ে রাখা পরিস্কার পানি নিন।</p>
               <div className="text-sm text-gray-700 space-y-1">
@@ -444,7 +481,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                 <p>• অতিরিক্ত গরম অথবা ঠান্ডা পানি ব্যবহার করবেন না</p>
               </div>
             </div>
-            <div className="bg-green-50 border-l-4 border-green-400 p-4 rounded-r-lg">
+            <div className="bg-green-50/50 border border-green-100 p-4 rounded-xl">
               <h4 className="font-semibold text-lg mb-2">২. লবণ মিশ্রণ</h4>
               <p className="mb-2">পানিতে স্যালাইন / লবণ মিশ্রণ যোগ করতে হবে।</p>
               <div className="text-sm text-gray-700 space-y-1">
@@ -452,20 +489,20 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                 <p>• হাফ চা চামচ পরিমাণে লবণ যথেষ্ট হবে</p>
               </div>
             </div>
-            <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg">
+            <div className="bg-yellow-50/50 border border-yellow-100 p-4 rounded-xl">
               <h4 className="font-semibold text-lg mb-2">৩. নাকের প্রবেশ</h4>
               <p>নোজল (মুখ অংশ) নাকে আলতোভাবে প্রবেশ করান।</p>
             </div>
-            <div className="bg-purple-50 border-l-4 border-purple-400 p-4 rounded-r-lg">
+            <div className="bg-purple-50/50 border border-purple-100 p-4 rounded-xl">
               <h4 className="font-semibold text-lg mb-2">৪. চাপ প্রয়োগ</h4>
               <p className="mb-2">বোতল হালকা চাপ দিন 👍 পানি এক নাসারন্ধ্র দিয়ে ঢুকে অপর নাসারন্ধ্র দিয়ে বের হবে।</p>
               <p className="text-sm text-gray-700">(ভেতরে জমে থাকা সর্দি সহ)</p>
             </div>
-            <div className="bg-orange-50 border-l-4 border-orange-400 p-4 rounded-r-lg">
+            <div className="bg-orange-50/50 border border-orange-100 p-4 rounded-xl">
               <h4 className="font-semibold text-lg mb-2">৫. অন্য পাশ পরিস্কার</h4>
               <p>একইভাবে অন্য পাশের নাকও পরিস্কার করুন।</p>
             </div>
-            <div className="bg-red-50 border-l-4 border-red-400 p-4 rounded-r-lg">
+            <div className="bg-red-50/50 border border-red-100 p-4 rounded-xl">
               <h4 className="font-semibold text-lg mb-2">৬. পরিস্কারকরণ</h4>
               <p className="mb-2">ব্যবহার শেষে বোতলটি ভালোভাবে ধুয়ে রাখুন</p>
               <p className="text-sm text-gray-700">(পুনরায় ব্যবহারের জন্য)</p>
@@ -480,17 +517,42 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
         <div className="prose max-w-none">
           <h3 className="text-2xl font-bold text-gray-900 mb-6">ব্যবহার করার নিয়ম</h3>
           <div className="space-y-6 text-gray-900">
-            <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg">
+            <div className="bg-blue-50/50 border border-blue-100 p-4 rounded-xl">
               <h4 className="font-semibold text-lg mb-2">১. পরিস্কার ও শুকনো করুন</h4>
               <p className="mb-2">স্প্রে করার আগে পা ধুয়ে শুকিয়ে নিন অথবা জুতার ভিতর পরিস্কার করুন।</p>
             </div>
-            <div className="bg-green-50 border-l-4 border-green-400 p-4 rounded-r-lg">
+            <div className="bg-green-50/50 border border-green-100 p-4 rounded-xl">
               <h4 className="font-semibold text-lg mb-2">২. ঝাঁকিয়ে স্প্রে করুন</h4>
               <p className="mb-2">বোতলটি ভালোভাবে ঝাঁকিয়ে নিন। ১৫ সেন্টিমিটার দূরত্বে রেখে পা, মোজা বা জুতায় সমানভাবে স্প্রে করুন।</p>
             </div>
-            <div className="bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-lg">
+            <div className="bg-amber-50/50 border border-amber-100 p-4 rounded-xl">
               <h4 className="font-semibold text-lg mb-2">৩. শুকাতে দিন</h4>
               <p className="mb-2">জুতা পরার আগে কয়েক সেকেন্ড শুকাতে দিন। দীর্ঘ সময় ব্যবহারের পর পুনরায় ব্যবহার করুন।</p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (product.id === 'Carbon-fiber-steering-wheel-cover' || product.id === 'car-combo-01') {
+      return (
+        <div className="prose max-w-none">
+          <h3 className="text-2xl font-bold text-gray-900 mb-6">কিভাবে ব্যবহার করবেন (Usage Guide)</h3>
+          <div className="space-y-6 text-gray-900">
+            <div className="bg-blue-50/50 border border-blue-100 p-4 rounded-xl">
+              <h4 className="font-semibold text-lg mb-2">১. স্টিয়ারিং কভার লাগানো</h4>
+              <p className="mb-2">কভারটি স্টিয়ারিং হুইলের ওপরের অংশে রাখুন এবং দুই পাশ থেকে নিচের দিকে টেনে নামিয়ে আনুন।</p>
+              <p className="text-sm text-gray-700">• এটি টাইট ফিটিং হবে যাতে ড্রাইভ করার সময় সরে না যায়।</p>
+            </div>
+            {product.id === 'car-combo-01' && (
+              <div className="bg-green-50/50 border border-green-100 p-4 rounded-xl">
+                <h4 className="font-semibold text-lg mb-2">২. গ্যাপ ফিলার সেটআপ</h4>
+                <p>গ্যাপ ফিলারটি সিট এবং সেন্ট্রাল কনসোলের মাঝখানে চাপ দিয়ে বসিয়ে দিন।</p>
+              </div>
+            )}
+            <div className="bg-orange-50/50 border border-orange-100 p-4 rounded-xl">
+              <h4 className="font-semibold text-lg mb-2">৩. কালার সিলেক্ট করুন</h4>
+              <p>অর্ডার করার আগে অবশ্যই আপনার পছন্দের কালার (Black, Brown বা White) সিলেক্ট করে নিন।</p>
             </div>
           </div>
         </div>
@@ -502,15 +564,15 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
         <div className="prose max-w-none">
           <h3 className="text-2xl font-bold text-gray-900 mb-6">ব্যবহার করার নিয়ম</h3>
           <div className="space-y-6 text-gray-900">
-            <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg">
+            <div className="bg-blue-50/50 border border-blue-100 p-4 rounded-xl">
               <h4 className="font-semibold text-lg mb-2">১. খুলে বাতাসে রাখুন</h4>
               <p className="mb-2">প্যাকেজিং থেকে বের করে কয়েক ঘন্টা বাতাসে রাখুন যাতে ফোম সম্পূর্ণভাবে প্রসারিত হতে পারে।</p>
             </div>
-            <div className="bg-green-50 border-l-4 border-green-400 p-4 rounded-r-lg">
+            <div className="bg-green-50/50 border border-green-100 p-4 rounded-xl">
               <h4 className="font-semibold text-lg mb-2">২. কভার দিয়ে ব্যবহার করুন</h4>
               <p className="mb-2">পরিস্কার রাখার জন্য শ্বাস-প্রশ্বাসযোগ্য কভার বা আপনার নিজের পিলো কেস ব্যবহার করুন।</p>
             </div>
-            <div className="bg-purple-50 border-l-4 border-purple-400 p-4 rounded-r-lg">
+            <div className="bg-purple-50/50 border border-purple-100 p-4 rounded-xl">
               <h4 className="font-semibold text-lg mb-2">৩. নিয়মিত যত্ন</h4>
               <p className="mb-2">শুধুমাত্র ফোমের দাগ পরিস্কার করুন। অপসারণযোগ্য কভার সপ্তাহে একবার মেশিনে ধুয়ে নিন।</p>
             </div>
@@ -533,15 +595,15 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
         <div className="prose max-w-none">
           <h3 className="text-2xl font-bold text-gray-900 mb-6">Precautions & Safety</h3>
           <div className="space-y-6 text-gray-900">
-            <div className="bg-gradient-to-r from-red-50 to-pink-50 border-l-4 border-red-400 p-6 rounded-r-lg">
+            <div className="bg-red-50/50 border border-red-100 p-6 rounded-xl">
               <h4 className="font-semibold text-lg mb-3 text-red-900">Flammable</h4>
               <p>Keep away from open flames or high heat. Store below 30°C.</p>
             </div>
-            <div className="bg-gradient-to-r from-orange-50 to-yellow-50 border-l-4 border-orange-400 p-6 rounded-r-lg">
+            <div className="bg-orange-50/50 border border-orange-100 p-6 rounded-xl">
               <h4 className="font-semibold text-lg mb-3 text-orange-900">Skin Safety</h4>
               <p>For external use only. Do not use on broken or irritated skin.</p>
             </div>
-            <div className="bg-gradient-to-r from-blue-50 to-cyan-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
+            <div className="bg-blue-50/50 border border-blue-100 p-6 rounded-xl">
               <h4 className="font-semibold text-lg mb-3 text-blue-900">Patch Test</h4>
               <p>Spray on a small area first if you have sensitive skin. Keep away from eyes and mouth.</p>
             </div>
@@ -555,15 +617,15 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
         <div className="prose max-w-none">
           <h3 className="text-2xl font-bold text-gray-900 mb-6">Care & Safety</h3>
           <div className="space-y-6 text-gray-900">
-            <div className="bg-gradient-to-r from-red-50 to-pink-50 border-l-4 border-red-400 p-6 rounded-r-lg">
+            <div className="bg-red-50/50 border border-red-100 p-6 rounded-xl">
               <h4 className="font-semibold text-lg mb-3 text-red-900">Foam Care</h4>
               <p>Do not wash or submerge the memory foam. Spot clean only and keep away from direct sunlight.</p>
             </div>
-            <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-400 p-6 rounded-r-lg">
+            <div className="bg-green-50/50 border border-green-100 p-6 rounded-xl">
               <h4 className="font-semibold text-lg mb-3 text-green-900">Cover Maintenance</h4>
               <p>Remove the cover and machine wash on gentle cycle. Lay flat to dry for best results.</p>
             </div>
-            <div className="bg-gradient-to-r from-blue-50 to-cyan-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
+            <div className="bg-blue-50/50 border border-blue-100 p-6 rounded-xl">
               <h4 className="font-semibold text-lg mb-3 text-blue-900">Usage Tips</h4>
               <p>Allow the pillow to fully air out before first use and fluff gently every few days.</p>
             </div>
@@ -577,7 +639,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
         <div className="prose max-w-none">
           <h3 className="text-2xl font-bold text-gray-900 mb-6">Precautions & Safety</h3>
           <div className="space-y-6 text-gray-900">
-            <div className="bg-gradient-to-r from-red-50 to-pink-50 border-l-4 border-red-400 p-6 rounded-r-lg">
+            <div className="bg-red-50/50 border border-red-100 p-6 rounded-xl">
               <h4 className="font-semibold text-lg mb-3 text-red-900">🚰 Water Safety</h4>
               <div className="space-y-2">
                 <div className="flex items-start space-x-2">
@@ -590,7 +652,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                 </div>
               </div>
             </div>
-            <div className="bg-gradient-to-r from-orange-50 to-yellow-50 border-l-4 border-orange-400 p-6 rounded-r-lg">
+            <div className="bg-orange-50/50 border border-orange-100 p-6 rounded-xl">
               <h4 className="font-semibold text-lg mb-3 text-orange-900">🧽 Maintenance & Care</h4>
               <div className="space-y-2">
                 <div className="flex items-start space-x-2">
@@ -603,7 +665,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                 </div>
               </div>
             </div>
-            <div className="bg-gradient-to-r from-purple-50 to-indigo-50 border-l-4 border-purple-400 p-6 rounded-r-lg">
+            <div className="bg-purple-50/50 border border-purple-100 p-6 rounded-xl">
               <h4 className="font-semibold text-lg mb-3 text-purple-900">🏥 Medical Considerations</h4>
               <div className="space-y-2">
                 <div className="flex items-start space-x-2">
@@ -616,7 +678,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                 </div>
               </div>
             </div>
-            <div className="bg-gradient-to-r from-blue-50 to-cyan-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
+            <div className="bg-blue-50/50 border border-blue-100 p-6 rounded-xl">
               <h4 className="font-semibold text-lg mb-3 text-blue-900">👶 Child Safety</h4>
               <p>Children should use under adult supervision. Use gentle pressure only.</p>
             </div>
@@ -656,7 +718,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
         {reviews.map((review, idx) => (
           <div
             key={`${review.name}-${idx}`}
-            className={`bg-gradient-to-r ${reviewColorClasses[idx % reviewColorClasses.length]} border-l-4 p-6 rounded-r-lg`}
+            className={`${reviewColorClasses[idx % reviewColorClasses.length]} border p-6 rounded-xl`}
           >
             <div className="flex items-center space-x-3 mb-3">
               <div className="flex">
@@ -797,13 +859,13 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                 <div className="inline-block">
                   <span className={`text-white px-3 py-1 rounded-md text-sm font-semibold ${
                     product.badge === 'BEST SELLER' 
-                      ? 'bg-gradient-to-r from-orange-500 to-red-600'
+                      ? 'bg-red-600'
                       : product.badge === 'NEW ARRIVAL'
-                      ? 'bg-gradient-to-r from-green-500 to-emerald-600'
+                      ? 'bg-green-600'
                       : product.badge === 'TRENDING'
-                      ? 'bg-gradient-to-r from-pink-500 to-rose-600'
+                      ? 'bg-rose-600'
                       : product.badge === 'COMING SOON'
-                      ? 'bg-gradient-to-r from-purple-500 to-indigo-600'
+                      ? 'bg-purple-600'
                       : 'bg-blue-600'
                   }`}>
                     {product.badge}
@@ -849,11 +911,18 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               </div>
               
               {/* Delivery Info */}
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                <p className="text-sm text-blue-900 font-medium">Delivery Charges:</p>
-                <p className="text-sm text-blue-800 mt-1">
-                  Inside Dhaka: ৳80 | Outside Dhaka: ৳150
-                </p>
+              <div className={`${product.isFreeDelivery ? 'bg-green-50 border-green-200' : 'bg-blue-50 border-blue-200'} border rounded-lg p-4`}>
+                <p className={`text-sm font-medium ${product.isFreeDelivery ? 'text-green-900' : 'text-blue-900'}`}>Delivery Charges:</p>
+                <div className="flex items-center gap-2 mt-1">
+                  <p className={`text-sm ${product.isFreeDelivery ? 'text-green-800 line-through' : 'text-blue-800'}`}>
+                    Inside Dhaka: ৳80 | Outside Dhaka: ৳150
+                  </p>
+                  {product.isFreeDelivery && (
+                    <span className="text-sm font-bold text-green-700 uppercase tracking-wider">
+                      FREE (Offer)
+                    </span>
+                  )}
+                </div>
               </div>
 
               {/* Short Description */}
@@ -885,6 +954,38 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                       ? 'This exciting new product will be available soon. Stay tuned!' 
                       : 'This product is currently unavailable.'}
                   </p>
+                </div>
+              )}
+
+              {/* Color Selection */}
+              {product.colors && product.colors.length > 0 && (
+                <div className="space-y-3 p-4 bg-blue-50/50 rounded-xl border border-blue-100">
+                  <div className="flex items-center justify-between">
+                    <p className="text-sm font-bold text-gray-900 flex items-center gap-2">
+                      Select Color / রঙ নির্বাচন করুন:
+                      <span className="text-[10px] bg-blue-600 text-white px-2 py-0.5 rounded-full uppercase tracking-wider">Required</span>
+                    </p>
+                    {selectedColor && (
+                      <span className="text-xs font-medium text-blue-600 bg-white px-2 py-1 rounded-md border border-blue-200">
+                        Selected: {selectedColor}
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex flex-wrap gap-3">
+                    {product.colors.map((color) => (
+                      <button
+                        key={color}
+                        onClick={() => setSelectedColor(color)}
+                        className={`px-6 py-2 rounded-full border-2 transition-all duration-200 font-medium ${
+                          selectedColor === color
+                            ? 'border-blue-600 bg-blue-600 text-white shadow-md'
+                            : 'border-gray-200 bg-white text-gray-600 hover:border-gray-300'
+                        }`}
+                      >
+                        {color}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               )}
 

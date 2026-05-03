@@ -131,7 +131,7 @@ export default function ThankYouOrder() {
                 </div>
                 <h3 className="font-semibold text-gray-900 mb-2">Order Processing</h3>
                 <p className="text-sm text-gray-600">
-                  We'll prepare your Smart Nasal Cleaner for shipment within 24 hours.
+                  We'll prepare your order for shipment within 24 hours.
                 </p>
               </div>
               <div className="text-center">
@@ -168,7 +168,13 @@ export default function ThankYouOrder() {
             <ul className="text-yellow-900 text-sm space-y-2">
               <li>Pay the courier in cash upon delivery. No advance needed.</li>
               <li>Please keep your phone available for the confirmation call.</li>
-              <li>Delivery charge: Inside Dhaka ৳80 · Outside Dhaka ৳150.</li>
+              <li>
+                {lastOrder?.deliveryCost === 0 ? (
+                  <span className="font-bold text-green-700">Delivery charge: FREE (Offer Applied)</span>
+                ) : (
+                  'Delivery charge: Inside Dhaka ৳80 · Outside Dhaka ৳150.'
+                )}
+              </li>
             </ul>
           </motion.div>
 

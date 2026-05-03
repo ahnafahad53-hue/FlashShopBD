@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Outfit } from 'next/font/google';
 import './globals.css';
 import SmoothScrollProvider from '@/components/SmoothScrollProvider';
 import FloatingCTA from '@/components/FloatingCTA';
@@ -7,10 +7,10 @@ import { CartProvider } from '@/context/CartContext';
 import CartDrawer from '@/components/CartDrawer';
 import FacebookPixel from '@/components/FacebookPixel';
 
-const inter = Inter({ 
+const outfit = Outfit({ 
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700', '800'],
-  variable: '--font-inter',
+  variable: '--font-outfit',
   display: 'swap',
 });
 
@@ -102,7 +102,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`scroll-smooth ${inter.variable}`}>
+    <html lang="en" className={`scroll-smooth ${outfit.variable}`}>
       <head>
         {/* Additional SEO Meta Tags */}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -123,7 +123,7 @@ export default function RootLayout({
         /> */}
 
       </head>
-      <body className={`${inter.className} font-inter antialiased`}>
+      <body className={`${outfit.className} font-sans antialiased`}>
         <FacebookPixel />
         <SmoothScrollProvider>
           <CartProvider>
