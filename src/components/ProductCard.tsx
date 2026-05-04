@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { Star, ShoppingCart } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
+import CloudinaryImage from '@/components/CloudinaryImage';
 import type { MouseEvent } from 'react';
 import type { Product } from '@/data/products';
 import { useCart } from '@/context/CartContext';
@@ -63,7 +63,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           {/* Product Image or Placeholder */}
           <div className="relative w-full h-full flex items-center justify-center">
             {product.images && product.images.length > 0 ? (
-              <Image
+              <CloudinaryImage
                 src={product.images[0]}
                 alt={product.name}
                 fill

@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
+import CloudinaryImage from '@/components/CloudinaryImage';
 import { Facebook, Instagram, Youtube, Mail, Phone, MapPin } from 'lucide-react';
 
 export default function Footer() {
@@ -17,8 +17,8 @@ export default function Footer() {
           {/* About FlashShop */}
           <div>
             <div className="mb-6">
-              <Image
-                src="https://res.cloudinary.com/dgm2mosta/image/upload/v1764521881/flashshop-mobile_i0d0po.png"
+              <CloudinaryImage
+                src="/flashshop-mobile.png"
                 alt="FlashShop Logo"
                 width={180}
                 height={50}

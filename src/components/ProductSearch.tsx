@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Search, X } from 'lucide-react';
-import Image from 'next/image';
+import CloudinaryImage from '@/components/CloudinaryImage';
 import { products } from '@/data/products';
 
 interface ProductSearchProps {
@@ -107,7 +107,7 @@ export default function ProductSearch({ isOpen, onClose }: ProductSearchProps) {
                     className="flex items-center gap-4 px-6 py-5 hover:bg-pink-50/60 transition-colors cursor-pointer"
                   >
                     <div className="relative w-16 h-16 rounded-2xl bg-pink-50 overflow-hidden flex-shrink-0 shadow-inner">
-                      <Image
+                      <CloudinaryImage
                         src={product.images?.[0] || '/main-pro.jpeg'}
                         alt={product.name}
                         fill

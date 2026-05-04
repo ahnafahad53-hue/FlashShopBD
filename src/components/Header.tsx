@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
+import CloudinaryImage from '@/components/CloudinaryImage';
 import { Menu, X, ShoppingCart, Search } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { products } from '@/data/products';
@@ -189,7 +189,7 @@ export default function Header() {
               }}
               className="lg:hidden absolute left-1/2 transform -translate-x-1/2 z-10 cursor-pointer"
             >
-              <Image
+              <CloudinaryImage
                 src="/flashshop-mobile.png"
                 alt="FlashShop Logo"
                 width={120}
@@ -223,7 +223,7 @@ export default function Header() {
               }}
               className="hidden lg:flex items-center cursor-pointer"
             >
-              <Image
+              <CloudinaryImage
                 src="/flashshop-mobile.png"
                 alt="FlashShop Logo"
                 width={160}
@@ -324,7 +324,7 @@ export default function Header() {
                           >
                             <div className="relative w-10 h-10 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
                               {product.images && product.images.length > 0 ? (
-                                <Image
+                                <CloudinaryImage
                                   src={product.images[0]}
                                   alt={product.name}
                                   fill
@@ -502,7 +502,7 @@ export default function Header() {
                           >
                             <div className="relative w-12 h-12 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
                               {product.images && product.images.length > 0 ? (
-                                <Image
+                                <CloudinaryImage
                                   src={product.images[0]}
                                   alt={product.name}
                                   fill

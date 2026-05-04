@@ -1,7 +1,7 @@
 'use client';
 
 import { ShieldCheck, Truck, Award, Star, CheckCircle2, ArrowRight, Sparkles } from 'lucide-react';
-import Image from 'next/image';
+import CloudinaryImage from '@/components/CloudinaryImage';
 import Link from 'next/link';
 
 export default function Hero() {
@@ -10,7 +10,7 @@ export default function Hero() {
       {/* Background Image - desktop and mobile */}
       <div className="absolute inset-0 z-0 min-h-screen">
         {/* Desktop: Cloudinary */}
-        <Image
+        <CloudinaryImage
           src="/images/hero-win.png"
           alt=""
           fill
@@ -19,7 +19,7 @@ export default function Hero() {
           sizes="100vw"
         />
         {/* Mobile: local file so it always loads (Cloudinary URL can fail on mobile) */}
-        <Image
+        <CloudinaryImage
           src="/images/hero-bg-mob-final.png"
           alt=""
           fill

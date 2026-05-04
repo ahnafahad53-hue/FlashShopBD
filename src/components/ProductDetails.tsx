@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { ShoppingCart, Star, Package, AlertCircle, MessageSquare, Play, Monitor, Smartphone, X, ArrowRight, Plus, Minus } from 'lucide-react';
-import Image from 'next/image';
+import CloudinaryImage from '@/components/CloudinaryImage';
 import Link from 'next/link';
 import type { Product } from '@/data/products';
 import { products } from '@/data/products';
@@ -13,10 +13,10 @@ import ProductCard from './ProductCard';
 
 // Default product images for nasal cleaner (used when product doesn't have images)
 const defaultProductImages = [
-  { id: 1, src: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761633111/IMG_20251019_124825_co8dcd.jpg', alt: 'Smart Nasal Cleaner - Main View' },
-  { id: 5, src: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761633116/IMG_20251019_131413_kf5jdi.jpg', alt: 'Smart Nasal Cleaner - Usage View' },
-  { id: 2, src: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761633110/IMG_20251019_123820_p4kvve.jpg', alt: 'Smart Nasal Cleaner - Side View' },
-  { id: 3, src: 'https://res.cloudinary.com/dgm2mosta/image/upload/v1761633108/IMG_20250925_162855_wtgfpz.jpg', alt: 'Smart Nasal Cleaner - Package View' },
+  { id: 1, src: '/placeholder-product.png', alt: 'Smart Nasal Cleaner - Main View' },
+  { id: 5, src: '/placeholder-product.png', alt: 'Smart Nasal Cleaner - Usage View' },
+  { id: 2, src: '/placeholder-product.png', alt: 'Smart Nasal Cleaner - Side View' },
+  { id: 3, src: '/placeholder-product.png', alt: 'Smart Nasal Cleaner - Package View' },
 ];
 
 const tutorialVideos = [
@@ -160,6 +160,116 @@ const productReviews: Record<
       time: '1 month ago',
     },
   ],
+  'car-seat-gap-filler': [
+    {
+      name: 'Rashedul Islam',
+      quote: 'Excellent product! Amar car e perfectly fit hoyeche. Phone r pore jay na.',
+      time: '3 days ago',
+    },
+    {
+      name: 'Hasan Mahmud',
+      quote: 'Good build quality. Seat er majkhane ar kichu haranor voy nai. Recommended!',
+      time: '1 week ago',
+    },
+    {
+      name: 'Tania Akter',
+      quote: 'দাম অনুযায়ী অনেক ভালো একটা জিনিস। ফিনিশিং সুন্দর।',
+      time: '2 weeks ago',
+    },
+  ],
+  'Carbon-fiber-steering-wheel-cover': [
+    {
+      name: 'Shafiqur Rahman',
+      quote: 'Steering cover ta khub premium feel dey. Grip onek valo.',
+      time: '5 days ago',
+    },
+    {
+      name: 'Imran Ali',
+      quote: 'আসল কার্বন ফাইবারের মতই লুক। ধরতে আরামদায়ক আর হাত ঘামে না।',
+      time: '1 week ago',
+    },
+    {
+      name: 'Mominul Haque',
+      quote: 'Looks dope! Fit perfectly on my Corolla.',
+      time: '2 weeks ago',
+    },
+  ],
+  'creative-soap-holder': [
+    {
+      name: 'Shirin Sultana',
+      quote: 'সাবান আর গলে যায় না। ডিজাইনটাও অনেক সুন্দর, বাথরুমের লুকটাই চেঞ্জ হয়ে গেছে।',
+      time: '4 days ago',
+    },
+    {
+      name: 'Farhana Yeasmin',
+      quote: 'Simple but very useful. Water drains easily.',
+      time: '1 week ago',
+    },
+    {
+      name: 'Nazmul Hossain',
+      quote: 'প্লাস্টিকের কোয়ালিটি বেশ শক্ত। ডেলিভারিও ফাস্ট ছিল।',
+      time: '2 weeks ago',
+    },
+  ],
+  'makeup-brush-storage-box': [
+    {
+      name: 'Nusrat Faria',
+      quote: 'Box ta onek cute ar useful. Brush gulo dust theke safe thake, ar dekhteo valo lage.',
+      time: '2 days ago',
+    },
+    {
+      name: 'Sadia Islam',
+      quote: 'অবশেষে আমার ব্রাশগুলো গুছিয়ে রাখার সুন্দর একটা জায়গা পেলাম। কোয়ালিটি অনেক ভালো।',
+      time: '4 days ago',
+    },
+    {
+      name: 'Tasnim Hossain',
+      quote: 'Just exactly as shown in the picture. The transparent lid makes it very convenient.',
+      time: '1 week ago',
+    },
+    {
+      name: 'Ayesha Rahman',
+      quote: 'অনেকগুলো ব্রাশ একসাথে রাখা যায়। সাইজটাও পারফেক্ট। লাভ ইট!',
+      time: '2 weeks ago',
+    },
+  ],
+  'car-combo-01': [
+    { name: 'Zahid Hasan', quote: 'Combo offer ta onek valo silo. Duto product e quality darun.', time: '1 day ago' },
+    { name: 'Sazzad Hossain', quote: 'একসাথে দুইটা দরকারি জিনিস পেলাম ভালো দামে। স্টিয়ারিং কভারের গ্রিপ চমৎকার।', time: '2 days ago' },
+    { name: 'Faisal Ahmed', quote: 'Free delivery was a nice touch. The gap filler works flawlessly.', time: '2 days ago' },
+    { name: 'Raju Ahmed', quote: 'গাড়ি চালানোর সময় স্টিয়ারিং কভারটা অনেক কমফোর্টেবল। গ্যাপ ফিলারটাও ভালো কাজ করছে।', time: '3 days ago' },
+    { name: 'Kamrul Islam', quote: 'Price hisebe best. Delivery man onek valo bebohar korse.', time: '3 days ago' },
+    { name: 'Mahmudur Rahman', quote: 'খুবই সুন্দর একটা কম্বো প্যাকেজ। আমার গাড়ির ইন্টেরিয়রের সাথে দারুন মানিয়েছে।', time: '4 days ago' },
+    { name: 'Tanvir Hossain', quote: 'Quality is much better than I expected. Really satisfied with the purchase.', time: '4 days ago' },
+    { name: 'Ashiqur Rahman', quote: 'গ্যাপ ফিলার দিয়ে এখন আর ফোন বা চাবি নিচে পড়ে যায় না।', time: '5 days ago' },
+    { name: 'Imran H.', quote: 'Awesome combo! The steering cover doesn\'t slip at all.', time: '5 days ago' },
+    { name: 'Shohag', quote: 'অসাধারণ প্রোডাক্ট। ডেলিভারিটাও খুব ফাস্ট ছিল।', time: '6 days ago' },
+    { name: 'Rakibul Islam', quote: 'Duto product ei perfectly set hoise amar garite. Thanks FlashShop.', time: '1 week ago' },
+    { name: 'Nazmul', quote: 'ভেবেছিলাম কেমন না কেমন হবে, কিন্তু হাতে পেয়ে খুব খুশি। কোয়ালিটি এ-ওয়ান!', time: '1 week ago' },
+    { name: 'Tarek', quote: 'Steering cover ta onek premium feel dey.', time: '1 week ago' },
+    { name: 'Abdur Rahim', quote: 'বাজেট অনুযায়ী পারফেক্ট কম্বো। সবাই নিতে পারেন।', time: '1 week ago' },
+    { name: 'Shafiq', quote: 'Both items are highly durable. Loved the free delivery.', time: '2 weeks ago' },
+    { name: 'Mehedi Hasan', quote: 'গ্যাপ ফিলারটা আমার অনেক দরকার ছিল। সাথে স্টিয়ারিং কভারটা ফ্রি পাওয়ার মতো মনে হচ্ছে।', time: '2 weeks ago' },
+    { name: 'Rubel', quote: 'Ami brown color order korsilam, exact same color paisi.', time: '2 weeks ago' },
+    { name: 'Ashik', quote: 'প্যাকেজিং অনেক ভালো ছিল। সেলার রেস্পন্সিভ।', time: '2 weeks ago' },
+    { name: 'Noman', quote: 'One of the best purchases for my car.', time: '2 weeks ago' },
+    { name: 'Arifur Rahman', quote: 'খুবই ভালো সার্ভিস। প্রোডাক্টগুলো প্রিমিয়াম।', time: '3 weeks ago' },
+    { name: 'Saiful Islam', quote: 'The gap filler perfectly matches my black leather seats.', time: '3 weeks ago' },
+    { name: 'Hasan', quote: 'স্টিয়ারিং কভারের লেদারটা খুব সফট। লং ড্রাইভে আরাম পাওয়া যায়।', time: '3 weeks ago' },
+    { name: 'Anik', quote: 'Valo jinis. Recommending to everyone.', time: '1 month ago' },
+    { name: 'Shoeb', quote: 'আগে ফোন নিচে পড়ে গেলে বের করা কঠিন ছিল, এখন সেই চিন্তা নেই।', time: '1 month ago' },
+    { name: 'Taufiq', quote: 'Amazing quality for the price point.', time: '1 month ago' },
+    { name: 'Rashid', quote: 'গাড়ির জন্য এই দুইটা জিনিস সবারই দরকার।', time: '1 month ago' },
+    { name: 'Monir', quote: 'Khub sundor fit hoise. Kono prblm nai.', time: '1 month ago' },
+    { name: 'Shakil', quote: '১০০% অরিজিনাল প্রোডাক্ট। আমি পুরোপুরি স্যাটিসফায়েড।', time: '1 month ago' },
+    { name: 'Mustafiz', quote: 'The steering cover gives a sporty look to my car.', time: '1 month ago' },
+    { name: 'Arman', quote: 'কম দামে এত ভালো জিনিস পাবো আশা করিনি।', time: '2 months ago' },
+    { name: 'Jahid', quote: 'Delivery was slightly delayed, but product quality covered it up.', time: '2 months ago' },
+    { name: 'Kausar', quote: 'গ্যাপ ফিলারটা খুব কাজের।', time: '2 months ago' },
+    { name: 'Faruk', quote: 'Steering cover er grip ta darun. Haat ghame na.', time: '2 months ago' },
+    { name: 'Sujon', quote: 'সব মিলিয়ে অনেক ভালো ডিল।', time: '2 months ago' },
+    { name: 'Nadim', quote: 'Highly recommended for any car owner.', time: '3 months ago' }
+  ],
 };
 
 interface ProductDetailsProps {
@@ -174,7 +284,13 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
   const [isHydrated, setIsHydrated] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const [reviewPage, setReviewPage] = useState(1);
   const [selectedColor, setSelectedColor] = useState<string | undefined>(product.colors?.[0]);
+  const [selectedGapFillerColor, setSelectedGapFillerColor] = useState<string | undefined>(product.gapFillerColors?.[0]);
+
+  const finalSelectedColor = product.gapFillerColors && product.colors
+    ? `${selectedColor} (Cover) + ${selectedGapFillerColor} (Filler)`
+    : selectedColor;
 
   useEffect(() => {
     setIsHydrated(true);
@@ -183,7 +299,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
   }, []);
 
   // Get current quantity from cart if product is already in cart
-  const cartItem = items.find(item => item.id === product.id && item.selectedColor === selectedColor);
+  const cartItem = items.find(item => item.id === product.id && item.selectedColor === finalSelectedColor);
   const currentCartQuantity = cartItem?.quantity || 0;
 
   // Sync quantity with cart when cart changes, color changes, or component mounts
@@ -193,7 +309,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
     } else {
       setQuantity(1);
     }
-  }, [cartItem, selectedColor]);
+  }, [cartItem, finalSelectedColor]);
 
   const handleQuantityChange = (delta: number) => {
     const newQuantity = Math.max(1, Math.min(product.stock, quantity + delta));
@@ -204,15 +320,15 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
     // Check if product is already in cart
     if (cartItem) {
       // If already in cart, update quantity to the selected quantity
-      updateQuantity(product.id, quantity, selectedColor);
+      updateQuantity(product.id, quantity, finalSelectedColor);
     } else {
       // If not in cart, add it first
-      addToCart(product, selectedColor);
+      addToCart(product, finalSelectedColor);
       // Then update to the desired quantity if more than 1
       if (quantity > 1) {
         // Use setTimeout to ensure cart state is updated first
         setTimeout(() => {
-          updateQuantity(product.id, quantity, selectedColor);
+          updateQuantity(product.id, quantity, finalSelectedColor);
         }, 50);
       }
     }
@@ -231,15 +347,18 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
   };
 
   // Use product images if available, otherwise use default images
-  const productImages = product.images && product.images.length > 0
-    ? product.images.map((src, idx) => ({ 
+  const baseImages = product.images && product.images.length > 0 ? product.images : ['/main-pro.jpeg'];
+  const combinedImages = product.gapFillerImages 
+    ? [...baseImages, ...product.gapFillerImages] 
+    : baseImages;
+
+  const productImages = product.id === 'nasal-cleaner-01' 
+    ? defaultProductImages 
+    : combinedImages.map((src, idx) => ({ 
         id: idx + 1, 
         src, 
         alt: `${product.name} - View ${idx + 1}` 
-      }))
-    : product.id === 'nasal-cleaner-01' 
-      ? defaultProductImages 
-      : [{ id: 1, src: product.images?.[0] || '/main-pro.jpeg', alt: product.name }];
+      }));
 
   const highlights = productHighlights[product.id] ?? [
     { label: 'Category', value: product.category },
@@ -446,7 +565,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                     onClick={() => handleVideoClick(video.videoUrl)}
                   >
                     <div className="relative aspect-[16/9] bg-gray-100 overflow-hidden">
-                      <Image
+                      <CloudinaryImage
                         src={video.thumbnail}
                         alt={video.title}
                         fill
@@ -695,6 +814,8 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
     );
   };
 
+  const REVIEWS_PER_PAGE = 5;
+
   const renderReviewsContent = () => {
     const reviews = productReviews[product.id] ?? [
       {
@@ -713,26 +834,100 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
       return <p className="text-gray-600">Reviews will be available soon.</p>;
     }
 
+    const totalPages = Math.ceil(reviews.length / REVIEWS_PER_PAGE);
+    const startIndex = (reviewPage - 1) * REVIEWS_PER_PAGE;
+    const paginatedReviews = reviews.slice(startIndex, startIndex + REVIEWS_PER_PAGE);
+
+    const handlePageChange = (pageNum: number) => {
+      setReviewPage(pageNum);
+      // Scroll to top of reviews section
+      const reviewsSection = document.getElementById('reviews-content');
+      if (reviewsSection) {
+        // Adjust for header height
+        const offset = 100;
+        const bodyRect = document.body.getBoundingClientRect().top;
+        const elementRect = reviewsSection.getBoundingClientRect().top;
+        const elementPosition = elementRect - bodyRect;
+        const offsetPosition = elementPosition - offset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    };
+
     return (
-      <div className="space-y-6">
-        {reviews.map((review, idx) => (
-          <div
-            key={`${review.name}-${idx}`}
-            className={`${reviewColorClasses[idx % reviewColorClasses.length]} border p-6 rounded-xl`}
-          >
-            <div className="flex items-center space-x-3 mb-3">
-              <div className="flex">
-                {[...Array(5)].map((_, starIdx) => (
-                  <Star key={starIdx} className="text-yellow-400 fill-yellow-400" size={18} />
-                ))}
+      <div className="space-y-6" id="reviews-content">
+        <div className="space-y-6">
+          {paginatedReviews.map((review, idx) => (
+            <div
+              key={`${review.name}-${startIndex + idx}`}
+              className={`${reviewColorClasses[(startIndex + idx) % reviewColorClasses.length]} border p-6 rounded-xl`}
+            >
+              <div className="flex items-center space-x-3 mb-3">
+                <div className="flex">
+                  {[...Array(5)].map((_, starIdx) => (
+                    <Star key={starIdx} className="text-yellow-400 fill-yellow-400" size={18} />
+                  ))}
+                </div>
+                <span className="font-semibold text-gray-900">{review.name}</span>
+                <span className="text-sm text-gray-600">Verified Purchase</span>
               </div>
-              <span className="font-semibold text-gray-900">{review.name}</span>
-              <span className="text-sm text-gray-600">Verified Purchase</span>
+              <p className="text-gray-900 mb-2">"{review.quote}"</p>
+              <p className="text-sm text-gray-600">{review.time}</p>
             </div>
-            <p className="text-gray-900 mb-2">"{review.quote}"</p>
-            <p className="text-sm text-gray-600">{review.time}</p>
+          ))}
+        </div>
+
+        {totalPages > 1 && (
+          <div className="flex items-center justify-center space-x-2 pt-6">
+            <button
+              onClick={() => handlePageChange(Math.max(1, reviewPage - 1))}
+              disabled={reviewPage === 1}
+              className="px-4 py-2 rounded-lg border border-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors text-sm font-medium"
+            >
+              Previous
+            </button>
+            <div className="flex items-center space-x-1">
+              {[...Array(totalPages)].map((_, i) => {
+                const pageNum = i + 1;
+                // Show only a few page numbers if there are many
+                if (
+                  totalPages > 7 &&
+                  pageNum !== 1 &&
+                  pageNum !== totalPages &&
+                  Math.abs(pageNum - reviewPage) > 1
+                ) {
+                  if (pageNum === 2 || pageNum === totalPages - 1) {
+                    return <span key={pageNum} className="px-1 text-gray-400">...</span>;
+                  }
+                  return null;
+                }
+                return (
+                  <button
+                    key={pageNum}
+                    onClick={() => handlePageChange(pageNum)}
+                    className={`w-10 h-10 rounded-lg text-sm font-medium transition-all ${
+                      reviewPage === pageNum
+                        ? 'bg-gray-900 text-white shadow-md'
+                        : 'text-gray-600 hover:bg-gray-100 border border-transparent'
+                    }`}
+                  >
+                    {pageNum}
+                  </button>
+                );
+              })}
+            </div>
+            <button
+              onClick={() => handlePageChange(Math.min(totalPages, reviewPage + 1))}
+              disabled={reviewPage === totalPages}
+              className="px-4 py-2 rounded-lg border border-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors text-sm font-medium"
+            >
+              Next
+            </button>
           </div>
-        ))}
+        )}
       </div>
     );
   };
@@ -813,7 +1008,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               viewport={{ once: true }}
               className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[550px] rounded-2xl overflow-hidden bg-white"
             >
-              <Image
+              <CloudinaryImage
                 src={productImages[selectedImage].src}
                 alt={productImages[selectedImage].alt}
                 fill
@@ -834,7 +1029,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                       : 'hover:scale-105'
                   }`}
                 >
-                  <Image
+                  <CloudinaryImage
                     src={img.src}
                     alt={img.alt}
                     fill
@@ -962,7 +1157,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                 <div className="space-y-3 p-4 bg-blue-50/50 rounded-xl border border-blue-100">
                   <div className="flex items-center justify-between">
                     <p className="text-sm font-bold text-gray-900 flex items-center gap-2">
-                      Select Color / রঙ নির্বাচন করুন:
+                      {product.gapFillerColors ? 'Select Steering Cover Color:' : 'Select Color / রঙ নির্বাচন করুন:'}
                       <span className="text-[10px] bg-blue-600 text-white px-2 py-0.5 rounded-full uppercase tracking-wider">Required</span>
                     </p>
                     {selectedColor && (
@@ -971,23 +1166,101 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                       </span>
                     )}
                   </div>
-                  <div className="flex flex-wrap gap-3">
-                    {product.colors.map((color) => (
-                      <button
-                        key={color}
-                        onClick={() => setSelectedColor(color)}
-                        className={`px-6 py-2 rounded-full border-2 transition-all duration-200 font-medium ${
-                          selectedColor === color
-                            ? 'border-blue-600 bg-blue-600 text-white shadow-md'
-                            : 'border-gray-200 bg-white text-gray-600 hover:border-gray-300'
-                        }`}
-                      >
-                        {color}
-                      </button>
-                    ))}
+                  <div className="flex flex-wrap gap-4 mt-2">
+                    {product.colors.map((color, index) => {
+                      const imgIndex = index < (product.images?.length || 0) ? index : 0;
+                      const colorImg = product.images?.[imgIndex] || '/main-pro.jpeg';
+                      
+                      return (
+                        <button
+                          key={color}
+                          onClick={() => {
+                            setSelectedColor(color);
+                            setSelectedImage(imgIndex);
+                          }}
+                          className="flex flex-col items-center gap-2 group"
+                        >
+                          <div 
+                            className={`relative w-14 h-14 rounded-full overflow-hidden border-2 transition-all duration-200 ${
+                              selectedColor === color
+                                ? 'border-blue-600 ring-2 ring-blue-600 ring-offset-2 shadow-md scale-110'
+                                : 'border-gray-200 group-hover:border-blue-400 group-hover:shadow-sm group-hover:scale-105'
+                            }`}
+                          >
+                            <CloudinaryImage
+                              src={colorImg}
+                              alt={color}
+                              fill
+                              className="object-cover"
+                            />
+                          </div>
+                          <span className={`text-sm font-medium transition-colors ${
+                            selectedColor === color ? 'text-blue-700' : 'text-gray-600 group-hover:text-blue-600'
+                          }`}>
+                            {color}
+                          </span>
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
               )}
+
+              {/* Gap Filler Color Selection (for combo product) */}
+              {product.gapFillerColors && product.gapFillerColors.length > 0 && (
+                <div className="space-y-3 p-4 bg-blue-50/50 rounded-xl border border-blue-100">
+                  <div className="flex items-center justify-between">
+                    <p className="text-sm font-bold text-gray-900 flex items-center gap-2">
+                      Select Gap Filler Color:
+                      <span className="text-[10px] bg-blue-600 text-white px-2 py-0.5 rounded-full uppercase tracking-wider">Required</span>
+                    </p>
+                    {selectedGapFillerColor && (
+                      <span className="text-xs font-medium text-blue-600 bg-white px-2 py-1 rounded-md border border-blue-200">
+                        Selected: {selectedGapFillerColor}
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex flex-wrap gap-4 mt-2">
+                    {product.gapFillerColors.map((color, index) => {
+                      const imgIndex = index < (product.gapFillerImages?.length || 0) ? index : 0;
+                      const colorImg = product.gapFillerImages?.[imgIndex] || '/main-pro.jpeg';
+                      const combinedImgIndex = (product.images?.length || 0) + imgIndex;
+                      
+                      return (
+                        <button
+                          key={color}
+                          onClick={() => {
+                            setSelectedGapFillerColor(color);
+                            setSelectedImage(combinedImgIndex);
+                          }}
+                          className="flex flex-col items-center gap-2 group"
+                        >
+                          <div 
+                            className={`relative w-14 h-14 rounded-full overflow-hidden border-2 transition-all duration-200 ${
+                              selectedGapFillerColor === color
+                                ? 'border-blue-600 ring-2 ring-blue-600 ring-offset-2 shadow-md scale-110'
+                                : 'border-gray-200 group-hover:border-blue-400 group-hover:shadow-sm group-hover:scale-105'
+                            }`}
+                          >
+                            <CloudinaryImage
+                              src={colorImg}
+                              alt={color}
+                              fill
+                              className="object-cover"
+                            />
+                          </div>
+                          <span className={`text-sm font-medium transition-colors ${
+                            selectedGapFillerColor === color ? 'text-blue-700' : 'text-gray-600 group-hover:text-blue-600'
+                          }`}>
+                            {color}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
 
               {/* Quantity Controls */}
               {product.inStock && (

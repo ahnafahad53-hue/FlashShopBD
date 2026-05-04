@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft, ShoppingCart, MapPin, User, CreditCard, Plus, Minus, PackageX } from 'lucide-react';
-import Image from 'next/image';
+import CloudinaryImage from '@/components/CloudinaryImage';
 import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
 
@@ -191,7 +191,7 @@ export default function CheckoutPage() {
                         <div className="flex gap-4">
                           <div className="relative w-16 h-16 sm:w-20 sm:h-20 bg-gray-100 rounded-xl overflow-hidden flex-shrink-0 flex items-center justify-center">
                             {item.images && item.images.length > 0 ? (
-                              <Image
+                              <CloudinaryImage
                                 src={item.images[0]}
                                 alt={item.name}
                                 fill
