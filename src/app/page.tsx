@@ -1,13 +1,16 @@
+import dynamic from 'next/dynamic';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
-import Categories from '@/components/Categories';
-import FeaturedProducts from '@/components/FeaturedProducts';
-import NewArrivals from '@/components/NewArrivals';
-import WhyChooseUs from '@/components/WhyChooseUs';
-import Testimonials from '@/components/Testimonials';
-import FAQ from '@/components/FAQ';
-import CTA from '@/components/CTA';
-import Footer from '@/components/Footer';
+
+// Dynamically import components below the fold to improve initial load speed
+const Categories = dynamic(() => import('@/components/Categories'), { ssr: true });
+const FeaturedProducts = dynamic(() => import('@/components/FeaturedProducts'), { ssr: true });
+const NewArrivals = dynamic(() => import('@/components/NewArrivals'), { ssr: true });
+const WhyChooseUs = dynamic(() => import('@/components/WhyChooseUs'), { ssr: true });
+const Testimonials = dynamic(() => import('@/components/Testimonials'), { ssr: true });
+const FAQ = dynamic(() => import('@/components/FAQ'), { ssr: true });
+const CTA = dynamic(() => import('@/components/CTA'), { ssr: true });
+const Footer = dynamic(() => import('@/components/Footer'), { ssr: true });
 
 export default function Home() {
   return (
@@ -17,32 +20,32 @@ export default function Home() {
         {/* Sticky Header with Navigation */}
         <Header />
 
-      {/* Hero Section - Full-width with product showcase */}
-      <Hero />
+        {/* Hero Section - Full-width with product showcase */}
+        <Hero />
 
-      {/* Shop by Category */}
-      <Categories />
+        {/* Shop by Category */}
+        <Categories />
 
-      {/* Featured Products */}
-      <FeaturedProducts />
+        {/* Featured Products */}
+        <FeaturedProducts />
 
-      {/* New Arrivals */}
-      <NewArrivals />
+        {/* New Arrivals */}
+        <NewArrivals />
 
-      {/* Why Choose FlashShop - Trust indicators */}
-      <WhyChooseUs />
+        {/* Why Choose FlashShop - Trust indicators */}
+        <WhyChooseUs />
 
-      {/* Customer Testimonials - Social proof */}
-      <Testimonials />
+        {/* Customer Testimonials - Social proof */}
+        {/* <Testimonials /> */}
 
-      {/* FAQ Section - Common questions and answers */}
-      <FAQ />
+        {/* FAQ Section - Common questions and answers */}
+        <FAQ />
 
-      {/* Final CTA - Conversion-focused call to action */}
-      <CTA />
+        {/* Final CTA - Conversion-focused call to action */}
+        <CTA />
 
-      {/* Footer - Contact info, links, social media */}
-      <Footer />
+        {/* Footer - Contact info, links, social media */}
+        <Footer />
       </div>
 
       {/* Structured Data for SEO (JSON-LD) - Organization */}

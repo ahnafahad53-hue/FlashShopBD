@@ -348,23 +348,23 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
 
   // Use product images if available, otherwise use default images
   const baseImages = product.images && product.images.length > 0 ? product.images : ['/main-pro.jpeg'];
-  const combinedImages = product.gapFillerImages 
-    ? [...baseImages, ...product.gapFillerImages] 
+  const combinedImages = product.gapFillerImages
+    ? [...baseImages, ...product.gapFillerImages]
     : baseImages;
 
-  const productImages = product.id === 'nasal-cleaner-01' 
-    ? defaultProductImages 
-    : combinedImages.map((src, idx) => ({ 
-        id: idx + 1, 
-        src, 
-        alt: `${product.name} - View ${idx + 1}` 
-      }));
+  const productImages = product.id === 'nasal-cleaner-01'
+    ? defaultProductImages
+    : combinedImages.map((src, idx) => ({
+      id: idx + 1,
+      src,
+      alt: `${product.name} - View ${idx + 1}`
+    }));
 
   const highlights = productHighlights[product.id] ?? [
     { label: 'Category', value: product.category },
     { label: 'Payment', value: 'Cash on Delivery' },
     { label: 'Availability', value: product.inStock ? 'In Stock' : 'Coming Soon' },
-    { label: 'Delivery', value: 'Inside Dhaka 2-3 days' },
+    { label: 'Delivery', value: '2-3 days' },
   ];
 
   const renderDescriptionContent = () => {
@@ -503,7 +503,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                 <p className="mt-2 text-sm font-bold text-blue-700">Available in: {product.colors.join(', ')}</p>
               )}
             </div>
-            
+
             {isCombo && (
               <div className="bg-green-50/50 border border-green-100 p-6 rounded-xl">
                 <h4 className="font-semibold text-lg mb-3 text-green-900">🚗 Car Seat Gap Filler Included</h4>
@@ -666,7 +666,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
             {product.id === 'car-combo-01' && (
               <div className="bg-green-50/50 border border-green-100 p-4 rounded-xl">
                 <h4 className="font-semibold text-lg mb-2">২. গ্যাপ ফিলার সেটআপ</h4>
-                <p>গ্যাপ ফিলারটি সিট এবং সেন্ট্রাল কনসোলের মাঝখানে চাপ দিয়ে বসিয়ে দিন।</p>
+                <p>কভারটি স্টিয়ারিং হুইলের ওপরের অংশে রাখুন এবং দুই পাশ থেকে চাপ দিয়ে বসিয়ে দিন।</p>
               </div>
             )}
             <div className="bg-orange-50/50 border border-orange-100 p-4 rounded-xl">
@@ -908,11 +908,10 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                   <button
                     key={pageNum}
                     onClick={() => handlePageChange(pageNum)}
-                    className={`w-10 h-10 rounded-lg text-sm font-medium transition-all ${
-                      reviewPage === pageNum
-                        ? 'bg-gray-900 text-white shadow-md'
-                        : 'text-gray-600 hover:bg-gray-100 border border-transparent'
-                    }`}
+                    className={`w-10 h-10 rounded-lg text-sm font-medium transition-all ${reviewPage === pageNum
+                      ? 'bg-gray-900 text-white shadow-md'
+                      : 'text-gray-600 hover:bg-gray-100 border border-transparent'
+                      }`}
                   >
                     {pageNum}
                   </button>
@@ -1018,26 +1017,77 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
             </motion.div>
 
             {/* Thumbnail Gallery */}
-            <div className="grid grid-cols-4 gap-2 sm:gap-3 lg:gap-4">
-              {productImages.map((img, index) => (
-                <button
-                  key={img.id}
-                  onClick={() => setSelectedImage(index)}
-                  className={`relative h-16 sm:h-20 md:h-24 rounded-lg overflow-hidden transition-all duration-200 ${
-                    selectedImage === index
-                      ? 'ring-2 sm:ring-4 ring-cyan-400 scale-105'
-                      : 'hover:scale-105'
-                  }`}
-                >
-                  <CloudinaryImage
-                    src={img.src}
-                    alt={img.alt}
-                    fill
-                    className="object-contain bg-white"
-                    sizes="(max-width: 640px) 25vw, (max-width: 1024px) 12.5vw, 10vw"
-                  />
-                </button>
-              ))}
+            <div className="flex flex-col gap-3">
+              {product.id === 'car-combo-01' ? (
+                <>
+                  {/* First line: 4 steering cover images */}
+                  <div className="grid grid-cols-4 gap-2 sm:gap-3 lg:gap-4">
+                    {productImages.slice(0, 4).map((img, index) => (
+                      <button
+                        key={img.id}
+                        onClick={() => setSelectedImage(index)}
+                        className={`relative h-16 sm:h-20 md:h-24 rounded-lg overflow-hidden transition-all duration-200 ${selectedImage === index
+                          ? 'ring-2 sm:ring-4 ring-cyan-400 scale-105'
+                          : 'hover:scale-105'
+                          }`}
+                      >
+                        <CloudinaryImage
+                          src={img.src}
+                          alt={img.alt}
+                          fill
+                          className="object-contain bg-white"
+                          sizes="(max-width: 640px) 25vw, (max-width: 1024px) 12.5vw, 10vw"
+                        />
+                      </button>
+                    ))}
+                  </div>
+                  {/* Second line: gap filler images */}
+                  <div className="grid grid-cols-4 gap-2 sm:gap-3 lg:gap-4">
+                    {productImages.slice(baseImages.length).map((img, index) => {
+                      const actualIndex = baseImages.length + index;
+                      return (
+                        <button
+                          key={img.id}
+                          onClick={() => setSelectedImage(actualIndex)}
+                          className={`relative h-16 sm:h-20 md:h-24 rounded-lg overflow-hidden transition-all duration-200 ${selectedImage === actualIndex
+                            ? 'ring-2 sm:ring-4 ring-cyan-400 scale-105'
+                            : 'hover:scale-105'
+                            }`}
+                        >
+                          <CloudinaryImage
+                            src={img.src}
+                            alt={img.alt}
+                            fill
+                            className="object-contain bg-white"
+                            sizes="(max-width: 640px) 25vw, (max-width: 1024px) 12.5vw, 10vw"
+                          />
+                        </button>
+                      );
+                    })}
+                  </div>
+                </>
+              ) : (
+                <div className="grid grid-cols-4 gap-2 sm:gap-3 lg:gap-4">
+                  {productImages.map((img, index) => (
+                    <button
+                      key={img.id}
+                      onClick={() => setSelectedImage(index)}
+                      className={`relative h-16 sm:h-20 md:h-24 rounded-lg overflow-hidden transition-all duration-200 ${selectedImage === index
+                        ? 'ring-2 sm:ring-4 ring-cyan-400 scale-105'
+                        : 'hover:scale-105'
+                        }`}
+                    >
+                      <CloudinaryImage
+                        src={img.src}
+                        alt={img.alt}
+                        fill
+                        className="object-contain bg-white"
+                        sizes="(max-width: 640px) 25vw, (max-width: 1024px) 12.5vw, 10vw"
+                      />
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 
@@ -1052,17 +1102,16 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               {/* Badge */}
               {product.badge && (
                 <div className="inline-block">
-                  <span className={`text-white px-3 py-1 rounded-md text-sm font-semibold ${
-                    product.badge === 'BEST SELLER' 
-                      ? 'bg-red-600'
-                      : product.badge === 'NEW ARRIVAL'
+                  <span className={`text-white px-3 py-1 rounded-md text-sm font-semibold ${product.badge === 'BEST SELLER'
+                    ? 'bg-red-600'
+                    : product.badge === 'NEW ARRIVAL'
                       ? 'bg-green-600'
                       : product.badge === 'TRENDING'
-                      ? 'bg-rose-600'
-                      : product.badge === 'COMING SOON'
-                      ? 'bg-purple-600'
-                      : 'bg-blue-600'
-                  }`}>
+                        ? 'bg-rose-600'
+                        : product.badge === 'COMING SOON'
+                          ? 'bg-purple-600'
+                          : 'bg-blue-600'
+                    }`}>
                     {product.badge}
                   </span>
                 </div>
@@ -1071,16 +1120,15 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900">
                 {product.name}
               </h1>
-              
+
               {/* Rating */}
               <div className="flex items-center space-x-2">
                 <div className="flex items-center">
                   {[...Array(5)].map((_, i) => (
                     <Star
                       key={i}
-                      className={`${
-                        i < Math.floor(product.rating) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'
-                      }`}
+                      className={`${i < Math.floor(product.rating) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'
+                        }`}
                       size={20}
                     />
                   ))}
@@ -1104,7 +1152,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                   </>
                 )}
               </div>
-              
+
               {/* Delivery Info */}
               <div className={`${product.isFreeDelivery ? 'bg-green-50 border-green-200' : 'bg-blue-50 border-blue-200'} border rounded-lg p-4`}>
                 <p className={`text-sm font-medium ${product.isFreeDelivery ? 'text-green-900' : 'text-blue-900'}`}>Delivery Charges:</p>
@@ -1132,21 +1180,18 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
 
               {/* Stock Status */}
               {!product.inStock && (
-                <div className={`${
-                  product.badge === 'COMING SOON'
-                    ? 'bg-purple-50 border border-purple-200'
-                    : 'bg-red-50 border border-red-200'
-                } rounded-lg p-4`}>
-                  <p className={`text-sm font-medium ${
-                    product.badge === 'COMING SOON' ? 'text-purple-900' : 'text-red-900'
-                  }`}>
+                <div className={`${product.badge === 'COMING SOON'
+                  ? 'bg-purple-50 border border-purple-200'
+                  : 'bg-red-50 border border-red-200'
+                  } rounded-lg p-4`}>
+                  <p className={`text-sm font-medium ${product.badge === 'COMING SOON' ? 'text-purple-900' : 'text-red-900'
+                    }`}>
                     {product.badge === 'COMING SOON' ? 'Coming Soon' : 'Out of Stock'}
                   </p>
-                  <p className={`text-sm mt-1 ${
-                    product.badge === 'COMING SOON' ? 'text-purple-800' : 'text-red-800'
-                  }`}>
-                    {product.badge === 'COMING SOON' 
-                      ? 'This exciting new product will be available soon. Stay tuned!' 
+                  <p className={`text-sm mt-1 ${product.badge === 'COMING SOON' ? 'text-purple-800' : 'text-red-800'
+                    }`}>
+                    {product.badge === 'COMING SOON'
+                      ? 'This exciting new product will be available soon. Stay tuned!'
                       : 'This product is currently unavailable.'}
                   </p>
                 </div>
@@ -1170,7 +1215,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                     {product.colors.map((color, index) => {
                       const imgIndex = index < (product.images?.length || 0) ? index : 0;
                       const colorImg = product.images?.[imgIndex] || '/main-pro.jpeg';
-                      
+
                       return (
                         <button
                           key={color}
@@ -1180,12 +1225,11 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                           }}
                           className="flex flex-col items-center gap-2 group"
                         >
-                          <div 
-                            className={`relative w-14 h-14 rounded-full overflow-hidden border-2 transition-all duration-200 ${
-                              selectedColor === color
-                                ? 'border-blue-600 ring-2 ring-blue-600 ring-offset-2 shadow-md scale-110'
-                                : 'border-gray-200 group-hover:border-blue-400 group-hover:shadow-sm group-hover:scale-105'
-                            }`}
+                          <div
+                            className={`relative w-14 h-14 rounded-full overflow-hidden border-2 transition-all duration-200 ${selectedColor === color
+                              ? 'border-blue-600 ring-2 ring-blue-600 ring-offset-2 shadow-md scale-110'
+                              : 'border-gray-200 group-hover:border-blue-400 group-hover:shadow-sm group-hover:scale-105'
+                              }`}
                           >
                             <CloudinaryImage
                               src={colorImg}
@@ -1194,9 +1238,8 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                               className="object-cover"
                             />
                           </div>
-                          <span className={`text-sm font-medium transition-colors ${
-                            selectedColor === color ? 'text-blue-700' : 'text-gray-600 group-hover:text-blue-600'
-                          }`}>
+                          <span className={`text-sm font-medium transition-colors ${selectedColor === color ? 'text-blue-700' : 'text-gray-600 group-hover:text-blue-600'
+                            }`}>
                             {color}
                           </span>
                         </button>
@@ -1225,7 +1268,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                       const imgIndex = index < (product.gapFillerImages?.length || 0) ? index : 0;
                       const colorImg = product.gapFillerImages?.[imgIndex] || '/main-pro.jpeg';
                       const combinedImgIndex = (product.images?.length || 0) + imgIndex;
-                      
+
                       return (
                         <button
                           key={color}
@@ -1235,12 +1278,11 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                           }}
                           className="flex flex-col items-center gap-2 group"
                         >
-                          <div 
-                            className={`relative w-14 h-14 rounded-full overflow-hidden border-2 transition-all duration-200 ${
-                              selectedGapFillerColor === color
-                                ? 'border-blue-600 ring-2 ring-blue-600 ring-offset-2 shadow-md scale-110'
-                                : 'border-gray-200 group-hover:border-blue-400 group-hover:shadow-sm group-hover:scale-105'
-                            }`}
+                          <div
+                            className={`relative w-14 h-14 rounded-full overflow-hidden border-2 transition-all duration-200 ${selectedGapFillerColor === color
+                              ? 'border-blue-600 ring-2 ring-blue-600 ring-offset-2 shadow-md scale-110'
+                              : 'border-gray-200 group-hover:border-blue-400 group-hover:shadow-sm group-hover:scale-105'
+                              }`}
                           >
                             <CloudinaryImage
                               src={colorImg}
@@ -1249,9 +1291,8 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                               className="object-cover"
                             />
                           </div>
-                          <span className={`text-sm font-medium transition-colors ${
-                            selectedGapFillerColor === color ? 'text-blue-700' : 'text-gray-600 group-hover:text-blue-600'
-                          }`}>
+                          <span className={`text-sm font-medium transition-colors ${selectedGapFillerColor === color ? 'text-blue-700' : 'text-gray-600 group-hover:text-blue-600'
+                            }`}>
                             {color}
                           </span>
                         </button>
@@ -1299,7 +1340,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
 
               {/* Order Now Button */}
               {product.inStock ? (
-                <button 
+                <button
                   onClick={handleOrderNow}
                   className="w-full py-4 px-8 font-medium text-sm uppercase tracking-wide bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 text-white hover:from-cyan-600 hover:via-blue-700 hover:to-indigo-700 transition-all duration-300 flex items-center justify-center gap-3 rounded-md group shadow-lg hover:shadow-xl"
                 >
@@ -1337,11 +1378,10 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center space-x-2 pb-4 px-4 font-semibold transition-all duration-200 ${
-                    activeTab === tab.id
-                      ? 'text-gray-900 border-b-2 border-gray-900'
-                      : 'text-gray-900 hover:text-gray-900'
-                  }`}
+                  className={`flex items-center space-x-2 pb-4 px-4 font-semibold transition-all duration-200 ${activeTab === tab.id
+                    ? 'text-gray-900 border-b-2 border-gray-900'
+                    : 'text-gray-900 hover:text-gray-900'
+                    }`}
                 >
                   <Icon size={20} />
                   <span>{tab.label}</span>

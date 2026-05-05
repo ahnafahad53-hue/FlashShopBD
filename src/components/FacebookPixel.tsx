@@ -1,7 +1,5 @@
 'use client';
 
-'use client';
-
 import Script from 'next/script';
 
 const FacebookPixel = () => {
@@ -10,7 +8,7 @@ const FacebookPixel = () => {
       {/* Meta Pixel Code */}
       <Script
         id="facebook-pixel"
-        strategy="afterInteractive"
+        strategy="lazyOnload"
         dangerouslySetInnerHTML={{
           __html: `
             !function(f,b,e,v,n,t,s)

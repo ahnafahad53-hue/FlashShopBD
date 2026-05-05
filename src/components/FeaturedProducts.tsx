@@ -1,8 +1,10 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import ProductCard from '@/components/ProductCard';
 import { products } from '@/data/products';
+import type { Product } from '@/data/products';
 
 // Get featured products with smart selection
 const getFeaturedProducts = () => {
@@ -30,10 +32,16 @@ const getFeaturedProducts = () => {
   return shuffleArray(availableFeatured).slice(0, 4);
 };
 
-const featuredProducts = getFeaturedProducts();
-
 export default function FeaturedProducts() {
-  if (!featuredProducts.length) return null;
+  const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setFeaturedProducts(getFeaturedProducts());
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted || !featuredProducts.length) return null;
 
   return (
     <section className="py-12 sm:py-16 bg-gray-50">

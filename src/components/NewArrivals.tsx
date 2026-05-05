@@ -1,8 +1,10 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import ProductCard from '@/components/ProductCard';
 import { products } from '@/data/products';
+import type { Product } from '@/data/products';
 
 // Get new arrival products with smart selection
 const getNewArrivalProducts = () => {
@@ -25,10 +27,16 @@ const getNewArrivalProducts = () => {
   return shuffleArray(newArrivals).slice(0, 6);
 };
 
-const newArrivalProducts = getNewArrivalProducts();
-
 export default function NewArrivals() {
-  if (!newArrivalProducts.length) return null;
+  const [newArrivalProducts, setNewArrivalProducts] = useState<Product[]>([]);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setNewArrivalProducts(getNewArrivalProducts());
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted || !newArrivalProducts.length) return null;
 
   return (
     <section className="py-12 sm:py-16 bg-white">
