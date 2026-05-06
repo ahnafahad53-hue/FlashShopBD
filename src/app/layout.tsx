@@ -6,6 +6,7 @@ import FloatingCTA from '@/components/FloatingCTA';
 import { CartProvider } from '@/context/CartContext';
 import CartDrawer from '@/components/CartDrawer';
 import FacebookPixel from '@/components/FacebookPixel';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const outfit = Outfit({ 
   subsets: ['latin'],
@@ -132,6 +133,7 @@ export default function RootLayout({
             <CartDrawer />
           </CartProvider>
         </SmoothScrollProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
