@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image, { type ImageProps } from 'next/image';
 
 interface CloudinaryImageProps extends Omit<ImageProps, 'onError'> {
@@ -21,6 +21,12 @@ export default function CloudinaryImage({
 }: CloudinaryImageProps) {
   const [imgSrc, setImgSrc] = useState<typeof src>(src);
   const [errored, setErrored] = useState(false);
+
+  // Sync imgSrc whenever the src prop changes (e.g. user clicks a different thumbnail)
+  useEffect(() => {
+    setImgSrc(src);
+    setErrored(false);
+  }, [src]);
 
   const handleError = () => {
     if (!errored) {

@@ -35,20 +35,21 @@ export const products: Product[] = [
     stock: 50,
     isFreeDelivery: true,
     images: [
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579929/IMG_20260430_125155_zyiqfe.jpg', // White
       'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579940/IMG_20260430_125558_ctvedz.jpg', // Black
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579928/IMG_20260430_125740_za8pgy.jpg', // Brown
+      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579929/IMG_20260430_125155_zyiqfe.jpg', // White
       "https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579934/IMG_20260430_124902_kipwg3.jpg",
+      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579928/IMG_20260430_125740_za8pgy.jpg', // Brown
       'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579626/car4_lkaagg.jpg',
       'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579626/car2_j3hkmq.jpg',
       'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579626/car3_hs1pcy.jpg',
       'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579622/car1_sjx2f5.jpg',
     ],
-    colors: ['Base', 'Black', 'Brown'],
-    gapFillerColors: ['Base', 'Black', 'Brown'],
+    colors: ['Black', 'Base', 'Brown'],
+    gapFillerColors: ['Black', 'Base', 'Brown'],
     gapFillerImages: [
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777920321/white_fpg0xt.png',
       'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777920321/black_dfqbyx.png',
+      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777920321/white_fpg0xt.png',
+
       'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777920322/brown_dg9fy0.jpg',
     ],
     description: 'Get our two most popular car accessories in one value-packed combo! This offer includes the premium Car Seat Gap Filler to keep your interior tidy and the Carbon Fiber Steering Wheel Cover for ultimate grip and style. Plus, enjoy FREE delivery across Bangladesh with this combo pack!',
@@ -66,6 +67,8 @@ export const products: Product[] = [
     category: 'Personal Care',
     inStock: true,
     stock: 75,
+    isFreeDelivery: true,
+    colors: ['Pearl White', 'Luxury Cream'],
     images: [
       'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777580230/brush-4_yp7iur.jpg',
       'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777580229/brush-1_bmrh6z.jpg',
@@ -113,27 +116,27 @@ export const products: Product[] = [
     ],
     description: 'Powerful foot odor eliminator spray that neutralizes bad smells instantly. Long-lasting formula keeps your feet fresh and dry throughout the day. Safe for daily use on feet and shoes. Antibacterial properties prevent odor-causing bacteria.',
   },
-  {
-    id: 'kids-comfy-pillow',
-    name: 'Head shaping pillow (হেড শেপিং পিলো)',
-    tagline: 'Ultra-soft memory foam pillow for peaceful sleep',
-    price: 890,
-    originalPrice: 1290,
-    rating: 4.7,
-    reviews: 156,
-    badge: 'TRENDING',
-    emoji: '🛏️',
-    category: 'Kids & Baby',
-    inStock: true,
-    stock: 60,
-    images: [
-      '/placeholder-product.png',
-      '/placeholder-product.png',
-      '/placeholder-product.png',
-      '/placeholder-product.png',
-    ],
-    description: 'Premium quality children\'s pillow designed for optimal neck support and comfort. Made with hypoallergenic memory foam that adapts to your child\'s sleeping position. Breathable cover keeps them cool all night. Perfect for ages 0-3 years.',
-  },
+  // {
+  //   id: 'kids-comfy-pillow',
+  //   name: 'Head shaping pillow (হেড শেপিং পিলো)',
+  //   tagline: 'Ultra-soft memory foam pillow for peaceful sleep',
+  //   price: 890,
+  //   originalPrice: 1290,
+  //   rating: 4.7,
+  //   reviews: 156,
+  //   badge: 'TRENDING',
+  //   emoji: '🛏️',
+  //   category: 'Kids & Baby',
+  //   inStock: true,
+  //   stock: 60,
+  //   images: [
+  //     '/placeholder-product.png',
+  //     '/placeholder-product.png',
+  //     '/placeholder-product.png',
+  //     '/placeholder-product.png',
+  //   ],
+  //   description: 'Premium quality children\'s pillow designed for optimal neck support and comfort. Made with hypoallergenic memory foam that adapts to your child\'s sleeping position. Breathable cover keeps them cool all night. Perfect for ages 0-3 years.',
+  // },
   {
     id: 'creative-soap-holder',
     name: 'Creative Soap Holder (ক্রিয়েটিভ সাব হোল্ডার)',

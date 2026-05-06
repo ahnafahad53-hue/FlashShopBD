@@ -660,18 +660,19 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
           <div className="space-y-6 text-gray-900">
             <div className="bg-blue-50/50 border border-blue-100 p-4 rounded-xl">
               <h4 className="font-semibold text-lg mb-2">১. স্টিয়ারিং কভার লাগানো</h4>
-              <p className="mb-2">কভারটি স্টিয়ারিং হুইলের ওপরের অংশে রাখুন এবং দুই পাশ থেকে নিচের দিকে টেনে নামিয়ে আনুন।</p>
-              <p className="text-sm text-gray-700">• এটি টাইট ফিটিং হবে যাতে ড্রাইভ করার সময় সরে না যায়।</p>
+              <p className="mb-2">কভারটি স্টিয়ারিং হুইলের ওপরের অংশে রাখুন এবং দুই পাশ থেকে নিচের দিকে টেনে নামিয়ে ভালোভাবে সেট করুন।</p>
+              <p className="text-sm text-gray-700">• এটি টাইট ফিটিং হবে যাতে ড্রাইভ করার সময় কভারটি কোনোভাবেই সরে না যায়।</p>
             </div>
             {product.id === 'car-combo-01' && (
               <div className="bg-green-50/50 border border-green-100 p-4 rounded-xl">
                 <h4 className="font-semibold text-lg mb-2">২. গ্যাপ ফিলার সেটআপ</h4>
-                <p>কভারটি স্টিয়ারিং হুইলের ওপরের অংশে রাখুন এবং দুই পাশ থেকে চাপ দিয়ে বসিয়ে দিন।</p>
+                <p className="mb-2">গ্যাপ ফিলারটির ছিদ্র অংশটি দিয়ে সিট বেল্টের বাকলটি গলিয়ে নিন, তারপর সিট এবং গিয়ার বক্সের মাঝের ফাঁকা জায়গায় চাপ দিয়ে সুন্দরভাবে বসিয়ে দিন।</p>
+                <p className="text-sm text-gray-700">• এটি আপনার আকর্ষণীয় প্রয়োজনীয় জিনিসপত্র (যেমন: ফোন, চাবি, কয়েন ইত্যাদি) নিচে পড়ে যাওয়া থেকে রক্ষা করবে।</p>
               </div>
             )}
             <div className="bg-orange-50/50 border border-orange-100 p-4 rounded-xl">
               <h4 className="font-semibold text-lg mb-2">৩. কালার সিলেক্ট করুন</h4>
-              <p>অর্ডার করার আগে অবশ্যই আপনার পছন্দের কালার (Black, Brown বা White) সিলেক্ট করে নিন।</p>
+              <p>অর্ডার করার আগে অবশ্যই আপনার পছন্দের কালার সিলেক্ট করে নিন।</p>
             </div>
           </div>
         </div>
@@ -694,6 +695,28 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
             <div className="bg-purple-50/50 border border-purple-100 p-4 rounded-xl">
               <h4 className="font-semibold text-lg mb-2">৩. নিয়মিত যত্ন</h4>
               <p className="mb-2">শুধুমাত্র ফোমের দাগ পরিস্কার করুন। অপসারণযোগ্য কভার সপ্তাহে একবার মেশিনে ধুয়ে নিন।</p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (product.id === 'makeup-brush-storage-box') {
+      return (
+        <div className="prose max-w-none">
+          <h3 className="text-2xl font-bold text-gray-900 mb-6">ব্যবহার করার নিয়ম</h3>
+          <div className="space-y-6 text-gray-900">
+            <div className="bg-pink-50/50 border border-pink-100 p-4 rounded-xl">
+              <h4 className="font-semibold text-lg mb-2 text-pink-900">১. পুশ করে খোলা (One-Push Pop Open)</h4>
+              <p className="mb-2">বক্সের ওপরের অংশে থাকা সিলভার/গোল্ডেন মেটালিক প্লেট বা বাটনটিতে আলতো করে পুশ (চাপ) করুন। ঢাকনাটি স্বয়ংক্রিয়ভাবে স্মুথলি ওপরে উঠে খুলে যাবে।</p>
+            </div>
+            <div className="bg-purple-50/50 border border-purple-100 p-4 rounded-xl">
+              <h4 className="font-semibold text-lg mb-2 text-purple-900">২. ব্রাশ সাজিয়ে রাখা</h4>
+              <p className="mb-2">বক্সের ভেতরের হোল্ডারে আপনার মেকআপ ব্রাশগুলো সোজা করে দাঁড় করিয়ে সাজিয়ে রাখুন। এর সুদৃশ্য ডিজাইনের কারণে ব্রাশগুলো সবসময় সোজা ও পরিপাটি থাকবে।</p>
+            </div>
+            <div className="bg-blue-50/50 border border-blue-100 p-4 rounded-xl">
+              <h4 className="font-semibold text-lg mb-2 text-blue-900">৩. প্রেস লক বা ডাস্টপ্রুফ বন্ধ করা</h4>
+              <p className="mb-2">ব্যবহার শেষে ঢাকনাটি হালকা চাপ দিয়ে নিচে নামিয়ে লক করে দিন। এটি আপনার ব্রাশগুলোকে সম্পূর্ণ ডাস্টপ্রুফ ও ময়লা-ধুলাবালি থেকে সুরক্ষিত রাখবে এবং ব্রাশের লাইফটাইম বৃদ্ধি করবে।</p>
             </div>
           </div>
         </div>
