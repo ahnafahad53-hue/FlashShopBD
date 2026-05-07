@@ -15,6 +15,7 @@ export interface Product {
   stock: number;
   isFreeDelivery?: boolean;
   colors?: string[];
+  steeringImages?: string[];
   gapFillerColors?: string[];
   gapFillerImages?: string[];
 }
@@ -24,7 +25,7 @@ export const products: Product[] = [
     id: 'car-combo-01',
     name: 'Carbon Fiber Steering Cover & Seat Gap Filler Combo (কার্বন ফাইবার স্টিয়ারিং কভার এবং সিট গ্যাপ ফিলার কম্বো)',
     tagline: 'Best value car interior protection combo with free delivery',
-    price: 1500,
+    price: 1499,
     originalPrice: 2200,
     rating: 4.9,
     reviews: 142,
@@ -35,21 +36,23 @@ export const products: Product[] = [
     stock: 50,
     isFreeDelivery: true,
     images: [
+      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579940/IMG_20260430_125558_ctvedz.jpg', // Black Steering (Primary Card Image)
+      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579626/car3_hs1pcy.jpg',
+      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579626/car4_lkaagg.jpg',
+      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579626/car2_j3hkmq.jpg',
+      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579622/car1_sjx2f5.jpg',
+    ],
+    colors: ['Black', 'Base', 'Brown'],
+    steeringImages: [
       'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579940/IMG_20260430_125558_ctvedz.jpg', // Black
       'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579929/IMG_20260430_125155_zyiqfe.jpg', // White
       "https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579934/IMG_20260430_124902_kipwg3.jpg",
       'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579928/IMG_20260430_125740_za8pgy.jpg', // Brown
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579626/car4_lkaagg.jpg',
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579626/car2_j3hkmq.jpg',
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579626/car3_hs1pcy.jpg',
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579622/car1_sjx2f5.jpg',
     ],
-    colors: ['Black', 'Base', 'Brown'],
     gapFillerColors: ['Black', 'Base', 'Brown'],
     gapFillerImages: [
       'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777920321/black_dfqbyx.png',
       'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777920321/white_fpg0xt.png',
-
       'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777920322/brown_dg9fy0.jpg',
     ],
     description: 'Get our two most popular car accessories in one value-packed combo! This offer includes the premium Car Seat Gap Filler to keep your interior tidy and the Carbon Fiber Steering Wheel Cover for ultimate grip and style. Plus, enjoy FREE delivery across Bangladesh with this combo pack!',

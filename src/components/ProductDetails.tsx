@@ -348,9 +348,14 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
 
   // Use product images if available, otherwise use default images
   const baseImages = product.images && product.images.length > 0 ? product.images : ['/main-pro.jpeg'];
-  const combinedImages = product.gapFillerImages
-    ? [...baseImages, ...product.gapFillerImages]
-    : baseImages;
+  const steeringImages = product.steeringImages || [];
+  const gapFillerImages = product.gapFillerImages || [];
+
+  const combinedImages = [
+     ...steeringImages,
+     ...gapFillerImages,
+     ...baseImages
+   ];
 
   const productImages = product.id === 'nasal-cleaner-01'
     ? defaultProductImages
@@ -660,7 +665,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
           <div className="space-y-6 text-gray-900">
             <div className="bg-blue-50/50 border border-blue-100 p-4 rounded-xl">
               <h4 className="font-semibold text-lg mb-2">১. স্টিয়ারিং কভার লাগানো</h4>
-              <p className="mb-2">কভারটি স্টিয়ারিং হুইলের ওপরের অংশে রাখুন এবং দুই পাশ থেকে নিচের দিকে টেনে নামিয়ে ভালোভাবে সেট করুন।</p>
+              <p className="mb-2">হুইলের ২ পাশে রাখুন, ২ পাশে রেখে ২ দিকে চাপ দিন, এটা সেট হয়ে যাবে।</p>
               <p className="text-sm text-gray-700">• এটি টাইট ফিটিং হবে যাতে ড্রাইভ করার সময় কভারটি কোনোভাবেই সরে না যায়।</p>
             </div>
             {product.id === 'car-combo-01' && (
@@ -1030,44 +1035,53 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               viewport={{ once: true }}
               className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[550px] rounded-2xl overflow-hidden bg-white"
             >
-              <CloudinaryImage
-                src={productImages[selectedImage].src}
-                alt={productImages[selectedImage].alt}
-                fill
-                className="object-contain"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
-              />
+              {productImages[selectedImage] ? (
+                <CloudinaryImage
+                  src={productImages[selectedImage].src}
+                  alt={productImages[selectedImage].alt}
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center bg-gray-50">
+                   <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+                </div>
+              )}
             </motion.div>
 
             {/* Thumbnail Gallery */}
             <div className="flex flex-col gap-3">
               {product.id === 'car-combo-01' ? (
                 <>
-                  {/* First line: 4 steering cover images */}
+                  {/* First line: steering cover images */}
                   <div className="grid grid-cols-4 gap-2 sm:gap-3 lg:gap-4">
-                    {productImages.slice(0, 4).map((img, index) => (
-                      <button
-                        key={img.id}
-                        onClick={() => setSelectedImage(index)}
-                        className={`relative h-16 sm:h-20 md:h-24 rounded-lg overflow-hidden transition-all duration-200 ${selectedImage === index
-                          ? 'ring-2 sm:ring-4 ring-cyan-400 scale-105'
-                          : 'hover:scale-105'
-                          }`}
-                      >
-                        <CloudinaryImage
-                          src={img.src}
-                          alt={img.alt}
-                          fill
-                          className="object-contain bg-white"
-                          sizes="(max-width: 640px) 25vw, (max-width: 1024px) 12.5vw, 10vw"
-                        />
-                      </button>
-                    ))}
+                    {productImages.slice(0, steeringImages.length).map((img, index) => {
+                      const actualIndex = index;
+                      return (
+                        <button
+                          key={img.id}
+                          onClick={() => setSelectedImage(actualIndex)}
+                          className={`relative h-16 sm:h-20 md:h-24 rounded-lg overflow-hidden transition-all duration-200 ${selectedImage === actualIndex
+                            ? 'ring-2 sm:ring-4 ring-cyan-400 scale-105'
+                            : 'hover:scale-105'
+                            }`}
+                        >
+                          <CloudinaryImage
+                            src={img.src}
+                            alt={img.alt}
+                            fill
+                            className="object-contain bg-white"
+                            sizes="(max-width: 640px) 25vw, (max-width: 1024px) 12.5vw, 10vw"
+                          />
+                        </button>
+                      );
+                    })}
                   </div>
-                  {/* Second line: gap filler images */}
+                  {/* Second line: Product Gallery (Skipping the first image if it's the duplicate black steering) */}
                   <div className="grid grid-cols-4 gap-2 sm:gap-3 lg:gap-4">
-                    {productImages.slice(baseImages.length).map((img, index) => {
-                      const actualIndex = baseImages.length + index;
+                    {productImages.slice(steeringImages.length + gapFillerImages.length + 1).map((img, index) => {
+                      const actualIndex = steeringImages.length + gapFillerImages.length + 1 + index;
                       return (
                         <button
                           key={img.id}
@@ -1236,8 +1250,21 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                   </div>
                   <div className="flex flex-wrap gap-4 mt-2">
                     {product.colors.map((color, index) => {
-                      const imgIndex = index < (product.images?.length || 0) ? index : 0;
-                      const colorImg = product.images?.[imgIndex] || '/main-pro.jpeg';
+                      const hasSteeringImages = product.steeringImages && product.steeringImages.length > 0;
+                      const colorImg = hasSteeringImages
+                         ? (product.steeringImages?.[index] || product.steeringImages?.[0] || '/main-pro.jpeg')
+                         : (product.images?.[index] || product.images?.[0] || '/main-pro.jpeg');
+
+                      const imgIndex = hasSteeringImages
+                        ? (index < (product.steeringImages?.length || 0) ? index : 0)
+                        : (index < (product.images?.length || 0) ? index : 0);
+
+                      // Special handling for makeup brush colors
+                      const isMakeupBox = product.id === 'makeup-brush-storage-box';
+                      const colorMap: Record<string, string> = {
+                        'Pearl White': '#F5F5F5',
+                        'Luxury Cream': '#FDF5E6'
+                      };
 
                       return (
                         <button
@@ -1254,12 +1281,19 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                               : 'border-gray-200 group-hover:border-blue-400 group-hover:shadow-sm group-hover:scale-105'
                               }`}
                           >
-                            <CloudinaryImage
-                              src={colorImg}
-                              alt={color}
-                              fill
-                              className="object-cover"
-                            />
+                            {isMakeupBox && colorMap[color] ? (
+                              <div
+                                className="w-full h-full"
+                                style={{ backgroundColor: colorMap[color] }}
+                              />
+                            ) : (
+                              <CloudinaryImage
+                                src={colorImg}
+                                alt={color}
+                                fill
+                                className="object-cover"
+                              />
+                            )}
                           </div>
                           <span className={`text-sm font-medium transition-colors ${selectedColor === color ? 'text-blue-700' : 'text-gray-600 group-hover:text-blue-600'
                             }`}>
@@ -1290,7 +1324,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                     {product.gapFillerColors.map((color, index) => {
                       const imgIndex = index < (product.gapFillerImages?.length || 0) ? index : 0;
                       const colorImg = product.gapFillerImages?.[imgIndex] || '/main-pro.jpeg';
-                      const combinedImgIndex = (product.images?.length || 0) + imgIndex;
+                      const combinedImgIndex = steeringImages.length + imgIndex;
 
                       return (
                         <button
