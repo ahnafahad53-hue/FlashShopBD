@@ -81,6 +81,12 @@ const productHighlights: Record<string, { label: string; value: string }[]> = {
     { label: 'Payment', value: 'COD & pre-orders' },
     { label: 'Delivery', value: 'Nationwide shipping planned' },
   ],
+  'hud-speedometer-01': [
+    { label: 'Voltage', value: '5V (USB Powered)' },
+    { label: 'Setup', value: 'Plug & Play (Automatic)' },
+    { label: 'Technology', value: 'High-precision GPS Satellite positioning' },
+    { label: 'Compatibility', value: '100% universal for all vehicles' },
+  ],
 };
 
 const reviewColorClasses = [
@@ -269,6 +275,13 @@ const productReviews: Record<
     { name: 'Faruk', quote: 'Steering cover er grip ta darun. Haat ghame na.', time: '2 months ago' },
     { name: 'Sujon', quote: 'সব মিলিয়ে অনেক ভালো ডিল।', time: '2 months ago' },
     { name: 'Nadim', quote: 'Highly recommended for any car owner.', time: '3 months ago' }
+  ],
+  'hud-speedometer-01': [
+    { name: 'Sajidul Islam', quote: 'Ami 1 week dhore use korchi. GPS tracking khub accurate ar real-time speed update hoy kono delay chara. Highly recommended!', time: '2 days ago' },
+    { name: 'Arif Khan', quote: 'দারুন একটা প্রোডাক্ট! গাড়ির ড্যাশবোর্ডে সেট করা খুব সহজ, জাস্ট প্লাগ এন্ড প্লে। গাড়ি স্টার্ট দিলে অটো অন হয়ে যায়।', time: '4 days ago' },
+    { name: 'Zeeshan Ahmed', quote: 'Very premium look and compact size. Steering er samne rekhe drive korle speed easily dekha jay, look perfect block hoy na. Speed precision super.', time: '1 week ago' },
+    { name: 'Mohammad Russell', quote: 'সবচেয়ে ভালো লেগেছে এটার অটোমেটিক অন/অফ সিস্টেম। কোনো সুইচ টিপতে হয় না। ৫ ভোল্ট ইউএসবি দিয়ে চলে তাই যেকোনো গাড়িতেই মানানসই।', time: '1 week ago' },
+    { name: 'Tanvir Chowdhury', quote: 'Highly satisfied. Quality was excellent and delivery was within 2 days in Dhaka.', time: '2 weeks ago' },
   ],
 };
 
@@ -540,6 +553,52 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
       );
     }
 
+    if (product.id === 'hud-speedometer-01') {
+      return (
+        <div className="prose max-w-none">
+          <h3 className="text-2xl font-bold text-gray-900 mb-6">HUD Head-Up Display Speedometer</h3>
+          <div className="space-y-6 text-gray-900">
+            <div className="bg-blue-50/50 border border-blue-100 p-6 rounded-xl">
+              <h4 className="font-semibold text-lg mb-3 text-blue-900">🚀 Plug & Play Simplicity (প্লাগ অ্যান্ড প্লে)</h4>
+              <p>এটিতে কোনো বাটন বা জটিল কোনো সেটিংস নেই। গাড়ি স্টার্ট দেওয়ার সাথে সাথে এটি স্বয়ংক্রিয়ভাবে অন হয়ে যায় এবং গাড়ি বন্ধ করলে কোনো চার্জ বা ব্যাটারি খরচ ছাড়াই এটি নিজে নিজেই বন্ধ হয়ে যায়।</p>
+            </div>
+
+            <div className="bg-green-50/50 border border-green-100 p-6 rounded-xl">
+              <h4 className="font-semibold text-lg mb-3 text-green-900">⏱️ High Accuracy & Real-time Speed (নির্ভুল ও রিয়েল-টাইম গতি)</h4>
+              <p>উচ্চক্ষমতাসম্পন্ন GPS স্যাটেলাইট চিপের সাহায্যে এটার স্পিড রিডিং অত্যন্ত নিখুঁত এবং কোনো প্রকার বিলম্ব (delay) ছাড়াই এটি সেকেন্ডে সেকেন্ডে স্পিড আপডেট করে।</p>
+            </div>
+
+            <div className="bg-purple-50/50 border border-purple-100 p-6 rounded-xl">
+              <h4 className="font-semibold text-lg mb-3 text-purple-900">🚗 Universal Vehicle Compatibility (সব গাড়িতে ব্যবহারযোগ্য)</h4>
+              <p>১০০% ইউনিভার্সাল ডিজাইন! প্রাইভেট কার, মাইক্রোবাস, এসইউভি (SUV), পিকআপ, ট্রাক কিংবা হাইব্রিড—যেকোনো ৫ ভোল্ট ইউএসবি পোর্ট বিশিষ্ট গাড়িতে এটি অনায়াসেই কাজ করবে।</p>
+            </div>
+
+            <div className="bg-amber-50/50 border border-amber-100 p-6 rounded-xl">
+              <h4 className="font-semibold text-lg mb-3 text-amber-900">🎯 Key Specifications (মূল বৈশিষ্ট্যসমূহ)</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                <div className="flex items-center space-x-2">
+                  <span className="text-amber-600">✓</span>
+                  <span><strong>Voltage:</strong> 5V via USB interface</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="text-amber-600">✓</span>
+                  <span><strong>Display Type:</strong> HD LED Head-Up Display</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="text-amber-600">✓</span>
+                  <span><strong>Connectivity:</strong> GPS Satellite Network</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="text-amber-600">✓</span>
+                  <span><strong>Features:</strong> Auto Power Sync, Zero Delay Updates</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div className="prose max-w-none">
         <h3 className="text-2xl font-bold text-gray-900 mb-6">{product.name}</h3>
@@ -728,6 +787,33 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
       );
     }
 
+    if (product.id === 'hud-speedometer-01') {
+      return (
+        <div className="prose max-w-none">
+          <h3 className="text-2xl font-bold text-gray-900 mb-6">প্রোডাক্ট ইনস্টলেশন ও ব্যবহার করার নিয়ম</h3>
+          <div className="space-y-6 text-gray-900">
+            <div className="bg-blue-50/50 border border-blue-100 p-4 rounded-xl">
+              <h4 className="font-semibold text-lg mb-2 text-blue-900">১. পাওয়ার কেবল সংযোগ (Connect Power Cable)</h4>
+              <p className="mb-2">পাওয়ার কর্ডের USB ইন্টারফেসটি গাড়ির ইউএসবি পাওয়ার পোর্টে সংযোগ করুন এবং অন্য প্রান্তটি প্রোডাক্টের পাওয়ার ইন্টারফেসে প্লাগ করুন।</p>
+            </div>
+            <div className="bg-green-50/50 border border-green-100 p-4 rounded-xl">
+              <h4 className="font-semibold text-lg mb-2 text-green-900">২. প্লেসমেন্ট (Placement on Dashboard)</h4>
+              <p className="mb-2">কেবল কানেক্ট করার পর স্পিডোমিটারটি আপনার ড্রাইভ পজিশন অনুযায়ী স্টিয়ারিং হুইলের সামনের ড্যাশবোর্ডে সুবিধাজনক স্থানে স্থাপন করুন।</p>
+            </div>
+            <div className="bg-purple-50/50 border border-purple-100 p-4 rounded-xl">
+              <h4 className="font-semibold text-lg mb-2 text-purple-900">৩. স্বয়ংক্রিয় কানেকশন (Automatic GPS Sync)</h4>
+              <p className="mb-2">পাওয়ার অন হওয়ার পর এটি অন্য কোনো অপারেশন ছাড়াই স্বয়ংক্রিয়ভাবে স্যাটেলাইটের সাথে সংযোগ স্থাপন করবে। প্রথমবার সফল সংযোগ হতে প্রায় ১-৩ মিনিট সময় লাগতে পারে, অনুগ্রহ করে ধৈর্য ধরে অপেক্ষা করুন।</p>
+            </div>
+            <div className="bg-amber-50/50 border border-amber-100 p-4 rounded-xl">
+              <h4 className="font-semibold text-lg mb-2 text-amber-900">৪. সফল সংযোগ নির্ধারণ (Ready to Use)</h4>
+              <p className="mb-2">যখন ডিসপ্লে স্ক্রিনে "0" সংখ্যাটি ভেসে উঠবে, তখন বুঝবেন স্যাটেলাইট পজিশনিং সফল হয়েছে এবং এটি এখন ব্যবহারের জন্য সম্পূর্ণ প্রস্তুত!</p>
+              <p className="text-sm font-bold text-red-600">⚠️ নোট: এই প্রোডাক্টটি ইনডোরে বা ঘরের ভেতর পজিশনিং করতে পারবে না। এটি অবশ্যই গাড়িতে অথবা খোলা আকাশের নিচে বা আউটডোরে ব্যবহার করতে হবে।</p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div className="prose max-w-none text-gray-900">
         <h3 className="text-2xl font-bold mb-4">ব্যবহার করার নিয়ম</h3>
@@ -828,6 +914,28 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
             <div className="bg-blue-50/50 border border-blue-100 p-6 rounded-xl">
               <h4 className="font-semibold text-lg mb-3 text-blue-900">👶 Child Safety</h4>
               <p>Children should use under adult supervision. Use gentle pressure only.</p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (product.id === 'hud-speedometer-01') {
+      return (
+        <div className="prose max-w-none">
+          <h3 className="text-2xl font-bold text-gray-900 mb-6">Precautions & Safety (সতর্কতা ও যত্ন)</h3>
+          <div className="space-y-6 text-gray-900">
+            <div className="bg-red-50/50 border border-red-100 p-6 rounded-xl">
+              <h4 className="font-semibold text-lg mb-3 text-red-900">☀️ Temperature Limits (তাপমাত্রা সতর্কতা)</h4>
+              <p>অতিরিক্ত গরমে গাড়ির গ্লাস অত্যন্ত তপ্ত হয়ে উঠলে সরাসরি তীব্র রোদে দীর্ঘক্ষণ ড্যাশবোর্ডে ফেলে রাখবেন না। পার্কিং করার সময় সম্ভব হলে ড্যাশবোর্ড কভার বা শেড ব্যবহার করুন।</p>
+            </div>
+            <div className="bg-orange-50/50 border border-orange-100 p-6 rounded-xl">
+              <h4 className="font-semibold text-lg mb-3 text-orange-900">⚡ Voltage Safety (ভোল্টেজ সতর্কতা)</h4>
+              <p>শুধুমাত্র স্ট্যান্ডার্ড ৫ ভোল্ট (5V) ইউএসবি সংযোগ ব্যবহার করুন। কোনো প্রকার হাই-ভোল্টেজ বা ফাস্ট চার্জিং অ্যাডাপ্টারের সাথে এটি সরাসরি যুক্ত করবেন না, এতে ডিভাইসের ক্ষতি হতে পারে।</p>
+            </div>
+            <div className="bg-blue-50/50 border border-blue-100 p-6 rounded-xl">
+              <h4 className="font-semibold text-lg mb-3 text-blue-900">💧 Moisture Protection (পানি ও আর্দ্রতা থেকে দূরে রাখুন)</h4>
+              <p>ডিভাইসটি ওয়াটারপ্রুফ বা সলিড ওয়াটার-রেজিস্ট্যান্ট নয়। পরিষ্কার করার সময় ভেজা সুতি কাপড় ব্যবহার করুন এবং জলীয় তরল সরাসরি স্প্রে করা থেকে বিরত থাকুন।</p>
             </div>
           </div>
         </div>
