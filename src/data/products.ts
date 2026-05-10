@@ -71,7 +71,7 @@ export const products: Product[] = [
     inStock: true,
     stock: 75,
     isFreeDelivery: true,
-    colors: ['Pearl White', 'Luxury Cream'],
+    colors: ['Pearl White', 'Cream'],
     images: [
       'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777580230/brush-4_yp7iur.jpg',
       'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777580229/brush-1_bmrh6z.jpg',
@@ -79,6 +79,28 @@ export const products: Product[] = [
       'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777580229/brush-3_mzgeka.jpg',
     ],
     description: 'Elegant makeup brush storage box designed to keep your beauty tools organized and protected. Features multiple compartments to store brushes of different sizes. Made from high-quality, transparent material that allows you to easily see your collection. Perfect for makeup enthusiasts and professionals alike.',
+  },
+  {
+    id: 'hud-speedometer-01',
+    name: 'HUD Head-Up Display Speedometer (HUD হেড-আপ ডিসপ্লে স্পিডোমিটার)',
+    tagline: 'High-accuracy real-time GPS speedometer with plug-and-play setup for all vehicles',
+    price: 1550,
+    originalPrice: 2350,
+    rating: 4.8,
+    reviews: 64,
+    badge: 'NEW ARRIVAL',
+    emoji: '🚘',
+    category: 'Automotive',
+    inStock: true,
+    stock: 85,
+    isFreeDelivery: true,
+    images: [
+      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1778179973/IMG_20260508_004303_v69gav.jpg',
+      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1778179972/IMG_20260508_004326_cl72tv.jpg',
+      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1778179971/IMG_20260508_004209_o8azxr.jpg',
+      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1778179970/IMG_20260508_004037_nwe5hc.jpg'
+    ],
+    description: 'Ensure a safer, smarter drive with our premium HUD Head-Up Display Speedometer. Projecting real-time satellite speed directly onto its crystal-clear display, this device allows you to monitor your speed without ever taking your eyes off the road. Powered by a simple 5V USB connection, it features automatic power synchronization with your car\'s engine, a high-precision GPS microchip for real-time, lag-free updates, and works flawlessly on every vehicle. Simply plug, place, and drive!'
   },
   {
     id: 'nasal-cleaner-01',
@@ -140,28 +162,6 @@ export const products: Product[] = [
   //   ],
   //   description: 'Premium quality children\'s pillow designed for optimal neck support and comfort. Made with hypoallergenic memory foam that adapts to your child\'s sleeping position. Breathable cover keeps them cool all night. Perfect for ages 0-3 years.',
   // },
-  {
-    id: 'hud-speedometer-01',
-    name: 'HUD Head-Up Display Speedometer (HUD হেড-আপ ডিসপ্লে স্পিডোমিটার)',
-    tagline: 'High-accuracy real-time GPS speedometer with plug-and-play setup for all vehicles',
-    price: 1550,
-    originalPrice: 2350,
-    rating: 4.8,
-    reviews: 64,
-    badge: 'NEW ARRIVAL',
-    emoji: '🚘',
-    category: 'Automotive',
-    inStock: true,
-    stock: 85,
-    isFreeDelivery: true,
-    images: [
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1778179970/IMG_20260508_004037_nwe5hc.jpg',
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1778179971/IMG_20260508_004209_o8azxr.jpg',
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1778179972/IMG_20260508_004326_cl72tv.jpg',
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1778179973/IMG_20260508_004303_v69gav.jpg'
-    ],
-    description: 'Ensure a safer, smarter drive with our premium HUD Head-Up Display Speedometer. Projecting real-time satellite speed directly onto its crystal-clear display, this device allows you to monitor your speed without ever taking your eyes off the road. Powered by a simple 5V USB connection, it features automatic power synchronization with your car\'s engine, a high-precision GPS microchip for real-time, lag-free updates, and works flawlessly on every vehicle. Simply plug, place, and drive!'
-  },
   {
     id: 'creative-soap-holder',
     name: 'Creative Soap Holder (ক্রিয়েটিভ সাব হোল্ডার)',
