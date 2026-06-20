@@ -835,20 +835,29 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
     if (product.id === 'kuwajia-charger-separator') {
       return (
         <div className="prose max-w-none">
-          <h3 className="text-2xl font-bold text-gray-900 mb-6">ব্যবহার করার নিয়ম (Usage Guide)</h3>
+          <h3 className="text-2xl font-bold text-gray-900 mb-6">ব্যবহার করার নিয়ম (User Instructions)</h3>
           <div className="space-y-6 text-gray-900">
             <div className="bg-blue-50/50 border border-blue-100 p-4 rounded-xl">
-              <h4 className="font-semibold text-lg mb-2 text-blue-900">১. সারফেস পরিষ্কার করুন (Prepare Surface)</h4>
-              <p className="mb-2">যেখানে সেপারেটরটি লাগাবেন (যেমন ডেস্ক বা টেবিল), সেই জায়গাটি পরিষ্কার কাপড় দিয়ে মুছে সম্পূর্ণ শুকিয়ে নিন। ধুলাবালি বা তেল থাকলে আঠা ঠিকমতো বসবে না।</p>
+              <h4 className="font-semibold text-lg mb-2 text-blue-900">১. টাইপ-সি মোড নির্বাচন (Type-C Modes)</h4>
+              <p className="mb-2">টাইপ-সি ক্যাবলের ক্ষেত্রে দুটি মোড রয়েছে:</p>
+              <ul className="list-disc pl-5 mb-2 text-sm text-gray-700">
+                <li><strong>White Light Mode:</strong> মোবাইল ফোন, ট্যাবলেট এবং ল্যাপটপ চার্জ করার জন্য।</li>
+                <li><strong>Blue Light Mode:</strong> পাওয়ার ব্যাংক, শেভার, খেলনা এবং ব্লুটুথ ইয়ারফোন (যেগুলোর স্ক্রিন নেই) চার্জ করার জন্য।</li>
+              </ul>
+              <p className="text-sm text-gray-700"><em>বি.দ্র: লাইটনিং (Lightning) ক্যাবলের ক্ষেত্রে শুধুমাত্র একটি মোড সাপোর্ট করে।</em></p>
             </div>
             <div className="bg-green-50/50 border border-green-100 p-4 rounded-xl">
-              <h4 className="font-semibold text-lg mb-2 text-green-900">২. স্টিকার তুলে বসিয়ে দিন (Peel and Stick)</h4>
-              <p className="mb-2">পেছনের স্টিকার কভারটি তুলে ফেলুন এবং নির্দিষ্ট জায়গায় রেখে কয়েক সেকেন্ডের জন্য শক্তভাবে চেপে ধরুন।</p>
+              <h4 className="font-semibold text-lg mb-2 text-green-900">২. স্বয়ংক্রিয় পাওয়ার অফ (Auto-Disconnect Mechanism)</h4>
+              <p className="mb-2">ডিভাইসটি কারেন্ট এবং ভোল্টেজ বিচার করে সম্পূর্ণ চার্জ হওয়ার পর নিজে থেকেই পাওয়ার কাট-অফ করে দেয়।</p>
+              <ul className="list-disc pl-5 text-sm text-gray-700">
+                <li><strong>White Light Mode:</strong> ১০০% চার্জ দেখানোর পর প্রায় ১০-৫০ মিনিট ট্রিকল চার্জিং (trickle charging) শেষে এটি স্বয়ংক্রিয়ভাবে বিদ্যুৎ সংযোগ বিচ্ছিন্ন করবে।</li>
+                <li><strong>Blue Light Mode:</strong> ব্যাটারি সম্পূর্ণ ফুল হওয়ার প্রায় ৫ মিনিট পর বিদ্যুৎ সংযোগ স্বয়ংক্রিয়ভাবে বিচ্ছিন্ন হবে।</li>
+              </ul>
             </div>
             <div className="bg-purple-50/50 border border-purple-100 p-4 rounded-xl">
-              <h4 className="font-semibold text-lg mb-2 text-purple-900">৩. কেবলগুলো আটকে দিন (Insert Cables)</h4>
-              <p className="mb-2">আঠাটি ভালোভাবে সেট হওয়ার জন্য কিছুক্ষণ অপেক্ষা করুন (সম্ভব হলে ১২-২৪ ঘণ্টা)। এরপর আপনার ল্যাপটপ, ফোন বা স্মার্টওয়াচের কেবলগুলো সেপারেটরের খাঁজে আটকে দিন।</p>
-              <p className="text-sm font-bold text-red-600">⚠️ নোট: একবার লাগিয়ে ফেলার পর এটি তুলে আবার অন্য জায়গায় লাগানোর চেষ্টা করবেন না, এতে আঠার কার্যক্ষমতা নষ্ট হয়ে যাবে।</p>
+              <h4 className="font-semibold text-lg mb-2 text-purple-900">৩. ফাংশন টেস্ট (Function Test)</h4>
+              <p className="mb-2">স্বাভাবিক চার্জিং চলাকালীন ডিভাইসের বাটনটি ৫ সেকেন্ড চেপে ধরুন। যখন সাদা এবং নীল আলো পর্যায়ক্রমে ব্লিঙ্ক (flash) করবে, তখন বাটন ছেড়ে দিন।</p>
+              <p className="text-sm text-gray-700">ডিভাইসটি ৫ সেকেন্ড পরে স্বয়ংক্রিয়ভাবে পাওয়ার কাট-অফ করে দেবে। ডিভাইসটির ডিসকানেক্ট ফাংশন ঠিকমতো কাজ করছে কিনা তা চেক করার জন্য এই টেস্টটি করা যায়।</p>
             </div>
           </div>
         </div>
