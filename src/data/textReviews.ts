@@ -169,6 +169,118 @@ fbReviews.push(
     date: 'Nov 22',
     content: 'কম্বো অফারটা অনেক ভালো ছিল। স্টিয়ারিং কভারের ফিটিংটা একদম পারফেক্ট আর গ্যাপ ফিলারটাও অনেক কাজে দিচ্ছে।',
     avatar: '/placeholder-product.png'
+  },
+  {
+    id: 'fb-23',
+    name: 'Arafat Rahman',
+    date: 'Dec 02',
+    content: 'Table er tar gulo age khub pechiye thakto. Eta anar por theke desk ta onek clean lage. Quality o khub bhalo. Highly recommended!',
+    avatar: '/placeholder-product.png'
+  },
+  {
+    id: 'fb-24',
+    name: 'Sadia Afrin',
+    date: 'Dec 05',
+    content: 'অফিসের ডেস্কের জন্য নিয়েছি। আগে ল্যাপটপ আর ফোনের চার্জার সব মিলে জগাখিচুড়ি অবস্থা ছিল। এখন বেশ গোছানো থাকে। আঠাটাও বেশ মজবুত।',
+    avatar: '/placeholder-product.png'
+  },
+  {
+    id: 'fb-25',
+    name: 'Tanvir Ahmed',
+    date: 'Dec 08',
+    content: 'Very practical product! Keeps my bedside table organized. The adhesive is strong and it grips the cables perfectly. Thanks Flashshop.',
+    avatar: '/placeholder-product.png'
+  },
+  {
+    id: 'fb-26',
+    name: 'Riya Islam',
+    date: 'Dec 12',
+    content: 'Price ta ektu beshi mone hoyeche but jinish tar kaj onek. Type C ar iPhone er tar shundor bhabe atke thake. Delivery o fast chilo.',
+    avatar: '/placeholder-product.png'
+  },
+  {
+    id: 'fb-27',
+    name: 'Mahmudul Hasan',
+    date: 'Dec 15',
+    content: 'প্রোডাক্ট হাতে পেয়েছি, কোয়ালিটি অনেক প্রিমিয়াম। তারগুলো আর এদিক সেদিক পড়ে থাকে না। ফ্রি ডেলিভারি পেয়ে ভালো লেগেছে।',
+    avatar: '/placeholder-product.png'
+  },
+  {
+    id: 'fb-28',
+    name: 'Nafiz Chowdhury',
+    date: 'Dec 18',
+    content: 'Kaj korar somoy tar gulo ar disturb kore na. Setup korao onek easy. Good value for money.',
+    avatar: '/placeholder-product.png'
+  },
+  {
+    id: 'fb-29',
+    name: 'Shamim Hossain',
+    date: 'Dec 20',
+    content: 'ডেস্কের জন্য পারফেক্ট। আমার তিনটে তার একসাথে লাগানো আছে, খুব সহজে টানা যায়।',
+    avatar: '/placeholder-product.png'
+  },
+  {
+    id: 'fb-30',
+    name: 'Jannatul Ferdous',
+    date: 'Dec 21',
+    content: 'Very handy gadget! Amar purono organizer gulo te tar atke jeto, kintu eta khub smooth. Highly recommended.',
+    avatar: '/placeholder-product.png'
+  },
+  {
+    id: 'fb-31',
+    name: 'Imtiaz Ahmed',
+    date: 'Dec 22',
+    content: 'Just received it today. The build quality feels very premium and solid.',
+    avatar: '/placeholder-product.png'
+  },
+  {
+    id: 'fb-32',
+    name: 'Ayesha Siddiqa',
+    date: 'Dec 25',
+    content: 'অফিস টেবিলের অপরিষ্কার ভাবটা দূর হয়ে গেলো। জিনিসটা দেখতেও বেশ স্টাইলিশ।',
+    avatar: '/placeholder-product.png'
+  },
+  {
+    id: 'fb-33',
+    name: 'Arifur Rahman',
+    date: 'Dec 26',
+    content: 'Cable management er jonno best. Phone charge e diye abar easily rekhe deya jay. Thanks for the fast delivery.',
+    avatar: '/placeholder-product.png'
+  },
+  {
+    id: 'fb-34',
+    name: 'Nusrat Jahan',
+    date: 'Dec 28',
+    content: 'Price is justified for the quality. Solved my messy cable problem completely.',
+    avatar: '/placeholder-product.png'
+  },
+  {
+    id: 'fb-35',
+    name: 'Kamrul Islam',
+    date: 'Jan 02',
+    content: 'অনেকদিন ধরে এমন একটা জিনিস খুঁজছিলাম। আঠাটা ভালো, সহজে খুলে আসে না।',
+    avatar: '/placeholder-product.png'
+  },
+  {
+    id: 'fb-36',
+    name: 'Fariha Rahman',
+    date: 'Jan 05',
+    content: 'Setup kora khub e easy. Bed er pashe lagiyesi, rater bela tar khujhe paite r kosto hoyna.',
+    avatar: '/placeholder-product.png'
+  },
+  {
+    id: 'fb-37',
+    name: 'Sazzad Hossain',
+    date: 'Jan 07',
+    content: 'Nice and compact. Does exactly what it says.',
+    avatar: '/placeholder-product.png'
+  },
+  {
+    id: 'fb-38',
+    name: 'Sumaiya Akter',
+    date: 'Jan 10',
+    content: 'ফ্রি ডেলিভারিতে পেয়েছি, ডেলিভারি ম্যান ও ভালো ছিল। প্রোডাক্টের মান নিয়ে কোনো অভিযোগ নেই, দারুণ!',
+    avatar: '/placeholder-product.png'
   }
 );
 

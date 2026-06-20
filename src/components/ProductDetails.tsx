@@ -276,6 +276,24 @@ const productReviews: Record<
     { name: 'Sujon', quote: 'সব মিলিয়ে অনেক ভালো ডিল।', time: '2 months ago' },
     { name: 'Nadim', quote: 'Highly recommended for any car owner.', time: '3 months ago' }
   ],
+  'kuwajia-charger-separator': [
+    { name: 'Arafat Rahman', quote: 'Table er tar gulo age khub pechiye thakto. Eta anar por theke desk ta onek clean lage. Quality o khub bhalo.', time: '2 days ago' },
+    { name: 'Sadia Afrin', quote: 'অফিসের ডেস্কের জন্য নিয়েছি। আগে ল্যাপটপ আর ফোনের চার্জার সব মিলে জগাখিচুড়ি অবস্থা ছিল। এখন বেশ গোছানো থাকে।', time: '5 days ago' },
+    { name: 'Tanvir Ahmed', quote: 'Very practical product! Keeps my bedside table organized. The adhesive is strong.', time: '1 week ago' },
+    { name: 'Riya Islam', quote: 'Price ta ektu beshi mone hoyeche but jinish tar kaj onek. Type C ar iPhone er tar shundor bhabe atke thake.', time: '1 week ago' },
+    { name: 'Mahmudul Hasan', quote: 'প্রোডাক্ট হাতে পেয়েছি, কোয়ালিটি অনেক প্রিমিয়াম। তারগুলো আর এদিক সেদিক পড়ে থাকে না।', time: '2 weeks ago' },
+    { name: 'Nafiz Chowdhury', quote: 'Kaj korar somoy tar gulo ar disturb kore na. Setup korao onek easy.', time: '2 weeks ago' },
+    { name: 'Shamim Hossain', quote: 'ডেস্কের জন্য পারফেক্ট। আমার তিনটে তার একসাথে লাগানো আছে, খুব সহজে টানা যায়।', time: '3 weeks ago' },
+    { name: 'Jannatul Ferdous', quote: 'Very handy gadget! Amar purono organizer gulo te tar atke jeto, kintu eta khub smooth.', time: '3 weeks ago' },
+    { name: 'Imtiaz Ahmed', quote: 'Just received it today. The build quality feels very premium and solid.', time: '1 month ago' },
+    { name: 'Ayesha Siddiqa', quote: 'অফিস টেবিলের অপরিষ্কার ভাবটা দূর হয়ে গেলো। জিনিসটা দেখতেও বেশ স্টাইলিশ।', time: '1 month ago' },
+    { name: 'Arifur Rahman', quote: 'Cable management er jonno best. Phone charge e diye abar easily rekhe deya jay.', time: '1 month ago' },
+    { name: 'Nusrat Jahan', quote: 'Price is justified for the quality. Solved my messy cable problem completely.', time: '1 month ago' },
+    { name: 'Kamrul Islam', quote: 'অনেকদিন ধরে এমন একটা জিনিস খুঁজছিলাম। আঠাটা ভালো, সহজে খুলে আসে সমাধা।', time: '2 months ago' },
+    { name: 'Fariha Rahman', quote: 'Setup kora khub e easy. Bed er pashe lagiyesi, rater bela tar khujhe paite r kosto hoyna.', time: '2 months ago' },
+    { name: 'Sazzad Hossain', quote: 'Nice and compact. Does exactly what it says.', time: '2 months ago' },
+    { name: 'Sumaiya Akter', quote: 'ফ্রি ডেলিভারিতে পেয়েছি, ডেলিভারি ম্যান ও ভালো ছিল। প্রোডাক্টের মান নিয়ে কোনো অভিযোগ নেই, দারুণ!', time: '2 months ago' }
+  ],
   'hud-speedometer-01': [
     { name: 'Sajidul Islam', quote: 'Ami 1 week dhore use korchi. GPS tracking khub accurate ar real-time speed update hoy kono delay chara. Highly recommended!', time: '2 days ago' },
     { name: 'Arif Khan', quote: 'দারুন একটা প্রোডাক্ট! গাড়ির ড্যাশবোর্ডে সেট করা খুব সহজ, জাস্ট প্লাগ এন্ড প্লে। গাড়ি স্টার্ট দিলে অটো অন হয়ে যায়।', time: '4 days ago' },
@@ -808,6 +826,29 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               <h4 className="font-semibold text-lg mb-2 text-amber-900">৪. সফল সংযোগ নির্ধারণ (Ready to Use)</h4>
               <p className="mb-2">যখন ডিসপ্লে স্ক্রিনে "0" সংখ্যাটি ভেসে উঠবে, তখন বুঝবেন স্যাটেলাইট পজিশনিং সফল হয়েছে এবং এটি এখন ব্যবহারের জন্য সম্পূর্ণ প্রস্তুত!</p>
               <p className="text-sm font-bold text-red-600">⚠️ নোট: এই প্রোডাক্টটি ইনডোরে বা ঘরের ভেতর পজিশনিং করতে পারবে না। এটি অবশ্যই গাড়িতে অথবা খোলা আকাশের নিচে বা আউটডোরে ব্যবহার করতে হবে।</p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (product.id === 'kuwajia-charger-separator') {
+      return (
+        <div className="prose max-w-none">
+          <h3 className="text-2xl font-bold text-gray-900 mb-6">ব্যবহার করার নিয়ম (Usage Guide)</h3>
+          <div className="space-y-6 text-gray-900">
+            <div className="bg-blue-50/50 border border-blue-100 p-4 rounded-xl">
+              <h4 className="font-semibold text-lg mb-2 text-blue-900">১. সারফেস পরিষ্কার করুন (Prepare Surface)</h4>
+              <p className="mb-2">যেখানে সেপারেটরটি লাগাবেন (যেমন ডেস্ক বা টেবিল), সেই জায়গাটি পরিষ্কার কাপড় দিয়ে মুছে সম্পূর্ণ শুকিয়ে নিন। ধুলাবালি বা তেল থাকলে আঠা ঠিকমতো বসবে না।</p>
+            </div>
+            <div className="bg-green-50/50 border border-green-100 p-4 rounded-xl">
+              <h4 className="font-semibold text-lg mb-2 text-green-900">২. স্টিকার তুলে বসিয়ে দিন (Peel and Stick)</h4>
+              <p className="mb-2">পেছনের স্টিকার কভারটি তুলে ফেলুন এবং নির্দিষ্ট জায়গায় রেখে কয়েক সেকেন্ডের জন্য শক্তভাবে চেপে ধরুন।</p>
+            </div>
+            <div className="bg-purple-50/50 border border-purple-100 p-4 rounded-xl">
+              <h4 className="font-semibold text-lg mb-2 text-purple-900">৩. কেবলগুলো আটকে দিন (Insert Cables)</h4>
+              <p className="mb-2">আঠাটি ভালোভাবে সেট হওয়ার জন্য কিছুক্ষণ অপেক্ষা করুন (সম্ভব হলে ১২-২৪ ঘণ্টা)। এরপর আপনার ল্যাপটপ, ফোন বা স্মার্টওয়াচের কেবলগুলো সেপারেটরের খাঁজে আটকে দিন।</p>
+              <p className="text-sm font-bold text-red-600">⚠️ নোট: একবার লাগিয়ে ফেলার পর এটি তুলে আবার অন্য জায়গায় লাগানোর চেষ্টা করবেন না, এতে আঠার কার্যক্ষমতা নষ্ট হয়ে যাবে।</p>
             </div>
           </div>
         </div>
