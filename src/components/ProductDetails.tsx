@@ -617,6 +617,49 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
       );
     }
 
+    if (product.id === 'kuwajia-charger-separator') {
+      return (
+        <div className="prose max-w-none">
+          <h3 className="text-2xl font-bold text-gray-900 mb-6">Smart Auto-Disconnect Charging Cable</h3>
+          <div className="space-y-6 text-gray-900">
+            <div className="bg-blue-50/50 border border-blue-100 p-6 rounded-xl">
+              <h4 className="font-semibold text-lg mb-3 text-blue-900">⚡ Advanced Battery Protection</h4>
+              <p>Protects your device's battery from overcharging and overheating by automatically cutting off power when fully charged.</p>
+            </div>
+
+            <div className="bg-green-50/50 border border-green-100 p-6 rounded-xl">
+              <h4 className="font-semibold text-lg mb-3 text-green-900">💡 Dual Smart Modes (Type-C)</h4>
+              <div className="space-y-2 text-sm">
+                <div className="flex items-start space-x-2">
+                  <span className="text-green-600 mt-1">✓</span>
+                  <div>
+                    <strong className="text-gray-900">White Light Mode:</strong>
+                    <p className="text-gray-700">For smartphones, tablets, and laptops. Uses trickle charging before disconnecting.</p>
+                  </div>
+                </div>
+                <div className="flex items-start space-x-2">
+                  <span className="text-green-600 mt-1">✓</span>
+                  <div>
+                    <strong className="text-gray-900">Blue Light Mode:</strong>
+                    <p className="text-gray-700">For power banks, shavers, and Bluetooth earphones. Disconnects 5 minutes after full charge.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-purple-50/50 border border-purple-100 p-6 rounded-xl">
+              <h4 className="font-semibold text-lg mb-3 text-purple-900">🎯 Key Features</h4>
+              <ul className="space-y-2 text-sm">
+                <li>• <strong>Smart Chip:</strong> Real-time voltage and current monitoring</li>
+                <li>• <strong>Function Test Button:</strong> Built-in test to verify auto-disconnect</li>
+                <li>• <strong>Durable Build:</strong> High-quality materials for long-lasting use</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div className="prose max-w-none">
         <h3 className="text-2xl font-bold text-gray-900 mb-6">{product.name}</h3>

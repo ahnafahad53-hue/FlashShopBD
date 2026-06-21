@@ -71,7 +71,7 @@ export const products: Product[] = [
     inStock: true,
     stock: 75,
     isFreeDelivery: true,
-    colors: ['Pearl White', 'Cream'],
+    colors: ['Pearl White', 'Luxury Cream'],
     images: [
       'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777580230/brush-4_yp7iur.jpg',
       'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777580229/brush-1_bmrh6z.jpg',
@@ -186,7 +186,7 @@ export const products: Product[] = [
   {
     id: 'kuwajia-charger-separator',
     name: 'Kuwajia Charger Separator',
-    tagline: 'Keep charging cables neat, organized, and tangle-free',
+    tagline: 'Smart auto-disconnect charging cable to protect your battery',
     price: 1350, // Updated price
     originalPrice: 1850,
     rating: 4.9,
@@ -204,7 +204,7 @@ export const products: Product[] = [
       'https://res.cloudinary.com/dctw9lg1d/image/upload/v1781881325/IMG_20260618_232010_pmychf.png',
     ],
     description:
-      'The Kuwajia Charger Separator is a practical cable management solution designed to keep charging cables organized and easily accessible. Its compact and durable design helps prevent tangled wires, reduces clutter on desks and bedside tables, and protects cables from unnecessary wear and tear. Easy to install and suitable for USB, Type-C, Lightning, and other charging cables, making it perfect for home, office, or workspace organization.',
+      'The Kuwajia Auto-Disconnect Smart Charger is an intelligent cable designed to protect your devices from overcharging. It features an advanced auto-disconnect mechanism that cuts off power once your battery is full. It comes with dual smart modes (White Light for devices with screens and Blue Light for accessories) and a built-in test button, ensuring your battery stays healthy and secure.',
   },
 ];
 
