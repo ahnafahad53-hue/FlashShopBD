@@ -71,7 +71,7 @@ export const products: Product[] = [
     inStock: true,
     stock: 75,
     isFreeDelivery: true,
-    colors: ['Pearl White', 'Luxury Cream'],
+    colors: ['Pearl White', 'Cream'],
     images: [
       'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777580230/brush-4_yp7iur.jpg',
       'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777580229/brush-1_bmrh6z.jpg',
