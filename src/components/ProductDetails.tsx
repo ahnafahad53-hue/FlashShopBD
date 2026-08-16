@@ -19,7 +19,8 @@ const tutorialVideos = [
     title: 'Daily Usage Tips',
     description: 'Master the technique for effective nasal irrigation and care',
     icon: Monitor,
-    videoUrl: '/images/VID_20251028211747.mp4',
+
+    videoUrl: '/images/InShot_20251028_212539309.mp4',
     thumbnail: '/images/1.png',
     duration: '0:35'
   },
@@ -37,7 +38,7 @@ const tutorialVideos = [
     title: 'Quick Start Guide',
     description: 'Fast and easy tutorial for immediate relief and better breathing',
     icon: Smartphone,
-    videoUrl: '/images/InShot_20251028_212539309.mp4',
+    videoUrl: '/images/VID_20251028211747.mp4',
     thumbnail: '/images/3.png',
     duration: '0:48'
   }
@@ -377,10 +378,10 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
   const gapFillerImages = product.gapFillerImages || [];
 
   const combinedImages = [
-     ...steeringImages,
-     ...gapFillerImages,
-     ...baseImages
-   ];
+    ...steeringImages,
+    ...gapFillerImages,
+    ...baseImages
+  ];
 
   const productImages = combinedImages.map((src, idx) => ({
     id: idx + 1,
@@ -1238,7 +1239,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center bg-gray-50">
-                   <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
                 </div>
               )}
             </motion.div>
@@ -1445,8 +1446,8 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                     {product.colors.map((color, index) => {
                       const hasSteeringImages = product.steeringImages && product.steeringImages.length > 0;
                       const colorImg = hasSteeringImages
-                         ? (product.steeringImages?.[index] || product.steeringImages?.[0] || '/main-pro.jpeg')
-                         : (product.images?.[index] || product.images?.[0] || '/main-pro.jpeg');
+                        ? (product.steeringImages?.[index] || product.steeringImages?.[0] || '/main-pro.jpeg')
+                        : (product.images?.[index] || product.images?.[0] || '/main-pro.jpeg');
 
                       const imgIndex = hasSteeringImages
                         ? (index < (product.steeringImages?.length || 0) ? index : 0)
