@@ -11,13 +11,7 @@ import { products } from '@/data/products';
 import { useCart } from '@/context/CartContext';
 import ProductCard from './ProductCard';
 
-// Default product images for nasal cleaner (used when product doesn't have images)
-const defaultProductImages = [
-  { id: 1, src: '/placeholder-product.png', alt: 'Smart Nasal Cleaner - Main View' },
-  { id: 5, src: '/placeholder-product.png', alt: 'Smart Nasal Cleaner - Usage View' },
-  { id: 2, src: '/placeholder-product.png', alt: 'Smart Nasal Cleaner - Side View' },
-  { id: 3, src: '/placeholder-product.png', alt: 'Smart Nasal Cleaner - Package View' },
-];
+
 
 const tutorialVideos = [
   {
@@ -388,13 +382,11 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
      ...baseImages
    ];
 
-  const productImages = product.id === 'nasal-cleaner-01'
-    ? defaultProductImages
-    : combinedImages.map((src, idx) => ({
-      id: idx + 1,
-      src,
-      alt: `${product.name} - View ${idx + 1}`
-    }));
+  const productImages = combinedImages.map((src, idx) => ({
+    id: idx + 1,
+    src,
+    alt: `${product.name} - View ${idx + 1}`
+  }));
 
   const highlights = productHighlights[product.id] ?? [
     { label: 'Category', value: product.category },

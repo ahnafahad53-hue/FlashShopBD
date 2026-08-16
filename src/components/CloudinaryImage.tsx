@@ -35,6 +35,11 @@ export default function CloudinaryImage({
     }
   };
 
+  // Only bypass Next.js optimization for Cloudinary URLs.
+  // Local images (like the logo) still need optimization for proper sizing.
+  const isCloudinaryUrl =
+    typeof imgSrc === 'string' && imgSrc.includes('res.cloudinary.com');
+
   return (
     <Image
       {...props}
@@ -42,6 +47,7 @@ export default function CloudinaryImage({
       alt={alt}
       className={className}
       onError={handleError}
+      unoptimized={isCloudinaryUrl}
     />
   );
 }
