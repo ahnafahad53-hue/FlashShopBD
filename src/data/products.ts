@@ -187,7 +187,7 @@ export const products: Product[] = [
     id: 'kuwajia-charger-separator',
     name: 'Kuwajia Charger Separator',
     tagline: 'Smart auto-disconnect charging cable to protect your battery',
-    price: 1350, // Updated price
+    price: 1250, // Updated price
     originalPrice: 1850,
     rating: 4.9,
     reviews: 59,
