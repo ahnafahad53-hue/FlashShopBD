@@ -139,6 +139,8 @@ export const products: Product[] = [
     stock: 90,
     images: [
       'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777582031/Screenshot_2026-05-01_at_2.46.57_AM_z7ntzc.png',
+      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1787595286/IMG_20260824_233936_v1keqq.jpg',
+      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1787595286/IMG_20260824_233845_pkptaj.jpg',
     ],
     description: 'Powerful foot odor eliminator spray that neutralizes bad smells instantly. Long-lasting formula keeps your feet fresh and dry throughout the day. Safe for daily use on feet and shoes. Antibacterial properties prevent odor-causing bacteria.',
   },
