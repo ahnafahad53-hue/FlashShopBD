@@ -1456,16 +1456,21 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                       // Special handling for makeup brush colors
                       const isMakeupBox = product.id === 'makeup-brush-storage-box';
                       const colorMap: Record<string, string> = {
-                        'Pearl White': '#F5F5F5',
-                        'Luxury Cream': '#FDF5E6'
+                        'pearl white': '#F8F9FA',
+                        'cream': '#F5E6CA',
+                        'pearl': '#F8F9FA',
+                        'white': '#FFFFFF',
                       };
+                      const solidColor = isMakeupBox ? (colorMap[color.toLowerCase().trim()] || colorMap[color]) : null;
 
                       return (
                         <button
                           key={color}
                           onClick={() => {
                             setSelectedColor(color);
-                            setSelectedImage(imgIndex);
+                            if (!isMakeupBox) {
+                              setSelectedImage(imgIndex);
+                            }
                           }}
                           className="flex flex-col items-center gap-2 group"
                         >
@@ -1475,10 +1480,10 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                               : 'border-gray-200 group-hover:border-blue-400 group-hover:shadow-sm group-hover:scale-105'
                               }`}
                           >
-                            {isMakeupBox && colorMap[color] ? (
+                            {solidColor ? (
                               <div
-                                className="w-full h-full"
-                                style={{ backgroundColor: colorMap[color] }}
+                                className="w-full h-full shadow-inner"
+                                style={{ backgroundColor: solidColor }}
                               />
                             ) : (
                               <CloudinaryImage
