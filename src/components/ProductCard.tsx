@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { Star, ShoppingCart } from 'lucide-react';
 import Link from 'next/link';
-import CloudinaryImage from '@/components/CloudinaryImage';
+import ImageWithFallback from '@/components/ImageWithFallback';
 import type { MouseEvent } from 'react';
 import type { Product } from '@/data/products';
 import { useCart } from '@/context/CartContext';
@@ -63,7 +63,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           {/* Product Image or Placeholder */}
           <div className="relative w-full h-full flex items-center justify-center">
             {product.images && product.images.length > 0 ? (
-              <CloudinaryImage
+              <ImageWithFallback
                 src={product.images[0]}
                 alt={product.name}
                 fill
@@ -153,4 +153,3 @@ export default function ProductCard({ product }: ProductCardProps) {
     </Link>
   );
 }
-

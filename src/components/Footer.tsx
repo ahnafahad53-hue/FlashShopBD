@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import CloudinaryImage from '@/components/CloudinaryImage';
+import ImageWithFallback from '@/components/ImageWithFallback';
 import { Facebook, Instagram, Youtube, Mail, Phone, MapPin } from 'lucide-react';
 
 export default function Footer() {
@@ -17,7 +17,7 @@ export default function Footer() {
           {/* About FlashShop */}
           <div>
             <div className="mb-6">
-              <CloudinaryImage
+              <ImageWithFallback
                 src="/flashshop-mobile.png"
                 alt="FlashShop Logo"
                 width={180}
@@ -174,4 +174,3 @@ export default function Footer() {
     </footer>
   );
 }
-

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { ShoppingCart, Star, Package, AlertCircle, MessageSquare, Play, Monitor, Smartphone, X, ArrowRight, Plus, Minus } from 'lucide-react';
-import CloudinaryImage from '@/components/CloudinaryImage';
+import ImageWithFallback from '@/components/ImageWithFallback';
 import Link from 'next/link';
 import type { Product } from '@/data/products';
 import { products } from '@/data/products';
@@ -683,7 +683,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                     onClick={() => handleVideoClick(video.videoUrl)}
                   >
                     <div className="relative aspect-[16/9] bg-gray-100 overflow-hidden">
-                      <CloudinaryImage
+                      <ImageWithFallback
                         src={video.thumbnail}
                         alt={video.title}
                         fill
@@ -1230,7 +1230,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[550px] rounded-2xl overflow-hidden bg-white"
             >
               {productImages[selectedImage] ? (
-                <CloudinaryImage
+                <ImageWithFallback
                   src={productImages[selectedImage].src}
                   alt={productImages[selectedImage].alt}
                   fill
@@ -1261,7 +1261,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                             : 'hover:scale-105'
                             }`}
                         >
-                          <CloudinaryImage
+                          <ImageWithFallback
                             src={img.src}
                             alt={img.alt}
                             fill
@@ -1285,7 +1285,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                             : 'hover:scale-105'
                             }`}
                         >
-                          <CloudinaryImage
+                          <ImageWithFallback
                             src={img.src}
                             alt={img.alt}
                             fill
@@ -1308,7 +1308,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                         : 'hover:scale-105'
                         }`}
                     >
-                      <CloudinaryImage
+                      <ImageWithFallback
                         src={img.src}
                         alt={img.alt}
                         fill
@@ -1486,7 +1486,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                                 style={{ backgroundColor: solidColor }}
                               />
                             ) : (
-                              <CloudinaryImage
+                              <ImageWithFallback
                                 src={colorImg}
                                 alt={color}
                                 fill
@@ -1540,7 +1540,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                               : 'border-gray-200 group-hover:border-blue-400 group-hover:shadow-sm group-hover:scale-105'
                               }`}
                           >
-                            <CloudinaryImage
+                            <ImageWithFallback
                               src={colorImg}
                               alt={color}
                               fill
@@ -1733,4 +1733,3 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
     </section>
   );
 }
-

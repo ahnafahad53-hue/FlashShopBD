@@ -1,3 +1,5 @@
+import { getImageKitUrl } from '@/lib/imagekit';
+
 export interface Product {
   id: string;
   name: string;
@@ -36,24 +38,60 @@ export const products: Product[] = [
     stock: 50,
     isFreeDelivery: true,
     images: [
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579940/IMG_20260430_125558_ctvedz.jpg', // Black Steering (Primary Card Image)
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579626/car3_hs1pcy.jpg',
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579626/car4_lkaagg.jpg',
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579626/car2_j3hkmq.jpg',
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579622/car1_sjx2f5.jpg',
+      getImageKitUrl(
+        'Carbon fiber steering cover /IMG_20260430_125558.jpg',
+        'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579940/IMG_20260430_125558_ctvedz.jpg',
+      ),
+      getImageKitUrl(
+        'Seat gap filler /IMG_20260430_123757.jpg',
+        'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579626/car3_hs1pcy.jpg',
+      ),
+      getImageKitUrl(
+        'Seat gap filler /IMG_20260430_123917.jpg',
+        'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579626/car4_lkaagg.jpg',
+      ),
+      getImageKitUrl(
+        'Seat gap filler /IMG_20260430_124311.jpg',
+        'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579626/car2_j3hkmq.jpg',
+      ),
+      getImageKitUrl(
+        'Seat gap filler /IMG_20260430_124403.jpg',
+        'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579622/car1_sjx2f5.jpg',
+      ),
     ],
     colors: ['Black', 'Base', 'Brown'],
     steeringImages: [
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579940/IMG_20260430_125558_ctvedz.jpg', // Black
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579929/IMG_20260430_125155_zyiqfe.jpg', // White
-      "https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579934/IMG_20260430_124902_kipwg3.jpg",
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579928/IMG_20260430_125740_za8pgy.jpg', // Brown
+      getImageKitUrl(
+        'Carbon fiber steering cover /IMG_20260430_125558.jpg',
+        'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579940/IMG_20260430_125558_ctvedz.jpg',
+      ),
+      getImageKitUrl(
+        'Carbon fiber steering cover /IMG_20260430_125155.jpg',
+        'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579929/IMG_20260430_125155_zyiqfe.jpg',
+      ),
+      getImageKitUrl(
+        'Carbon fiber steering cover /IMG_20260430_124902.jpg',
+        'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579934/IMG_20260430_124902_kipwg3.jpg',
+      ),
+      getImageKitUrl(
+        'Carbon fiber steering cover /IMG_20260430_125740.jpg',
+        'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777579928/IMG_20260430_125740_za8pgy.jpg',
+      ),
     ],
     gapFillerColors: ['Black', 'Base', 'Brown'],
     gapFillerImages: [
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777920321/black_dfqbyx.png',
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777920321/white_fpg0xt.png',
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777920322/brown_dg9fy0.jpg',
+      getImageKitUrl(
+        'Seat gap filler /1777919753371.png',
+        'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777920321/black_dfqbyx.png',
+      ),
+      getImageKitUrl(
+        'Seat gap filler /IMG_20260505_003850.jpg',
+        'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777920321/white_fpg0xt.png',
+      ),
+      getImageKitUrl(
+        'Seat gap filler /IMG_20260505_005802.jpg',
+        'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777920322/brown_dg9fy0.jpg',
+      ),
     ],
     description: 'Get our two most popular car accessories in one value-packed combo! This offer includes the premium Car Seat Gap Filler to keep your interior tidy and the Carbon Fiber Steering Wheel Cover for ultimate grip and style. Plus, enjoy FREE delivery across Bangladesh with this combo pack!',
   },
@@ -73,10 +111,22 @@ export const products: Product[] = [
     isFreeDelivery: true,
     colors: ['Pearl White', 'Cream'],
     images: [
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777580230/brush-4_yp7iur.jpg',
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777580229/brush-1_bmrh6z.jpg',
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777580226/bruish-2_ctqcx3.jpg',
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777580229/brush-3_mzgeka.jpg',
+      getImageKitUrl(
+        'Makeup brush set box /IMG_20260429_143632.jpg',
+        'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777580230/brush-4_yp7iur.jpg',
+      ),
+      getImageKitUrl(
+        'Makeup brush set box /IMG_20260429_144152.jpg',
+        'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777580229/brush-1_bmrh6z.jpg',
+      ),
+      getImageKitUrl(
+        'Makeup brush set box /IMG_20260429_144411.jpg',
+        'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777580226/bruish-2_ctqcx3.jpg',
+      ),
+      getImageKitUrl(
+        'Makeup brush set box /IMG_20260429_144637.jpg',
+        'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777580229/brush-3_mzgeka.jpg',
+      ),
     ],
     description: 'Elegant makeup brush storage box designed to keep your beauty tools organized and protected. Features multiple compartments to store brushes of different sizes. Made from high-quality, transparent material that allows you to easily see your collection. Perfect for makeup enthusiasts and professionals alike.',
   },
@@ -95,10 +145,22 @@ export const products: Product[] = [
     stock: 85,
     isFreeDelivery: true,
     images: [
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1778179973/IMG_20260508_004303_v69gav.jpg',
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1778179972/IMG_20260508_004326_cl72tv.jpg',
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1778179971/IMG_20260508_004209_o8azxr.jpg',
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1778179970/IMG_20260508_004037_nwe5hc.jpg'
+      getImageKitUrl(
+        'HUD head-up display speedometer/IMG_20260508_004303.jpg',
+        'https://res.cloudinary.com/dctw9lg1d/image/upload/v1778179973/IMG_20260508_004303_v69gav.jpg',
+      ),
+      getImageKitUrl(
+        'HUD head-up display speedometer/IMG_20260508_004326.jpg',
+        'https://res.cloudinary.com/dctw9lg1d/image/upload/v1778179972/IMG_20260508_004326_cl72tv.jpg',
+      ),
+      getImageKitUrl(
+        'HUD head-up display speedometer/IMG_20260508_004209.jpg',
+        'https://res.cloudinary.com/dctw9lg1d/image/upload/v1778179971/IMG_20260508_004209_o8azxr.jpg',
+      ),
+      getImageKitUrl(
+        'HUD head-up display speedometer/IMG_20260508_004037.jpg',
+        'https://res.cloudinary.com/dctw9lg1d/image/upload/v1778179970/IMG_20260508_004037_nwe5hc.jpg',
+      ),
     ],
     description: 'Ensure a safer, smarter drive with our premium HUD Head-Up Display Speedometer. Projecting real-time satellite speed directly onto its crystal-clear display, this device allows you to monitor your speed without ever taking your eyes off the road. Powered by a simple 5V USB connection, it features automatic power synchronization with your car\'s engine, a high-precision GPS microchip for real-time, lag-free updates, and works flawlessly on every vehicle. Simply plug, place, and drive!'
   },
@@ -116,14 +178,11 @@ export const products: Product[] = [
     inStock: true,
     stock: 120,
     images: [
-      '/images/1.jpg',
-      '/images/2.jpg',
-      '/images/3.jpg',
-      '/images/4.jpg',
-      // 'https://res.cloudinary.com/dctw9lg1d/image/upload/v1786906447/IMG_20251019_124825_zuxqd0.jpg',
-      // 'https://res.cloudinary.com/dctw9lg1d/image/upload/v1786906447/IMG_20251019_123820_hham7a.jpg',
-      // 'https://res.cloudinary.com/dctw9lg1d/image/upload/v1786906450/IMG_20251019_131413_mmt1mz.jpg',
-      // 'https://res.cloudinary.com/dctw9lg1d/image/upload/v1786906453/IMG_20251019_131330_lv1dq5.jpg',
+      getImageKitUrl('Nasal Cleaner /IMG_20251019_124825.jpg', '/images/1.jpg'),
+      getImageKitUrl('Nasal Cleaner /IMG_20251019_123820.jpg', '/images/2.jpg'),
+      getImageKitUrl('Nasal Cleaner /IMG_20251019_124548.jpg', '/images/3.jpg'),
+      getImageKitUrl('Nasal Cleaner /IMG_20251019_131413.jpg', '/images/4.jpg'),
+      getImageKitUrl('Nasal Cleaner /IMG_20251019_131330.jpg', '/images/4.jpg'),
     ],
     description: 'Professional-grade nasal irrigation bottle designed for gentle and effective sinus care. Made from medical-grade, BPA-free materials. Perfect for relieving sinusitis, allergies, and congestion. Easy to use and clean.',
   },
@@ -141,9 +200,18 @@ export const products: Product[] = [
     inStock: true,
     stock: 90,
     images: [
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777582031/Screenshot_2026-05-01_at_2.46.57_AM_z7ntzc.png',
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1787595286/IMG_20260824_233936_v1keqq.jpg',
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1787595286/IMG_20260824_233845_pkptaj.jpg',
+      getImageKitUrl(
+        'Antibacterial foot spray /IMG_20260824_234228.jpg',
+        'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777582031/Screenshot_2026-05-01_at_2.46.57_AM_z7ntzc.png',
+      ),
+      getImageKitUrl(
+        'Antibacterial foot spray /IMG_20260824_233936.jpg',
+        'https://res.cloudinary.com/dctw9lg1d/image/upload/v1787595286/IMG_20260824_233936_v1keqq.jpg',
+      ),
+      getImageKitUrl(
+        'Antibacterial foot spray /IMG_20260824_233845.jpg',
+        'https://res.cloudinary.com/dctw9lg1d/image/upload/v1787595286/IMG_20260824_233845_pkptaj.jpg',
+      ),
     ],
     description: 'Powerful foot odor eliminator spray that neutralizes bad smells instantly. Long-lasting formula keeps your feet fresh and dry throughout the day. Safe for daily use on feet and shoes. Antibacterial properties prevent odor-causing bacteria.',
   },
@@ -182,10 +250,22 @@ export const products: Product[] = [
     inStock: false,
     stock: 0,
     images: [
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777580045/holder-1_d0iy8o.jpg',
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777580045/holder-2_sg5jrz.jpg',
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777580036/holder-4_lbm4dq.jpg',
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777580046/holder-3_xbiwxs.jpg',
+      getImageKitUrl(
+        'Creative Soap Holder/IMG_20260429_154402.jpg',
+        'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777580045/holder-1_d0iy8o.jpg',
+      ),
+      getImageKitUrl(
+        'Creative Soap Holder/IMG_20260429_154455.jpg',
+        'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777580045/holder-2_sg5jrz.jpg',
+      ),
+      getImageKitUrl(
+        'Creative Soap Holder/IMG_20260429_154600.jpg',
+        'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777580036/holder-4_lbm4dq.jpg',
+      ),
+      getImageKitUrl(
+        'Creative Soap Holder/IMG_20260429_154658.jpg',
+        'https://res.cloudinary.com/dctw9lg1d/image/upload/v1777580046/holder-3_xbiwxs.jpg',
+      ),
     ],
     description: 'Creative and functional soap holder designed to keep your soap dry and lasting longer. Features innovative drainage design that prevents soap from becoming mushy. Made from durable, water-resistant materials perfect for bathroom use. Easy to clean and maintain, adds style to your bathroom decor.',
   },
@@ -204,10 +284,22 @@ export const products: Product[] = [
     stock: 200,
     isFreeDelivery: true, // Added free delivery
     images: [
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1781881313/IMG_20260618_222117_ns6c2z.jpg',
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1781881313/IMG_20260618_221405_reelqw.jpg',
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1781881314/IMG_20260618_232135_chfx76.png',
-      'https://res.cloudinary.com/dctw9lg1d/image/upload/v1781881325/IMG_20260618_232010_pmychf.png',
+      getImageKitUrl(
+        'Charger separator /IMG_20260618_222117.jpg',
+        'https://res.cloudinary.com/dctw9lg1d/image/upload/v1781881313/IMG_20260618_222117_ns6c2z.jpg',
+      ),
+      getImageKitUrl(
+        'Charger separator /IMG_20260618_221405.jpg',
+        'https://res.cloudinary.com/dctw9lg1d/image/upload/v1781881313/IMG_20260618_221405_reelqw.jpg',
+      ),
+      getImageKitUrl(
+        'Charger separator /IMG_20260618_232135.jpg',
+        'https://res.cloudinary.com/dctw9lg1d/image/upload/v1781881314/IMG_20260618_232135_chfx76.png',
+      ),
+      getImageKitUrl(
+        'Charger separator /IMG_20260618_232010.jpg',
+        'https://res.cloudinary.com/dctw9lg1d/image/upload/v1781881325/IMG_20260618_232010_pmychf.png',
+      ),
     ],
     description:
       'The Kuwajia Auto-Disconnect Smart Charger is an intelligent cable designed to protect your devices from overcharging. It features an advanced auto-disconnect mechanism that cuts off power once your battery is full. It comes with dual smart modes (White Light for devices with screens and Blue Light for accessories) and a built-in test button, ensuring your battery stays healthy and secure.',

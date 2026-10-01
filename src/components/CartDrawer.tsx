@@ -1,6 +1,6 @@
 'use client';
 
-import CloudinaryImage from '@/components/CloudinaryImage';
+import ImageWithFallback from '@/components/ImageWithFallback';
 import Link from 'next/link';
 import { X, ShoppingCart } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
@@ -49,7 +49,7 @@ export default function CartDrawer() {
             items.map((item) => (
               <div key={`${item.id}-${item.selectedColor || 'none'}`} className="flex gap-4 border border-gray-100 rounded-2xl p-4">
                 <div className="relative w-24 h-24 bg-gray-50 rounded-xl overflow-hidden flex items-center justify-center">
-                  <CloudinaryImage
+                  <ImageWithFallback
                     src={item.images?.[0] || '/main-pro.jpeg'}
                     alt={item.name}
                     fill
@@ -107,5 +107,4 @@ export default function CartDrawer() {
     </>
   );
 }
-
 

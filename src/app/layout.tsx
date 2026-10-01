@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import { Outfit } from 'next/font/google';
 import './globals.css';
-import SmoothScrollProvider from '@/components/SmoothScrollProvider';
 import FloatingCTA from '@/components/FloatingCTA';
 import { CartProvider } from '@/context/CartContext';
 import CartDrawer from '@/components/CartDrawer';
 import FacebookPixel from '@/components/FacebookPixel';
+import ImageKitProvider from '@/components/ImageKitProvider';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const outfit = Outfit({ 
@@ -125,14 +125,14 @@ export default function RootLayout({
 
       </head>
       <body className={`${outfit.className} font-sans antialiased`}>
-        <FacebookPixel />
-        <SmoothScrollProvider>
+        <ImageKitProvider>
+          <FacebookPixel />
           <CartProvider>
             {children}
             <FloatingCTA />
             <CartDrawer />
           </CartProvider>
-        </SmoothScrollProvider>
+        </ImageKitProvider>
         <SpeedInsights />
       </body>
     </html>

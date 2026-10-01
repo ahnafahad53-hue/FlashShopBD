@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Search, X } from 'lucide-react';
-import CloudinaryImage from '@/components/CloudinaryImage';
+import ImageWithFallback from '@/components/ImageWithFallback';
 import { products } from '@/data/products';
 
 interface ProductSearchProps {
@@ -107,7 +107,7 @@ export default function ProductSearch({ isOpen, onClose }: ProductSearchProps) {
                     className="flex items-center gap-4 px-6 py-5 hover:bg-pink-50/60 transition-colors cursor-pointer"
                   >
                     <div className="relative w-16 h-16 rounded-2xl bg-pink-50 overflow-hidden flex-shrink-0 shadow-inner">
-                      <CloudinaryImage
+                      <ImageWithFallback
                         src={product.images?.[0] || '/main-pro.jpeg'}
                         alt={product.name}
                         fill
@@ -134,5 +134,4 @@ export default function ProductSearch({ isOpen, onClose }: ProductSearchProps) {
     </div>
   );
 }
-
 
