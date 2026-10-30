@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useCallback, useContext, useMemo, useState, useEffect } from 'react';
-import type { Product } from '@/data/products';
+import { getProductById, type Product } from '@/data/products';
 
 interface CartItem extends Product {
   quantity: number;
@@ -31,7 +31,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     const savedCart = localStorage.getItem('cartItems');
     if (savedCart) {
       try {
-        setItems(JSON.parse(savedCart));
+        const savedItems: CartItem[] = JSON.parse(savedCart);
+        setItems(savedItems.map((item) => {
+          const product = getProductById(item.id);
+          return product ? { ...item, ...product } : item;
+        }));
       } catch (e) {
         console.error('Failed to parse cart from localStorage', e);
       }

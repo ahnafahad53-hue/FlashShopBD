@@ -12,7 +12,7 @@ const reasons = [
   {
     icon: Truck,
     title: 'Fast Delivery',
-    description: 'Get your order within 2-3 days anywhere in Bangladesh. Free shipping on all orders.'
+    description: 'Get your order within 2-3 days anywhere in Bangladesh. Free shipping on selected products.'
   },
   {
     icon: ShieldCheck,
