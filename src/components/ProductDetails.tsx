@@ -7,7 +7,7 @@ import { ShoppingCart, Star, Package, AlertCircle, MessageSquare, Play, Monitor,
 import ImageWithFallback from '@/components/ImageWithFallback';
 import Link from 'next/link';
 import type { Product } from '@/data/products';
-import { products } from '@/data/products';
+import { isProductColorAvailable, products } from '@/data/products';
 import { useCart } from '@/context/CartContext';
 import ProductCard from './ProductCard';
 
@@ -311,7 +311,9 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
   const [isHydrated, setIsHydrated] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [reviewPage, setReviewPage] = useState(1);
-  const [selectedColor, setSelectedColor] = useState<string | undefined>(product.colors?.[0]);
+  const [selectedColor, setSelectedColor] = useState<string | undefined>(
+    product.colors?.find(color => isProductColorAvailable(product, color))
+  );
   const [selectedGapFillerColor, setSelectedGapFillerColor] = useState<string | undefined>(product.gapFillerColors?.[0]);
 
   const finalSelectedColor = product.gapFillerColors && product.colors
@@ -343,6 +345,8 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
   };
 
   const handleOrderNow = () => {
+    if (!isProductColorAvailable(product, selectedColor)) return;
+
     // Check if product is already in cart
     if (cartItem) {
       // If already in cart, update quantity to the selected quantity
@@ -529,7 +533,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               <h4 className="font-semibold text-lg mb-3 text-blue-900">✨ Premium Carbon Fiber Design</h4>
               <p>Our steering wheel cover features a high-quality carbon fiber texture that not only looks sporty but provides exceptional grip and durability.</p>
               {product.colors && (
-                <p className="mt-2 text-sm font-bold text-blue-700">Available in: {product.colors.join(', ')}</p>
+                <p className="mt-2 text-sm font-bold text-blue-700">Available in: {product.colors.filter(color => isProductColorAvailable(product, color)).join(', ')}</p>
               )}
             </div>
 
@@ -1444,6 +1448,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                   </div>
                   <div className="flex flex-wrap gap-4 mt-2">
                     {product.colors.map((color, index) => {
+                      const isAvailable = isProductColorAvailable(product, color);
                       const hasSteeringImages = product.steeringImages && product.steeringImages.length > 0;
                       const colorImg = hasSteeringImages
                         ? (product.steeringImages?.[index] || product.steeringImages?.[0] || '/main-pro.jpeg')
@@ -1466,16 +1471,22 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                       return (
                         <button
                           key={color}
+                          type="button"
+                          disabled={!isAvailable}
+                          aria-pressed={selectedColor === color}
+                          aria-label={isAvailable ? color : `${color} — Out of stock`}
                           onClick={() => {
                             setSelectedColor(color);
                             if (!isMakeupBox) {
                               setSelectedImage(imgIndex);
                             }
                           }}
-                          className="flex flex-col items-center gap-2 group"
+                          className={`flex flex-col items-center gap-2 group ${!isAvailable ? 'cursor-not-allowed' : ''}`}
                         >
                           <div
-                            className={`relative w-14 h-14 rounded-full overflow-hidden border-2 transition-all duration-200 ${selectedColor === color
+                            className={`relative w-14 h-14 rounded-full overflow-hidden border-2 transition-all duration-200 ${!isAvailable
+                              ? 'border-gray-200 opacity-40 grayscale'
+                              : selectedColor === color
                               ? 'border-blue-600 ring-2 ring-blue-600 ring-offset-2 shadow-md scale-110'
                               : 'border-gray-200 group-hover:border-blue-400 group-hover:shadow-sm group-hover:scale-105'
                               }`}
@@ -1493,11 +1504,17 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                                 className="object-cover"
                               />
                             )}
+                            {!isAvailable && (
+                              <span aria-hidden="true" className="absolute inset-x-0 top-1/2 h-0.5 -rotate-45 bg-gray-600" />
+                            )}
                           </div>
-                          <span className={`text-sm font-medium transition-colors ${selectedColor === color ? 'text-blue-700' : 'text-gray-600 group-hover:text-blue-600'
+                          <span className={`text-sm font-medium transition-colors ${!isAvailable ? 'text-gray-500 line-through' : selectedColor === color ? 'text-blue-700' : 'text-gray-600 group-hover:text-blue-600'
                             }`}>
                             {color}
                           </span>
+                          {!isAvailable && (
+                            <span className="text-xs font-medium text-red-600">Out of stock</span>
+                          )}
                         </button>
                       );
                     })}

@@ -17,6 +17,7 @@ export interface Product {
   stock: number;
   isFreeDelivery?: boolean;
   colors?: string[];
+  outOfStockColors?: string[];
   steeringImages?: string[];
   gapFillerColors?: string[];
   gapFillerImages?: string[];
@@ -60,6 +61,7 @@ export const products: Product[] = [
       ),
     ],
     colors: ['Black', 'Base', 'Brown'],
+    outOfStockColors: ['Brown'],
     steeringImages: [
       getImageKitUrl(
         'Carbon fiber steering cover /IMG_20260430_125558.jpg',
@@ -305,6 +307,12 @@ export const products: Product[] = [
       'The Kuwajia Auto-Disconnect Smart Charger is an intelligent cable designed to protect your devices from overcharging. It features an advanced auto-disconnect mechanism that cuts off power once your battery is full. It comes with dual smart modes (White Light for devices with screens and Blue Light for accessories) and a built-in test button, ensuring your battery stays healthy and secure.',
   },
 ];
+
+export function isProductColorAvailable(product: Product, color?: string): boolean {
+  // Combo carts store the cover and filler colors in a single label.
+  const coverColor = color?.split(' (Cover) + ')[0];
+  return !coverColor || !product.outOfStockColors?.includes(coverColor);
+}
 
 // Helper function to get product by ID
 export function getProductById(id: string): Product | undefined {

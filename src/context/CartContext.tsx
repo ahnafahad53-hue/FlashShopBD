@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useCallback, useContext, useMemo, useState, useEffect } from 'react';
-import { getProductById, type Product } from '@/data/products';
+import { getProductById, isProductColorAvailable, type Product } from '@/data/products';
 
 interface CartItem extends Product {
   quantity: number;
@@ -35,7 +35,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         setItems(savedItems.map((item) => {
           const product = getProductById(item.id);
           return product ? { ...item, ...product } : item;
-        }));
+        }).filter(item => isProductColorAvailable(item, item.selectedColor)));
       } catch (e) {
         console.error('Failed to parse cart from localStorage', e);
       }
@@ -48,7 +48,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [items]);
 
   const addToCart = useCallback((product: Product, color?: string) => {
-    if (!product.inStock || product.stock <= 0) return;
+    if (!product.inStock || product.stock <= 0 || !isProductColorAvailable(product, color)) return;
     setItems((prev) => {
       const existing = prev.find((item) => item.id === product.id && item.selectedColor === color);
       if (existing) {
